@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 
 class Usage(BaseModel):
@@ -9,7 +9,17 @@ class RequestID(BaseModel):
     request_id: str
 
 
-class BaseResponse(BaseModel):
+class BaseModelValidated(BaseModel):
+    @validator("*", pre=True)
+    @classmethod
+    def empty_fields_none(cls, value):
+        # convert empty strings to None object
+        if value == "":
+            return None
+        return value
+
+
+class BaseResponse(BaseModelValidated):
     data: dict
     usage: Usage
     message: str
