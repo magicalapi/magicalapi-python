@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "magicalapi"
+version = "0.1.0"
+description = ""
+authors = ["Amir Aref <amiraref808@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+httpx = "^0.26.0"
+pydantic = "^2.5.3"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
