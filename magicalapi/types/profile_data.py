@@ -119,6 +119,10 @@ class HonorAndAward(BaseModelValidated):
 
 
 class Profile(BaseModelValidated):
+    """
+    The main type of linkedin profile data service
+    """
+
     url: HttpUrl
     profile: str
     crawled_at: datetime

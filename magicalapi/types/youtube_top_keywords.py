@@ -24,4 +24,6 @@ class Keywords(BaseModel):
 
 
 class YoutubeTopKeywordsResponse(BaseResponse):
+    """respone model of profile data service"""
+
     data: Keywords
