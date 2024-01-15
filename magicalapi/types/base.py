@@ -22,8 +22,12 @@ class BaseModelValidated(BaseModel):
 class BaseResponse(BaseModelValidated):
     data: dict
     usage: Usage
-    message: str
 
 
-class PendingResponse(BaseResponse):
+class PendingResponse(BaseModel):
     data: RequestID
+    usage: Usage
+
+
+class ErrorResponse(BaseModel):
+    message: str
