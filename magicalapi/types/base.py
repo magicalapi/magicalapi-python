@@ -30,4 +30,9 @@ class PendingResponse(BaseModel):
 
 
 class ErrorResponse(BaseModel):
+    usage: Usage
+    message: str
+
+
+class MessageResponse(BaseModel):
     message: str

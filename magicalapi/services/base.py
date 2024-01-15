@@ -5,9 +5,9 @@ from pydantic import BaseModel
 from typing import Type
 from magicalapi.client import AsyncClient
 from urllib.parse import urljoin
-from magicalapi.errors import APIServerError
+from magicalapi.errors import APIServerError, APIServerTimedout
 
-from magicalapi.types.base import ErrorResponse, PendingResponse
+from magicalapi.types.base import ErrorResponse, MessageResponse, PendingResponse
 
 BASE_URL = "https://gw.magicalapi.com"
 logging.basicConfig(level=logging.INFO)
@@ -25,13 +25,19 @@ class BaseService:
         """
         send a post request to the API server with the api_key and given `path` and `body`
         """
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                url=urljoin(base=BASE_URL, url=path),
-                data=json.dumps(body),
-                headers=self._request_headers,
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.post(
+                    url=urljoin(base=BASE_URL, url=path),
+                    data=json.dumps(body),
+                    headers=self._request_headers,
+                    timeout=15,
+                )
+                return response
+        except httpx.TimeoutException:
+            raise APIServerTimedout(
+                "getting response from API server Timed Out, please try again later!"
             )
-            return response
 
     async def _send_get_request(self, path: str) -> httpx.Response:
         """
@@ -51,17 +57,23 @@ class BaseService:
         """
         # check response successed
         if response.status_code == 200:
-            return validate_model.model_validate_json(response.text)
+            return validate_model(**response.json())
         # check 201 response
         if response.status_code == 201:
             return PendingResponse(**response.json())
-        else:
-            # check resposne schema is valid
-            try:
-                # return error response
-                return ErrorResponse(**response.json())
-            except:
-                # raise exception
-                raise APIServerError(
-                    "getting response from API server got error, please try again later!"
-                )
+
+        # handle user error response
+        try:
+            _response_data = response.json()
+
+            # usage field in response
+            if "usage" in _response_data:
+                return ErrorResponse(**_response_data)
+
+            # only message
+            return MessageResponse(**_response_data)
+        except:
+            # raise exception
+            raise APIServerError(
+                "getting response from API server got error, please try again later!"
+            )
