@@ -98,7 +98,7 @@ def dependency_profile_data():
                     "start_date": _start_date.strftime("%b %Y"),
                     "end_date": _end_date.strftime("%b %Y"),
                 },
-                "description": fake,
+                "description": fake.text(),
             }
         ],
         "courses": [
@@ -118,14 +118,41 @@ def dependency_profile_data():
     del profile
 
 
+@pytest.mark.dependency()
 def test_profile_data_type(dependency_profile_data):
-    with pytest.raises(ValidationError) as excinfo:
+    # check profile data validated successfull
+    try:
         Profile.model_validate(dependency_profile_data)
+    except ValidationError as exc:
+        assert False, "validating profile data failed : " + str(exc)
 
 
+@pytest.mark.dependency()
+def test_profile_data_type_failing(dependency_profile_data):
+    # validating profile data must fail
+    dependency_profile_data["experience"][0]["date"]["start_date"] = "none"
+    dependency_profile_data["education"][0]["date"]["start"] = "none"
+    dependency_profile_data["projects"][0]["date"]["end_date"] = "none"
+    dependency_profile_data["publications"][0]["publication_date"] = "none"
+    dependency_profile_data["honors_and_awards"][0]["issued_date"] = "none"
+    try:
+        Profile.model_validate(dependency_profile_data)
+    except:
+        pass
+    else:
+        # if raised no error, the test failed
+        assert False, "validating profile_data types must failed but it did not !"
+
+
+@pytest.mark.dependency(
+    depends=["test_profile_data_type", "test_profile_data_type_failing"]
+)
 def test_profile_data_response_type(dependency_profile_data):
-    with pytest.raises(ValidationError) as excinfo:
+    try:
         ProfileDataResponse(
             data=Profile.model_validate(dependency_profile_data),
             usage=Usage(credits=randint(1, 200)),
         )
+
+    except ValidationError as exc:
+        assert False, "validating profile_data response failed : " + str(exc)
