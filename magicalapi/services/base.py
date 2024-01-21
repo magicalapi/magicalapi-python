@@ -57,10 +57,10 @@ class BaseService:
         """
         # check response successed
         if response.status_code == 200:
-            return validate_model(**response.json())
+            return validate_model.model_validate_json(response.text)
         # check 201 response
         if response.status_code == 201:
-            return PendingResponse(**response.json())
+            return PendingResponse.model_validate_json(response.text)
 
         # handle user error response
         try:
@@ -68,10 +68,10 @@ class BaseService:
 
             # usage field in response
             if "usage" in _response_data:
-                return ErrorResponse(**_response_data)
+                return ErrorResponse.model_validate(_response_data)
 
             # only message
-            return MessageResponse(**_response_data)
+            return MessageResponse.model_validate(_response_data)
         except:
             # raise exception
             raise APIServerError(
