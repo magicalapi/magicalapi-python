@@ -131,99 +131,6 @@ def dependency_profile_data():
 
 
 @pytest.mark.dependency()
-def test_experience_type(dependency_profile_data):
-    # check experienc from profile data validated successfull
-    try:
-        Experience.model_validate(dependency_profile_data["experience"][0])
-    except ValidationError as exc:
-        assert False, "validating experience failed : " + str(exc)
-
-
-@pytest.mark.dependency()
-def test_education_type(dependency_profile_data):
-    # check education from profile data validated successfull
-    try:
-        Education.model_validate(dependency_profile_data["education"][0])
-    except ValidationError as exc:
-        assert False, "validating education failed : " + str(exc)
-
-
-@pytest.mark.dependency()
-def test_certification_type(dependency_profile_data):
-    # check certification from profile data validated successfull
-    try:
-        Certification.model_validate(dependency_profile_data["certifications"][0])
-    except ValidationError as exc:
-        assert False, "validating certification failed : " + str(exc)
-
-
-@pytest.mark.dependency()
-def test_language_type(dependency_profile_data):
-    # check language from profile data validated successfull
-    try:
-        Language.model_validate(dependency_profile_data["languages"][0])
-    except ValidationError as exc:
-        assert False, "validating language failed : " + str(exc)
-
-
-@pytest.mark.dependency()
-def test_volunteering_type(dependency_profile_data):
-    # check volunteering from profile data validated successfull
-    try:
-        Volunteering.model_validate(dependency_profile_data["volunteerings"][0])
-    except ValidationError as exc:
-        assert False, "validating volunteering failed : " + str(exc)
-
-
-@pytest.mark.dependency()
-def test_publication_type(dependency_profile_data):
-    # check publication from profile data validated successfull
-    try:
-        Publication.model_validate(dependency_profile_data["publications"][0])
-    except ValidationError as exc:
-        assert False, "validating publication failed : " + str(exc)
-
-
-@pytest.mark.dependency()
-def test_project_type(dependency_profile_data):
-    # check project from profile data validated successfull
-    try:
-        Project.model_validate(dependency_profile_data["projects"][0])
-    except ValidationError as exc:
-        assert False, "validating project failed : " + str(exc)
-
-
-@pytest.mark.dependency()
-def test_course_type(dependency_profile_data):
-    # check course from profile data validated successfull
-    try:
-        Course.model_validate(dependency_profile_data["courses"][0])
-    except ValidationError as exc:
-        assert False, "validating course failed : " + str(exc)
-
-
-@pytest.mark.dependency()
-def test_honors_and_award_type(dependency_profile_data):
-    # check honors_and_award from profile data validated successfull
-    try:
-        HonorAndAward.model_validate(dependency_profile_data["honors_and_awards"][0])
-    except ValidationError as exc:
-        assert False, "validating honors_and_award failed : " + str(exc)
-
-
-@pytest.mark.dependency(
-    depends=[
-        "test_experience_type",
-        "test_education_type",
-        "test_certification_type",
-        "test_language_type",
-        "test_volunteering_type",
-        "test_publication_type",
-        "test_project_type",
-        "test_course_type",
-        "test_honors_and_award_type",
-    ]
-)
 def test_profile_data_type(dependency_profile_data):
     # check profile data validated successfull
     try:
@@ -254,10 +161,11 @@ def test_profile_data_type_failing(dependency_profile_data):
 )
 def test_profile_data_response_type(dependency_profile_data):
     try:
-        ProfileDataResponse(
-            data=Profile.model_validate(dependency_profile_data),
-            usage=Usage(credits=randint(1, 200)),
-        )
+        response_schema = {
+            "data": dependency_profile_data,
+            "usage": {"credits": randint(1, 200)},
+        }
+        ProfileDataResponse.model_validate(response_schema)
 
     except ValidationError as exc:
         assert False, "validating profile_data response failed : " + str(exc)
