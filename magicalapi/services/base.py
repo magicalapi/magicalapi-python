@@ -3,33 +3,17 @@ import httpx
 import logging
 from pydantic import BaseModel
 from typing import Any, Type
-from contextlib import AbstractAsyncContextManager
-from magicalapi.client import AsyncClient
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse, MessageResponse, PendingResponse
 from magicalapi.abstractions.base_service import BaseServiceAbc
 from magicalapi.types.schemas import HttpResponse
 
-BASE_URL = "https://gw.magicalapi.com"
 logging.basicConfig(level=logging.INFO)
 
 
-class BaseService(BaseServiceAbc, AbstractAsyncContextManager):
-    def __init__(self, client: AsyncClient) -> None:
-        self.client = client
-        _request_headers = {
-            "api-key": self.client.api_key,
-            "Content-Type": "application/json",
-        }
-        self._httpx_client = httpx.AsyncClient(
-            headers=_request_headers, base_url=BASE_URL
-        )
-
-    async def __aenter__(self):
-        return self
-
-    async def __aexit__(self, exc_type, exc_value, traceback):
-        await self._httpx_client.aclose()
+class BaseService(BaseServiceAbc):
+    def __init__(self, httpx_client: httpx.AsyncClient) -> None:
+        self._httpx_client = httpx_client
 
     async def _send_post_request(self, path: str, data: dict[str, Any]) -> HttpResponse:
         """
