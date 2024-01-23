@@ -1,8 +1,8 @@
 from typing import Type
-from httpx import Response
 from pydantic import BaseModel
 from magicalapi.types.base import ErrorResponse, PendingResponse
 from magicalapi.types.youtube_top_keywords import YoutubeTopKeywordsResponse
+from magicalapi.types.schemas import HttpResponse
 from .base import BaseService
 
 
@@ -30,12 +30,12 @@ class YoutubeTopKeywords(BaseService):
         if request_id:
             request_body["request_id"] = request_id
 
-        response = await self._send_post_request("youtube-keywords", body=request_body)
+        response = await self._send_post_request("youtube-keywords", data=request_body)
         return self.validate_response(
             response=response, validate_model=YoutubeTopKeywordsResponse
         )
 
     def validate_response(
-        self, response: Response, validate_model: type[BaseModel]
+        self, response: HttpResponse, validate_model: Type[BaseModel]
     ) -> YoutubeTopKeywordsResponse | ErrorResponse | PendingResponse:
         return super().validate_response(response, validate_model)
