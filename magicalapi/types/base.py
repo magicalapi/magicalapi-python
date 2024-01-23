@@ -5,10 +5,6 @@ class Usage(BaseModel):
     credits: int
 
 
-class RequestID(BaseModel):
-    request_id: str
-
-
 class BaseModelValidated(BaseModel):
     @field_validator("*", mode="before")
     def empty_fields_none(cls, value):
@@ -20,11 +16,6 @@ class BaseModelValidated(BaseModel):
 
 class BaseResponse(BaseModelValidated):
     data: dict
-    usage: Usage
-
-
-class PendingResponse(BaseModel):
-    data: RequestID
     usage: Usage
 
 

@@ -1,14 +1,17 @@
+import asyncio
 import json
 import httpx
 import logging
 from pydantic import BaseModel
 from typing import Any, Type
 from magicalapi.errors import APIServerError, APIServerTimedout
-from magicalapi.types.base import ErrorResponse, MessageResponse, PendingResponse
+from magicalapi.types.base import ErrorResponse, MessageResponse
 from magicalapi.abstractions.base_service import BaseServiceAbc
-from magicalapi.types.schemas import HttpResponse
+from magicalapi.types.schemas import HttpResponse, PendingResponse
 
 logging.basicConfig(level=logging.INFO)
+
+RETRY_201_DELAY = 2  # seconds
 
 
 class BaseService(BaseServiceAbc):
@@ -25,7 +28,32 @@ class BaseService(BaseServiceAbc):
                 content=json.dumps(data),
                 timeout=15,
             )
-            return HttpResponse.model_validate(obj=httpx_response, from_attributes=True)
+            # check 201 response
+            _credits = 0
+            while httpx_response.status_code == 201:
+                # send request with request_id
+                pend_response = PendingResponse.model_validate(httpx_response.json())
+                _credits += pend_response.usage.credits
+                data["request_id"] = pend_response.data.request_id
+                httpx_response = await self._httpx_client.post(
+                    url=path,
+                    content=json.dumps(data),
+                    timeout=15,
+                )
+                # send request again
+                await asyncio.sleep(RETRY_201_DELAY)
+
+            # update crdits
+            _response_text = httpx_response.text
+            if "usage" in _response_text:
+                data = json.loads(_response_text)
+                data["usage"]["credits"] += _credits
+                _response_text = json.dumps(data)
+
+            return HttpResponse(
+                text=_response_text,
+                status_code=httpx_response.status_code,
+            )
         except httpx.TimeoutException:
             raise APIServerTimedout(
                 "getting response from API server Timed Out, please try again later!"
@@ -50,9 +78,6 @@ class BaseService(BaseServiceAbc):
         # check response successed
         if response.status_code == 200:
             return validate_model.model_validate_json(response.text)
-        # check 201 response
-        if response.status_code == 201:
-            return PendingResponse.model_validate_json(response.text)
 
         # handle user error response
         try:
