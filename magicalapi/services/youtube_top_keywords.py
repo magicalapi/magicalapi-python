@@ -30,7 +30,7 @@ class YoutubeTopKeywords(BaseService):
         if request_id:
             request_body["request_id"] = request_id
 
-        response = await self._send_post_request("youtube-keywords", data=request_body)
+        response = await self._send_post_request("/youtube-keywords", data=request_body)
         return self.validate_response(
             response=response, validate_model=YoutubeTopKeywordsResponse
         )
