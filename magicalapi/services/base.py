@@ -2,18 +2,19 @@ import json
 import httpx
 import logging
 from pydantic import BaseModel
-from typing import Type
+from typing import Any, Type
 from magicalapi.client import AsyncClient
 from urllib.parse import urljoin
 from magicalapi.errors import APIServerError, APIServerTimedout
-
 from magicalapi.types.base import ErrorResponse, MessageResponse, PendingResponse
+from magicalapi.abstractions.base_service import BaseServiceAbc
+from magicalapi.types.schemas import HttpResponse
 
-BASE_URL = "https://gw.magicalapi.com"
+BASE_URL = "https://test-gw.magicalapi.org"
 logging.basicConfig(level=logging.INFO)
 
 
-class BaseService:
+class BaseService(BaseServiceAbc):
     def __init__(self, client: AsyncClient) -> None:
         self.client = client
         self._request_headers = {
@@ -21,36 +22,40 @@ class BaseService:
             "Content-Type": "application/json",
         }
 
-    async def _send_post_request(self, path: str, body: dict) -> httpx.Response:
+    async def _send_post_request(self, path: str, data: dict[str, Any]) -> HttpResponse:
         """
-        send a post request to the API server with the api_key and given `path` and `body`
+        send a post request to the API server with given `path` and `data`
         """
         try:
             async with httpx.AsyncClient() as client:
-                response = await client.post(
+                httpx_response = await client.post(
                     url=urljoin(base=BASE_URL, url=path),
-                    data=json.dumps(body),
+                    content=json.dumps(data),
                     headers=self._request_headers,
                     timeout=15,
                 )
-                return response
+                return HttpResponse.model_validate(
+                    obj=httpx_response, from_attributes=True
+                )
         except httpx.TimeoutException:
             raise APIServerTimedout(
                 "getting response from API server Timed Out, please try again later!"
             )
 
-    async def _send_get_request(self, path: str) -> httpx.Response:
+    async def _send_get_request(
+        self, path: str, params: dict[str, str] | None = None
+    ) -> HttpResponse:
         """
-        send a get request to the API server with the api_key and given `path`
+        send a get request to the API server with given `path` and `params`
         """
         async with httpx.AsyncClient() as client:
-            response = await client.get(
+            httpx_response = await client.get(
                 url=urljoin(base=BASE_URL, url=path), headers=self._request_headers
             )
-            return response
+            return HttpResponse.model_validate(obj=httpx_response, from_attributes=True)
 
     def validate_response(
-        self, response: httpx.Response, validate_model: Type[BaseModel]
+        self, response: HttpResponse, validate_model: Type[BaseModel]
     ):
         """
         this method validate the response from API and returns the correct model basesd on response type.
@@ -64,7 +69,7 @@ class BaseService:
 
         # handle user error response
         try:
-            _response_data = response.json()
+            _response_data = json.loads(response.text)
 
             # usage field in response
             if "usage" in _response_data:
