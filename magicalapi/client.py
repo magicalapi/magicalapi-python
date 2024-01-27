@@ -30,7 +30,9 @@ class AsyncClient(AbstractAsyncContextManager):
             "Content-Type": "application/json",
         }
         self._httpx_client = httpx.AsyncClient(
-            headers=_request_headers, base_url=BASE_URL
+            headers=_request_headers,
+            base_url=BASE_URL,
+            timeout=15,
         )
 
         # create service

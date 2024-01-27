@@ -26,7 +26,6 @@ class BaseService(BaseServiceAbc):
             httpx_response = await self._httpx_client.post(
                 url=path,
                 content=json.dumps(data),
-                timeout=15,
             )
             # check 201 response
             _credits = 0
@@ -65,9 +64,13 @@ class BaseService(BaseServiceAbc):
         """
         send a get request to the API server with given `path` and `params`
         """
-
-        httpx_response = await self._httpx_client.get(url=path)
-        return HttpResponse.model_validate(obj=httpx_response, from_attributes=True)
+        try:
+            httpx_response = await self._httpx_client.get(url=path)
+            return HttpResponse.model_validate(obj=httpx_response, from_attributes=True)
+        except httpx.TimeoutException:
+            raise APIServerTimedout(
+                "getting response from API server Timed Out, please try again later!"
+            )
 
     def validate_response(
         self, response: HttpResponse, validate_model: Type[BaseModel]
