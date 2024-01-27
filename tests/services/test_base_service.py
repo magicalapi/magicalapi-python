@@ -2,6 +2,7 @@ import json
 import httpx
 import pytest
 import pytest_asyncio
+from magicalapi.errors import APIServerTimedout
 from magicalapi.services.base import BaseService
 from magicalapi.types.schemas import HttpResponse
 
@@ -9,7 +10,7 @@ from magicalapi.types.schemas import HttpResponse
 @pytest_asyncio.fixture(scope="function")
 async def httpxclient():
     # base url is empty
-    client = httpx.AsyncClient(headers={"content-type": "application/json"})
+    client = httpx.AsyncClient(headers={"content-type": "application/json"}, timeout=5)
 
     yield client
 
@@ -42,3 +43,18 @@ async def test_base_service_get_request(httpxclient):
     assert isinstance(response, HttpResponse)
     # check status code
     assert response.status_code == 200
+
+
+@pytest.mark.asyncio
+async def test_base_service_request_timed_out(httpxclient):
+    base_service = BaseService(httpxclient)
+    # change in fixture timeout
+
+    # post request
+    with pytest.raises(APIServerTimedout):
+        await base_service._send_post_request(
+            path="https://httpbin.org/delay/6", data={}
+        )
+    # gee request
+    with pytest.raises(APIServerTimedout):
+        await base_service._send_get_request(path="https://httpbin.org/delay/6")
