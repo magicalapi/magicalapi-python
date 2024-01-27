@@ -5,7 +5,7 @@ import logging
 from pydantic import BaseModel
 from typing import Any, Type
 from magicalapi.errors import APIServerError, APIServerTimedout
-from magicalapi.types.base import ErrorResponse, MessageResponse
+from magicalapi.types.base import ErrorResponse
 from magicalapi.abstractions.base_service import BaseServiceAbc
 from magicalapi.types.schemas import HttpResponse, PendingResponse
 
@@ -81,14 +81,10 @@ class BaseService(BaseServiceAbc):
 
         # handle user error response
         try:
+            # error response
             _response_data = json.loads(response.text)
+            return ErrorResponse.model_validate(_response_data)
 
-            # usage field in response
-            if "usage" in _response_data:
-                return ErrorResponse.model_validate(_response_data)
-
-            # only message
-            return MessageResponse.model_validate(_response_data)
         except:
             # raise exception
             raise APIServerError(

@@ -2,7 +2,7 @@ from pydantic import BaseModel, field_validator, validator
 
 
 class Usage(BaseModel):
-    credits: int
+    credits: int = 0
 
 
 class BaseModelValidated(BaseModel):
@@ -15,14 +15,9 @@ class BaseModelValidated(BaseModel):
 
 
 class BaseResponse(BaseModelValidated):
-    data: dict
-    usage: Usage
+    # data: dict
+    usage: Usage = Usage()
 
 
-class ErrorResponse(BaseModel):
-    usage: Usage
-    message: str
-
-
-class MessageResponse(BaseModel):
+class ErrorResponse(BaseResponse):
     message: str
