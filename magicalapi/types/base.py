@@ -1,3 +1,4 @@
+from typing import Any
 from pydantic import BaseModel, field_validator, validator
 
 
@@ -7,7 +8,7 @@ class Usage(BaseModel):
 
 class BaseModelValidated(BaseModel):
     @field_validator("*", mode="before")
-    def empty_fields_none(cls, value):
+    def empty_fields_none(cls, value: Any) -> None:
         # convert empty strings to None object
         if value == "":
             return None
