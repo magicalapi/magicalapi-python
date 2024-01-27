@@ -18,6 +18,12 @@ class AsyncClient(AbstractAsyncContextManager):
             your Magical API account's `api_key` that you can get it from https://panel.magicalapi.com/
 
         """
+
+        if type(api_key) != str:
+            raise TypeError(
+                f'api_key field type must be string, not a "{api_key.__class__.__name__}"'
+            )
+
         self._api_key = api_key
         _request_headers = {
             "api-key": self._api_key,

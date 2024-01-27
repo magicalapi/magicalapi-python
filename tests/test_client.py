@@ -13,3 +13,20 @@ async def test_client_context_manager():
 
     # check httpx client is closed
     assert client._httpx_client.is_closed
+
+
+def test_client_empty_api_key():
+    with pytest.raises(TypeError):
+        AsyncClient()
+
+
+def test_client_invalid_api_key_type():
+    with pytest.raises(TypeError):
+        AsyncClient(api_key={})
+
+
+@pytest.mark.asyncio
+async def test_client_close_connection_pool():
+    client = AsyncClient(api_key=str(uuid4()))
+    await client.close()
+    assert client._httpx_client.is_closed
