@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import List, Optional
+from typing import Any, List, Optional
 from pydantic import BaseModel, HttpUrl, field_validator
 from .base import BaseResponse, BaseModelValidated
 
@@ -11,7 +11,7 @@ class StartEndDate(BaseModelValidated):
     # validating the dates in format %b %Y ,Example : Jan 2024
     @field_validator("start_date", "end_date", mode="before")
     @classmethod
-    def date_validator(cls, value: str) -> date:
+    def date_validator(cls, value: str) -> date | None:
         if value == "":
             return None
         return datetime.strptime(value, "%b %Y").date()
@@ -21,7 +21,7 @@ class StartEndDateEducation(StartEndDate):
     # validating the dates in format %Y,Example : 2024
     @field_validator("start_date", "end_date", mode="before")
     @classmethod
-    def date_validator(cls, value: str) -> date:
+    def date_validator(cls, value: str) -> date | None:
         if value == "":
             return None
         return datetime.strptime(value, "%Y").date()
@@ -60,12 +60,12 @@ class Certification(BaseModelValidated):
     title: str
     course_link: Optional[HttpUrl]
     issuer: str
-    credential: str | None
+    credential: Optional[str]
     issued_date: Optional[date]
 
     @field_validator("issued_date", mode="before")
     @classmethod
-    def date_validator(cls, value: str) -> date:
+    def date_validator(cls, value: str) -> date | None:
         if value == "":
             return None
         return datetime.strptime(value, "%b %Y").date()
@@ -81,7 +81,7 @@ class Volunteering(BaseModelValidated):
     organization: str
     volunteering_link: Optional[HttpUrl]
     date: Optional[StartEndDurationDate]
-    cause: str
+    cause: Optional[str]
     description: str
 
 
@@ -101,7 +101,7 @@ class Project(BaseModelValidated):
 
 class Course(BaseModelValidated):
     name: str
-    number: str
+    number: Optional[str]
 
 
 class HonorAndAward(BaseModelValidated):
@@ -112,7 +112,7 @@ class HonorAndAward(BaseModelValidated):
 
     @field_validator("issued_date", mode="before")
     @classmethod
-    def date_validator(cls, value: str) -> date:
+    def date_validator(cls, value: str) -> date | None:
         if value == "":
             return None
         return datetime.strptime(value, "%b %Y").date()
