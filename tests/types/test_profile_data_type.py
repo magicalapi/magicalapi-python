@@ -3,20 +3,10 @@ from random import choice, randint
 import pytest
 from faker import Faker
 from pydantic import ValidationError
-from magicalapi.types.base import Usage
-
+from typing import Any
 from magicalapi.types.profile_data import (
-    Certification,
-    Course,
-    Education,
-    Experience,
-    HonorAndAward,
-    Language,
     Profile,
     ProfileDataResponse,
-    Project,
-    Publication,
-    Volunteering,
 )
 
 
@@ -50,6 +40,20 @@ def dependency_profile_data():
                 "location": "{}, {}".format(*fake.location_on_land()[2:4]),
                 "description": fake.text(),
             },
+            # empty dates
+            {
+                "image_url": fake.uri(),
+                "title": fake.job(),
+                "company_name": fake.company(),
+                "company_link": fake.uri(),
+                "date": {
+                    "start_date": _start_date.strftime("%b %Y"),
+                    "end_date": "",
+                    "duration": {"years": randint(0, 10), "months": randint(1, 12)},
+                },
+                "location": "",  # test convert empty string to None
+                "description": fake.text(),
+            },
         ],
         "education": [
             {
@@ -62,7 +66,19 @@ def dependency_profile_data():
                     "start_date": _start_date.strftime("%Y"),
                     "end_date": _end_date.strftime("%Y"),
                 },
-            }
+            },
+            # empty dates
+            {
+                "image_url": fake.uri(),
+                "university_name": fake.company(),
+                "university_link": fake.uri(),
+                "degree": fake.text(max_nb_chars=20),
+                "major": fake.text(max_nb_chars=20),
+                "date": {
+                    "start_date": _start_date.strftime("%Y"),
+                    "end_date": "",
+                },
+            },
         ],
         "certifications": [
             {
@@ -72,7 +88,16 @@ def dependency_profile_data():
                 "issuer": fake.company(),
                 "credential": fake.text(max_nb_chars=20),
                 "issued_date": _start_date.strftime("%b %Y"),
-            }
+            },
+            # empty data
+            {
+                "image_url": fake.uri(),
+                "title": fake.name(),
+                "course_link": fake.uri(),
+                "issuer": fake.company(),
+                "credential": fake.text(max_nb_chars=20),
+                "issued_date": "",
+            },
         ],
         "languages": [
             {
@@ -122,7 +147,14 @@ def dependency_profile_data():
                 "issuer": fake.company(),
                 "issued_date": _start_date.strftime("%b %Y"),
                 "description": fake.text(),
-            }
+            },
+            # empty date
+            {
+                "title": fake.name(),
+                "issuer": fake.company(),
+                "issued_date": "",
+                "description": fake.text(),
+            },
         ],
     }
 
@@ -131,7 +163,7 @@ def dependency_profile_data():
 
 
 @pytest.mark.dependency()
-def test_profile_data_type(dependency_profile_data):
+def test_profile_data_type(dependency_profile_data: dict[str, Any]):
     # check profile data validated successfull
     try:
         Profile.model_validate(dependency_profile_data)
@@ -140,7 +172,7 @@ def test_profile_data_type(dependency_profile_data):
 
 
 @pytest.mark.dependency()
-def test_profile_data_type_failing(dependency_profile_data):
+def test_profile_data_type_failing(dependency_profile_data: dict[str, Any]):
     # validating profile data must fail
     dependency_profile_data["experience"][0]["date"]["start_date"] = "none"
     del dependency_profile_data["education"][0]["date"]
@@ -159,7 +191,7 @@ def test_profile_data_type_failing(dependency_profile_data):
 @pytest.mark.dependency(
     depends=["test_profile_data_type", "test_profile_data_type_failing"]
 )
-def test_profile_data_response_type(dependency_profile_data):
+def test_profile_data_response_type(dependency_profile_data: dict[str, Any]):
     try:
         response_schema = {
             "data": dependency_profile_data,
