@@ -1,10 +1,16 @@
 import json
+from random import randint
 import httpx
 import pytest
 import pytest_asyncio
-from magicalapi.errors import APIServerTimedout
+from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.services.base import BaseService
+from magicalapi.types.base import ErrorResponse
 from magicalapi.types.schemas import HttpResponse
+from magicalapi.types.youtube_top_keywords import (
+    KeywordIdea,
+    YoutubeTopKeywordsResponse,
+)
 
 
 @pytest_asyncio.fixture(scope="function")
@@ -19,7 +25,7 @@ async def httpxclient():
 
 
 @pytest.mark.asyncio
-async def test_base_service_post_request(httpxclient):
+async def test_base_service_post_request(httpxclient: httpx.AsyncClient):
     base_service = BaseService(httpxclient)
     test_data = {"foo": "bar"}
 
@@ -35,7 +41,7 @@ async def test_base_service_post_request(httpxclient):
 
 
 @pytest.mark.asyncio
-async def test_base_service_get_request(httpxclient):
+async def test_base_service_get_request(httpxclient: httpx.AsyncClient):
     base_service = BaseService(httpxclient)
     response = await base_service._send_get_request(path="https://httpbin.org/get")
 
@@ -46,7 +52,7 @@ async def test_base_service_get_request(httpxclient):
 
 
 @pytest.mark.asyncio
-async def test_base_service_request_timed_out(httpxclient):
+async def test_base_service_request_timed_out(httpxclient: httpx.AsyncClient):
     base_service = BaseService(httpxclient)
     # change in fixture timeout
 
@@ -58,3 +64,49 @@ async def test_base_service_request_timed_out(httpxclient):
     # gee request
     with pytest.raises(APIServerTimedout):
         await base_service._send_get_request(path="https://httpbin.org/delay/6")
+
+
+def test_base_service_validating_response(
+    httpxclient: httpx.AsyncClient, dependency_keyword: KeywordIdea
+):
+    # test validating base service valida_response method
+    base_service = BaseService(httpxclient)
+    # fake response
+    fake_json_response = {
+        "data": {"keywords": [dependency_keyword]},
+        "usage": {"credits": randint(1, 200)},
+    }
+    # test validating youtube top keywords validation
+    # 200 response
+    fake_response = HttpResponse(text=json.dumps(fake_json_response), status_code=200)
+    assert (
+        type(
+            base_service.validate_response(
+                response=fake_response, validate_model=YoutubeTopKeywordsResponse
+            )
+        )
+        == YoutubeTopKeywordsResponse
+    )
+
+    # 404 response
+    fake_json_response = {"usage": {"credits": 0}, "message": "request not found !"}
+    fake_response = HttpResponse(text=json.dumps(fake_json_response), status_code=404)
+    assert (
+        type(
+            base_service.validate_response(
+                response=fake_response, validate_model=YoutubeTopKeywordsResponse
+            )
+        )
+        == ErrorResponse
+    )
+
+
+def test_base_service_validating_response_raise_error(httpxclient: httpx.AsyncClient):
+    # test validating base service valida_response method
+    base_service = BaseService(httpxclient)
+    # 500 response, raise error
+    fake_response = HttpResponse(text="Internal Server Error!", status_code=500)
+    with pytest.raises(APIServerError):
+        base_service.validate_response(
+            response=fake_response, validate_model=YoutubeTopKeywordsResponse
+        )
