@@ -4,14 +4,13 @@ import httpx
 import logging
 from pydantic import BaseModel
 from typing import Any, Type
+from magicalapi.settings import settings
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse
 from magicalapi.abstractions.base_service import BaseServiceAbc
 from magicalapi.types.schemas import HttpResponse, PendingResponse
 
 logging.basicConfig(level=logging.INFO)
-
-RETRY_201_DELAY = 2  # seconds
 
 
 class BaseService(BaseServiceAbc):
@@ -37,10 +36,9 @@ class BaseService(BaseServiceAbc):
                 httpx_response = await self._httpx_client.post(
                     url=path,
                     content=json.dumps(data),
-                    timeout=15,
                 )
                 # send request again
-                await asyncio.sleep(RETRY_201_DELAY)
+                await asyncio.sleep(settings.retry_201_delay)
 
             # update crdits
             _response_text = httpx_response.text
