@@ -10,6 +10,8 @@ async def test_client_context_manager():
     async with AsyncClient(api_key=fake_api_key) as client:
         # check httpx client is open
         assert not client._httpx_client.is_closed
+        # check api_key property
+        assert client.api_key == fake_api_key
 
     # check httpx client is closed
     assert client._httpx_client.is_closed
