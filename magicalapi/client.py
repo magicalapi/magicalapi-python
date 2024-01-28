@@ -1,11 +1,10 @@
 from magicalapi.services.youtube_top_keywords import YoutubeTopKeywords
+from magicalapi.settings import settings
 import httpx
 from contextlib import AbstractAsyncContextManager
 
-BASE_URL = "https://gw.magicalapi.com"
 
-
-class AsyncClient(AbstractAsyncContextManager):
+class AsyncClient(AbstractAsyncContextManager):  # type: ignore
     """
     The MagicalAPI client module to work and connect to the api.
     """
@@ -31,8 +30,8 @@ class AsyncClient(AbstractAsyncContextManager):
         }
         self._httpx_client = httpx.AsyncClient(
             headers=_request_headers,
-            base_url=BASE_URL,
-            timeout=15,
+            base_url=str(settings.base_url),
+            timeout=settings.request_timeout,
         )
 
         # create service
@@ -45,7 +44,7 @@ class AsyncClient(AbstractAsyncContextManager):
     async def __aenter__(self):
         return self
 
-    async def __aexit__(self, __exc_type, __exc_value, __traceback) -> bool | None:
+    async def __aexit__(self, __exc_type, __exc_value, __traceback) -> bool | None:  # type: ignore
         # http client
         await self._httpx_client.aclose()
 
