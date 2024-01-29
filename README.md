@@ -1,10 +1,24 @@
 # MagicalAPI Library
 
+## Configuration
+the library's configurations are stored in `magicalapi/settings.py`, and they can be overridden by environment variables or a `.env` file if exists in the root directory of the project.  
+the environment variables should start with the `MAG_` prefix, and they are case insensitive, so `MAG_EXAMPLE`, `Mag_example`, and `mag_EXAMPLE` are equal.  
+an example `.env` file content:
+```env
+# Comments are ignored
+
+MAG_REQUEST_TIMEOUT = 20
+```  
+
+<br>
+
 ## Examples
 
-here are some examples of how send request and get the response for each service.
+here are some examples of how to send a request and get a response for each service.
 
-### [Youtube Top Keywrods](https://magicalapi.com/services/youtube-keywords)
+<h3>
+<a href='https://magicalapi.com/services/youtube-keywords' target="_blank">Youtube Top Keywrods<a>
+</h3>
 
 ```python
 import asyncio
