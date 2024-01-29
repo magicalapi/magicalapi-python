@@ -1,8 +1,11 @@
 from magicalapi.services.profile_data import ProfileData
 from magicalapi.services.youtube_top_keywords import YoutubeTopKeywords
 from magicalapi.settings import settings
+from magicalapi.utils.logger import get_logger
 import httpx
 from contextlib import AbstractAsyncContextManager
+
+logger = get_logger("client")
 
 
 class AsyncClient(AbstractAsyncContextManager):  # type: ignore
@@ -34,21 +37,24 @@ class AsyncClient(AbstractAsyncContextManager):  # type: ignore
             base_url=str(settings.base_url),
             timeout=settings.request_timeout,
         )
+        logger.debug(f"httpx client created")
 
         # create service
         self.youtube_top_keywords = YoutubeTopKeywords(httpx_client=self._httpx_client)
         self.profile_data = ProfileData(httpx_client=self._httpx_client)
+
+        logger.debug(f"async client created : {self}")
 
     @property
     def api_key(self):
         return self._api_key
 
     async def __aenter__(self):
+        logger.debug("async client opened.")
         return self
 
     async def __aexit__(self, __exc_type, __exc_value, __traceback) -> bool | None:  # type: ignore
-        # http client
-        await self._httpx_client.aclose()
+        await self.close()
 
     async def close(self):
         """
@@ -57,3 +63,4 @@ class AsyncClient(AbstractAsyncContextManager):  # type: ignore
         # http client
         if not self._httpx_client.is_closed:
             await self._httpx_client.aclose()
+        logger.debug("async client closed.")
