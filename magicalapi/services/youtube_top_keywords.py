@@ -1,3 +1,9 @@
+"""
+this file stores the implementation of Youtube Top Keywords Service.
+https://magicalapi.com/services/youtube-keywords
+
+"""
+
 from typing import Type
 from pydantic import BaseModel
 from magicalapi.types.base import ErrorResponse
@@ -8,10 +14,10 @@ from .base import BaseService
 
 class YoutubeTopKeywords(BaseService):
     async def get_keywords(
-        self, search_sentence: str, country: str, language: str, request_id: str = None
+        self, search_sentence: str, country: str, language: str
     ) -> YoutubeTopKeywordsResponse | ErrorResponse:
         """this method sends request to Youtube Top Keywords service in magicalAPI.
-
+        https://magicalapi.com/services/youtube-keywords
 
         country (``str``):
             the country code of the country that you want to get keywords from.
@@ -27,8 +33,6 @@ class YoutubeTopKeywords(BaseService):
             "country": country,
             "language": language,
         }
-        if request_id:
-            request_body["request_id"] = request_id
 
         response = await self._send_post_request("/youtube-keywords", data=request_body)
         return self.validate_response(
