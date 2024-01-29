@@ -18,9 +18,12 @@ class Settings(BaseSettings):
 
     base_url: HttpUrl = "https://gw.magicalapi.com"
     retry_201_delay: int = 2  # seconds
-    request_timeout : int = 15 # seconds
+    request_timeout: int = 15  # seconds
 
-    model_config = SettingsConfigDict(env_prefix="MAG_", case_sensitive=False)
+    model_config = SettingsConfigDict(
+        env_file=".env", env_prefix="mag_", case_sensitive=False
+    )
 
 
 settings = Settings()
+settings.base_url = str(settings.base_url)
