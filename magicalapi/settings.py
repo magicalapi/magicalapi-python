@@ -1,3 +1,4 @@
+from typing import Literal, Optional
 from pydantic import HttpUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -19,6 +20,8 @@ class Settings(BaseSettings):
     base_url: HttpUrl = "https://gw.magicalapi.com"
     retry_201_delay: int = 2  # seconds
     request_timeout: int = 15  # seconds
+    log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] | None = None
+    logging_format: str = "{asctime} [{levelname}] - {name} : {message}"
 
     model_config = SettingsConfigDict(
         env_file=".env", env_prefix="mag_", case_sensitive=False
