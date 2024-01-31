@@ -106,6 +106,7 @@ class BaseService(BaseServiceAbc):
         """
         # check response successed
         logger.debug(f"validating response.")
+        logger.debug(f"response : {response}")
         if response.status_code == 200:
             return validate_model.model_validate_json(response.text)
 
