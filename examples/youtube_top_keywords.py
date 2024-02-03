@@ -10,6 +10,15 @@ language = "1000"
 
 async def main():
     async with AsyncClient(api_key=API_KEY) as client:
+        # get languages and countries list
+        # languages = await client.youtube_top_keywords.get_languages()
+        # countries = await client.youtube_top_keywords.get_countries()
+        # print("Languauges :")
+        # print(languages)
+        # print("Countries : ")
+        # print(countries)
+
+        # get youtube keywords
         keywords_response = await client.youtube_top_keywords.get_keywords(
             search_sentence=search_sentence,
             country=country,
