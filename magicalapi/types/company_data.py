@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
-from pydantic import HttpUrl, field_validator
+from pydantic import BaseModel, HttpUrl, field_validator
 from .base import BaseResponse, BaseModelValidated
 
 
@@ -45,3 +45,20 @@ class Company(BaseModelValidated):
 
 class CompanyDataResponse(BaseResponse):
     data: Company
+
+
+class Language(BaseModel):
+    name: str
+    code: str
+
+
+class Country(Language):
+    ...
+
+
+class LanguagesResponse(BaseResponse):
+    data: list[Language]
+
+
+class CountriesResponse(BaseResponse):
+    data: list[Country]
