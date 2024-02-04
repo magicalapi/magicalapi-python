@@ -5,7 +5,7 @@ from random import choice, randint
 
 
 @pytest.fixture()
-def dependency_keyword():
+def youtube_keyword():
     # create a sample profile data dictionary
     fake = Faker(locale="en")
     MONTH_LIST = [
