@@ -67,13 +67,13 @@ async def test_base_service_request_timed_out(httpxclient: httpx.AsyncClient):
 
 
 def test_base_service_validating_response(
-    httpxclient: httpx.AsyncClient, dependency_keyword: KeywordIdea
+    httpxclient: httpx.AsyncClient, youtube_keyword: KeywordIdea
 ):
     # test validating base service valida_response method
     base_service = BaseService(httpxclient)
     # fake response
     fake_json_response = {
-        "data": {"keywords": [dependency_keyword]},
+        "data": {"keywords": [youtube_keyword]},
         "usage": {"credits": randint(1, 200)},
     }
     # test validating youtube top keywords validation

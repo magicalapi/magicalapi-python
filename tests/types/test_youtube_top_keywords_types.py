@@ -9,11 +9,11 @@ from magicalapi.types.youtube_top_keywords import (
 
 
 @pytest.mark.dependency()
-def test_youtube_top_keywords_type(dependency_keyword: KeywordIdea):
+def test_youtube_top_keywords_type(youtube_keyword: KeywordIdea):
     try:
         # validating keywords
         KeywordIdea.model_validate(
-            obj=dependency_keyword,
+            obj=youtube_keyword,
         )
 
     except ValidationError as exc:
@@ -21,10 +21,10 @@ def test_youtube_top_keywords_type(dependency_keyword: KeywordIdea):
 
 
 @pytest.mark.dependency(depends=["test_youtube_top_keywords_type"])
-def test_youtube_top_keywords_response_type(dependency_keyword: KeywordIdea):
+def test_youtube_top_keywords_response_type(youtube_keyword: KeywordIdea):
     try:
         response_schema = {
-            "data": {"keywords": [dependency_keyword]},
+            "data": {"keywords": [youtube_keyword]},
             "usage": {"credits": randint(1, 200)},
         }
         YoutubeTopKeywordsResponse.model_validate(response_schema)

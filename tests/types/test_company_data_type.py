@@ -9,7 +9,7 @@ from magicalapi.types.company_data import Company, CompanyDataResponse
 
 
 @pytest.fixture()
-def dependency_company_data():
+def company_data():
     # create a sample company data dictionary
     Faker.seed()
     fake = Faker(locale="en_US")
@@ -53,22 +53,22 @@ def dependency_company_data():
 
 
 @pytest.mark.dependency()
-def test_company_data_type(dependency_company_data: dict[str, Any]):
+def test_company_data_type(company_data: dict[str, Any]):
     # check company data validated successfull
     try:
-        Company.model_validate(dependency_company_data)
+        Company.model_validate(company_data)
     except ValidationError as exc:
         assert False, "validating company data failed : " + str(exc)
 
 
 @pytest.mark.dependency()
-def test_company_data_type_failing(dependency_company_data: dict[str, Any]):
+def test_company_data_type_failing(company_data: dict[str, Any]):
     # validating company data must fail
-    dependency_company_data["url"] = "none"
-    del dependency_company_data["tagline"]
-    dependency_company_data["products"][0]["name"] = 12
+    company_data["url"] = "none"
+    del company_data["tagline"]
+    company_data["products"][0]["name"] = 12
     try:
-        Company.model_validate(dependency_company_data)
+        Company.model_validate(company_data)
     except:
         pass
     else:
@@ -79,10 +79,10 @@ def test_company_data_type_failing(dependency_company_data: dict[str, Any]):
 @pytest.mark.dependency(
     depends=["test_company_data_type", "test_company_data_type_failing"]
 )
-def test_company_data_response_type(dependency_company_data: dict[str, Any]):
+def test_company_data_response_type(company_data: dict[str, Any]):
     try:
         response_schema = {
-            "data": dependency_company_data,
+            "data": company_data,
             "usage": {"credits": randint(1, 200)},
         }
         CompanyDataResponse.model_validate(response_schema)

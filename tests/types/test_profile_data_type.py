@@ -11,7 +11,7 @@ from magicalapi.types.profile_data import (
 
 
 @pytest.fixture()
-def dependency_profile_data():
+def profile_dataprofile_data():
     # create a sample profile data dictionary
     fake = Faker(locale="en_US")
     _username = fake.user_name()
@@ -163,24 +163,24 @@ def dependency_profile_data():
 
 
 @pytest.mark.dependency()
-def test_profile_data_type(dependency_profile_data: dict[str, Any]):
+def test_profile_data_type(profile_dataprofile_data: dict[str, Any]):
     # check profile data validated successfull
     try:
-        Profile.model_validate(dependency_profile_data)
+        Profile.model_validate(profile_dataprofile_data)
     except ValidationError as exc:
         assert False, "validating profile data failed : " + str(exc)
 
 
 @pytest.mark.dependency()
-def test_profile_data_type_failing(dependency_profile_data: dict[str, Any]):
+def test_profile_data_type_failing(profile_dataprofile_data: dict[str, Any]):
     # validating profile data must fail
-    dependency_profile_data["experience"][0]["date"]["start_date"] = "none"
-    del dependency_profile_data["education"][0]["date"]
-    del dependency_profile_data["projects"][0]["date"]["end_date"]
-    dependency_profile_data["publications"][0]["publication_date"] = 12
-    dependency_profile_data["honors_and_awards"][0]["issued_date"] = None
+    profile_dataprofile_data["experience"][0]["date"]["start_date"] = "none"
+    del profile_dataprofile_data["education"][0]["date"]
+    del profile_dataprofile_data["projects"][0]["date"]["end_date"]
+    profile_dataprofile_data["publications"][0]["publication_date"] = 12
+    profile_dataprofile_data["honors_and_awards"][0]["issued_date"] = None
     try:
-        Profile.model_validate(dependency_profile_data)
+        Profile.model_validate(profile_dataprofile_data)
     except:
         pass
     else:
@@ -191,10 +191,10 @@ def test_profile_data_type_failing(dependency_profile_data: dict[str, Any]):
 @pytest.mark.dependency(
     depends=["test_profile_data_type", "test_profile_data_type_failing"]
 )
-def test_profile_data_response_type(dependency_profile_data: dict[str, Any]):
+def test_profile_data_response_type(profile_dataprofile_data: dict[str, Any]):
     try:
         response_schema = {
-            "data": dependency_profile_data,
+            "data": profile_dataprofile_data,
             "usage": {"credits": randint(1, 200)},
         }
         ProfileDataResponse.model_validate(response_schema)

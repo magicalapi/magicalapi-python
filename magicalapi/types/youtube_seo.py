@@ -49,7 +49,7 @@ class YoutubeAPI:
     class contentDetails(BaseModel):
         duration: str
         dimension: str
-        definition: Literal["hd", "ds"]
+        definition: Literal["hd", "sd"]
         caption: Literal["true", "false"]
         licensedContent: bool
         # TODO ensure empty always
