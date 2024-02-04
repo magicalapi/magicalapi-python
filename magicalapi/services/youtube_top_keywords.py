@@ -22,7 +22,7 @@ class YoutubeTopKeywords(BaseService):
         response: HttpResponse,
         validate_model: Type[YoutubeTopKeywordsResponse],
     ) -> YoutubeTopKeywordsResponse | ErrorResponse:
-        ...
+        pass
 
     @overload
     def validate_response(
@@ -30,7 +30,7 @@ class YoutubeTopKeywords(BaseService):
         response: HttpResponse,
         validate_model: Type[CountriesResponse],
     ) -> CountriesResponse | ErrorResponse:
-        ...
+        pass
 
     @overload
     def validate_response(
@@ -38,7 +38,7 @@ class YoutubeTopKeywords(BaseService):
         response: HttpResponse,
         validate_model: Type[LanguagesResponse],
     ) -> LanguagesResponse | ErrorResponse:
-        ...
+        pass
 
     @overload
     def validate_response(
@@ -49,7 +49,7 @@ class YoutubeTopKeywords(BaseService):
         | CountriesResponse
         | ErrorResponse
     ):
-        ...
+        pass
 
     def validate_response(
         self, response: HttpResponse, validate_model: Type[BaseModel]
