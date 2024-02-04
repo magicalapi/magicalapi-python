@@ -1,5 +1,5 @@
-from typing import Any
-from pydantic import BaseModel, field_validator, validator
+from typing import Any, Optional
+from pydantic import BaseModel, field_validator
 
 
 class Usage(BaseModel):
@@ -13,6 +13,17 @@ class BaseModelValidated(BaseModel):
         if value == "":
             return None
         return value
+
+
+class OptionalModel(BaseModel):
+    @classmethod
+    def __pydantic_init_subclass__(cls, **kwargs: Any) -> None:
+        super().__pydantic_init_subclass__(**kwargs)
+        for field in cls.model_fields.values():
+            field.annotation = Optional[field.annotation]
+            field.default = None
+
+        cls.model_rebuild(force=True)
 
 
 class BaseResponse(BaseModelValidated):
