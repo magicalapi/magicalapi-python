@@ -1,8 +1,11 @@
-from magicalapi.services.company_data import CompanyData
-from magicalapi.services.profile_data import ProfileData
-from magicalapi.services.youtube_top_keywords import YoutubeTopKeywords
+from magicalapi.services import (
+    CompanyData,
+    ProfileData,
+    YoutubeTopKeywords,
+    YoutubeSeo,
+    ResumeParser,
+)
 from magicalapi.settings import settings
-from magicalapi.services.youtube_seo import YoutubeSeo
 from magicalapi.utils.logger import get_logger
 import httpx
 from contextlib import AbstractAsyncContextManager
@@ -46,6 +49,7 @@ class AsyncClient(AbstractAsyncContextManager):  # type: ignore
         self.profile_data = ProfileData(httpx_client=self._httpx_client)
         self.company_data = CompanyData(httpx_client=self._httpx_client)
         self.youtube_seo = YoutubeSeo(httpx_client=self._httpx_client)
+        self.resume_parser = ResumeParser(httpx_client=self._httpx_client)
 
         logger.debug(f"async client created : {self}")
 

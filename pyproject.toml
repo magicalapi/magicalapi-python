@@ -20,7 +20,7 @@ pytest-asyncio = "^0.23.3"
 pytest-cov = "^4.1.0"
 
 [tool.pytest.ini_options]
-addopts = "-v --cov='magicalapi/' --cov-report=term-missing --cov-config=.coveragerc"
+#addopts = "-v --cov='magicalapi/' --cov-report=term-missing --cov-config=.coveragerc"
 testpaths = [
     "tests",
 ]

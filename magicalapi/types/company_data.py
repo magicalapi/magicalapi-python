@@ -53,7 +53,7 @@ class Language(BaseModel):
 
 
 class Country(Language):
-    ...
+    pass
 
 
 class LanguagesResponse(BaseResponse):
