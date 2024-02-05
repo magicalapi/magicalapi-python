@@ -1,12 +1,19 @@
 [tool.poetry]
 name = "magicalapi"
 version = "0.1.0"
-description = ""
+description = "a python client to access and work with MagicalAPI.com API services."
 authors = ["Amir Aref <amiraref808@gmail.com>"]
 readme = "README.md"
+repository = "https://github.com/magical-api/python-library"
+homepage = "https://github.com/magical-api/python-library"
+classifiers = [
+    "Programming Language :: Python :: 3.11",
+    "Development Status :: 4 - Beta"
+
+]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 httpx = "^0.26.0"
 pydantic = "^2.5.3"
 pydantic-settings = "^2.1.0"
@@ -20,7 +27,6 @@ pytest-asyncio = "^0.23.3"
 pytest-cov = "^4.1.0"
 
 [tool.pytest.ini_options]
-#addopts = "-v --cov='magicalapi/' --cov-report=term-missing --cov-config=.coveragerc"
 testpaths = [
     "tests",
 ]
