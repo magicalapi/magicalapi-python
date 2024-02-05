@@ -16,8 +16,20 @@ MAG_REQUEST_TIMEOUT = 20
 
 here are some examples of how to send a request and get a response for each service.
 
-<h3>
-<a href='https://magicalapi.com/services/youtube-keywords' target="_blank">Youtube Top Keywrods<a>
+full usage examples are in [examples](./examples) directory.
+
+the complete usage exists on the first example and in others just contains  details about usage of specific service, because the base implementation is same in all services.
+
+<!--youtube top keywords-->
+
+<h3
+
+Youtube Top Keywords 
+(
+<a href='https://magicalapi.com/services/youtube-keywords' target="_blank">Service<a> , 
+<a href='./examples/youtube_top_keywords.py' target="_blank">Example<a>
+)
+
 </h3>
 
 ```python
@@ -49,77 +61,110 @@ async def main():
 asyncio.run(main())
 ```
 
-<br><hr>
+<!--profile data-->
+<br>
 
 <h3>
-<a href='https://magicalapi.com/services/profile-data' target="_blank">
-Profile Data
+
+Profile Data 
+(
+<a href='https://magicalapi.com/services/profile-data' target="_blank">Service<a> , 
+<a href='./examples/profile_data.py' target="_blank">Example<a>
+)
 <a>
 </h3>
 
 ```python
-import asyncio
-from magicalapi.client import AsyncClient
-from magicalapi.types.base import ErrorResponse
-
-API_KEY = "mag_123456789"
-profile_name = "conanobrien"
-
-
-async def main():
-    async with AsyncClient(api_key=API_KEY) as client:
-        response = await client.profile_data.get_profile_data(profile_name=profile_name)
-
-        if type(response) == ErrorResponse:
-            # got error from api
-            print("Error :", response.message)
-        else:
-            # got response successfully
-            print("credists :", response.usage.credits)
-            print(response.data)
-            # save response in json file
-            with open(f"profile_data_{profile_name}.json", "w") as file:
-                file.write(response.model_dump_json(indent=3))
-
-
-asyncio.run(main())
-
+await client.profile_data.get_profile_data(profile_name="profile_name")
 ```
 
-<br><hr>
+
+<!--company data-->
+<br>
 
 <h3>
-<a href='https://magicalapi.com/services/company-data' target="_blank">
-Company Data
+Company Data 
+(
+<a href='https://magicalapi.com/services/company-data' target="_blank">Service<a> , 
+<a href='./examples/company_data.py' target="_blank">Example<a>
+)
 <a>
 </h3>
 
 
 ```python
-import asyncio
-from magicalapi.client import AsyncClient
-from magicalapi.types.base import ErrorResponse
+await client.company_data.get_company_data(company_name="company_name")
+```
 
-API_KEY = "mag_123456789"
-company_name = "google"
+<!--youtub seo-->
+<br>
 
+<h3>
+Youtube SEO 
+(
+<!--a href='https://magicalapi.com/services/youtube-seo' target="_blank">Service<a> , -->
+<a href='./examples/youtube_seo.py' target="_blank">Example<a>
+)
 
-async def main():
-    async with AsyncClient(api_key=API_KEY) as client:
-        response = await client.company_data.get_company_data(company_name=company_name)
-
-        if type(response) == ErrorResponse:
-            # got error from api
-            print("Error :", response.message)
-        else:
-            # got response successfully
-            print("credists :", response.usage.credits)
-            print(response.data)
-            # save response in json file
-            with open(f"company_data_{company_name}.json", "w") as file:
-                file.write(response.model_dump_json(indent=3))
+<a>
+</h3>
 
 
-asyncio.run(main())
+```python
+await client.youtube_seo.get_youtube_seo(url="https://youtube.com/?v=example")
+```
 
+<!--resume parser-->
+<br>
+
+<h3>
+
+Resume Parser 
+(
+<a href='https://magicalapi.com/services/resume-parser' target="_blank">Service<a> , 
+<a href='./examples/resume_parser.py' target="_blank">Example<a>
+)
+<a>
+</h3>
+
+
+```python
+await client.resume_parser.get_resume_parser(url="https://example.com/resume.pdf")
+```
+
+<!--resume score-->
+<br>
+
+<h3>
+Resume Score 
+(
+<a href='https://magicalapi.com/services/resume-score' target="_blank">Service<a> , 
+<a href='./examples/resume_score.py' target="_blank">Example<a>
+)
+
+<a>
+</h3>
+
+
+```python
+await client.resume_score.get_resume_score(
+    url="https://example.com/resume.pdf",
+    job_description="an example job description"
+)
+```
+
+<!--resume review-->
+<br>
+
+<h3>
+Resume Review 
+(
+<!--a href='https://magicalapi.com/services/resume-review' target="_blank">Service<a> , -->
+<a href='./examples/resume_review.py' target="_blank">Example<a>
+)
+</h3>
+
+
+```python
+await client.resume_review.get_resume_review(url="https://example.com/resume.pdf")
 ```
