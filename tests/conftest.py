@@ -78,12 +78,6 @@ def resume_data():
                 "summary": fake.text(),
             },
         ],
-        "project_experiences": [
-            {
-                "title": fake.text(max_nb_chars=50),
-                "description": fake.text(),
-            },
-        ],
         "educations": [
             {
                 "school": fake.company(),
