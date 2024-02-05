@@ -4,7 +4,6 @@ sending requests and validating the responses.
 
 """
 
-
 import asyncio
 import json
 import httpx

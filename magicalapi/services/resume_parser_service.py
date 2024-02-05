@@ -9,10 +9,10 @@ from pydantic import BaseModel
 from magicalapi.types.base import ErrorResponse
 from magicalapi.types.schemas import HttpResponse
 from magicalapi.types.resume_parser import ResumeParserResponse
-from .base import BaseService
+from .base_service import BaseService
 
 
-class ResumeParser(BaseService):
+class ResumeParserService(BaseService):
     service_path = "/resume-parser"
 
     async def get_resume_parser(self, url: str) -> ResumeParserResponse | ErrorResponse:
