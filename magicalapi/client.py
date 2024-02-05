@@ -6,6 +6,7 @@ from magicalapi.services import (
     ResumeParserService,
     ResumeScoreService,
 )
+from magicalapi.services.resume_review_service import ResumeReviewService
 from magicalapi.settings import settings
 from magicalapi.utils.logger import get_logger
 import httpx
@@ -54,6 +55,7 @@ class AsyncClient(AbstractAsyncContextManager):  # type: ignore
         self.youtube_seo = YoutubeSeoService(httpx_client=self._httpx_client)
         self.resume_parser = ResumeParserService(httpx_client=self._httpx_client)
         self.resume_score = ResumeScoreService(httpx_client=self._httpx_client)
+        self.resume_review = ResumeReviewService(httpx_client=self._httpx_client)
 
         logger.debug(f"async client created : {self}")
 
