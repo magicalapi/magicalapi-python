@@ -5,6 +5,7 @@ from magicalapi.services import (
     YoutubeSeoService,
     ResumeParserService,
     ResumeScoreService,
+    YoutubeSuggestionsService,
 )
 from magicalapi.services.resume_review_service import ResumeReviewService
 from magicalapi.settings import settings
@@ -56,6 +57,9 @@ class AsyncClient(AbstractAsyncContextManager):  # type: ignore
         self.resume_parser = ResumeParserService(httpx_client=self._httpx_client)
         self.resume_score = ResumeScoreService(httpx_client=self._httpx_client)
         self.resume_review = ResumeReviewService(httpx_client=self._httpx_client)
+        self.youtube_suggestions = YoutubeSuggestionsService(
+            httpx_client=self._httpx_client
+        )
 
         logger.debug(f"async client created : {self}")
 
