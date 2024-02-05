@@ -9,10 +9,10 @@ from pydantic import BaseModel
 from magicalapi.types.base import ErrorResponse
 from magicalapi.types.schemas import HttpResponse
 from magicalapi.types.company_data import CompanyDataResponse
-from .base import BaseService
+from .base_service import BaseService
 
 
-class CompanyData(BaseService):
+class CompanyDataService(BaseService):
     service_path = "/company-data"
 
     async def get_company_data(

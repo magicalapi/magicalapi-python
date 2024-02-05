@@ -1,15 +1,15 @@
-from .youtube_top_keywords import YoutubeTopKeywords
-from .profile_data import ProfileData
-from .company_data import CompanyData
-from .youtube_seo import YoutubeSeo
-from .resume_parser import ResumeParser
-from .resume_score import ResumeScore
+from .youtube_top_keywords_service import YoutubeTopKeywordsService
+from .profile_data_service import ProfileDataService
+from .company_data_service import CompanyDataService
+from .youtube_seo_service import YoutubeSeoService
+from .resume_parser_service import ResumeParserService
+from .resume_score_service import ResumeScoreService
 
 __all__ = [
-    "YoutubeTopKeywords",
-    "ProfileData",
-    "CompanyData",
-    "YoutubeSeo",
-    "ResumeParser",
-    "ResumeScore",
+    "YoutubeTopKeywordsService",
+    "ProfileDataService",
+    "CompanyDataService",
+    "YoutubeSeoService",
+    "ResumeParserService",
+    "ResumeScoreService",
 ]

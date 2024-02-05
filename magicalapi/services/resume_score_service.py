@@ -9,10 +9,10 @@ from pydantic import BaseModel
 from magicalapi.types.base import ErrorResponse
 from magicalapi.types.schemas import HttpResponse
 from magicalapi.types.resume_score import ResumeScoreResponse
-from .base import BaseService
+from .base_service import BaseService
 
 
-class ResumeScore(BaseService):
+class ResumeScoreService(BaseService):
     service_path = "/resume-score"
 
     async def get_resume_score(

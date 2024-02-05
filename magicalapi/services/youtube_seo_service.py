@@ -8,10 +8,10 @@ from pydantic import BaseModel
 from magicalapi.types.base import ErrorResponse
 from magicalapi.types.schemas import HttpResponse
 from magicalapi.types.youtube_seo import YoutubeSeoResponse
-from .base import BaseService
+from .base_service import BaseService
 
 
-class YoutubeSeo(BaseService):
+class YoutubeSeoService(BaseService):
     service_path = "/youtube-seo"
 
     async def get_youtube_seo(self, url: str) -> YoutubeSeoResponse | ErrorResponse:

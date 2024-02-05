@@ -10,10 +10,10 @@ from magicalapi.types.base import ErrorResponse
 from magicalapi.types.company_data import CountriesResponse, LanguagesResponse
 from magicalapi.types.youtube_top_keywords import YoutubeTopKeywordsResponse
 from magicalapi.types.schemas import HttpResponse
-from .base import BaseService
+from .base_service import BaseService
 
 
-class YoutubeTopKeywords(BaseService):
+class YoutubeTopKeywordsService(BaseService):
     service_path = "/youtube-keywords"
 
     @overload

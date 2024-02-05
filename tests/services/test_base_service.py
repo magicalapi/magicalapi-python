@@ -4,7 +4,7 @@ import httpx
 import pytest
 import pytest_asyncio
 from magicalapi.errors import APIServerError, APIServerTimedout
-from magicalapi.services.base import BaseService
+from magicalapi.services.base_service import BaseService
 from magicalapi.types.base import ErrorResponse
 from magicalapi.types.schemas import HttpResponse
 from magicalapi.types.youtube_top_keywords import (
