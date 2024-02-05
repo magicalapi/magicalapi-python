@@ -30,10 +30,6 @@ class Resume:
         duration: str
         summary: str
 
-    class Project(BaseModelValidated, OptionalModel):
-        title: str
-        description: str
-
     class Education(BaseModelValidated, OptionalModel):
         school: str
         degree: str
@@ -56,7 +52,6 @@ class ResumeParser(BaseModelValidated):
     basic: Resume.Basic
     summary: Optional[str]
     work_experiences: list[Resume.Experience]
-    project_experiences: list[Resume.Project]
     educations: list[Resume.Education]
     certifications: list[Resume.Certification]
     languages: list[Resume.Language]
