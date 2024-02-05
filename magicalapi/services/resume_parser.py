@@ -1,5 +1,5 @@
 """
-this file stores the implementation of profile data Service.
+this file stores the implementation of resume parser Service.
 https://magicalapi.com/services/resume-parser
 
 """
@@ -16,11 +16,11 @@ class ResumeParser(BaseService):
     service_path = "/resume-parser"
 
     async def get_resume_parser(self, url: str) -> ResumeParserResponse | ErrorResponse:
-        """this method sends request to profile data service in magicalAPI.
+        """this method sends request to resume parser service in magicalAPI.
         https://magicalapi.com/services/resume-parser
 
         url (``str``):
-            the username of linkedin profile that you want to get it's data.
+            the url of pdf resume file that you want parse it.
 
         """
         request_body = {
