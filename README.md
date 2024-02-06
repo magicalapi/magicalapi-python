@@ -7,6 +7,7 @@ an example `.env` file content:
 ```env
 # Comments are ignored
 
+MAG_API_KEY = "mag_12345656787"
 MAG_REQUEST_TIMEOUT = 20
 ```  
 

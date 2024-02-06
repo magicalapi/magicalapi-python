@@ -17,6 +17,7 @@ class Settings(BaseSettings):
 
     """
 
+    api_key: Optional[str] = None
     base_url: HttpUrl = "https://gw.magicalapi.com"
     retry_201_delay: int = 2  # seconds
     request_timeout: int = 15  # seconds
