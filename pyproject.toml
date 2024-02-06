@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "a python client to access and work with MagicalAPI.com API services."
 authors = ["Amir Aref <amiraref808@gmail.com>"]
 readme = "README.md"
+license = "MIT"
 repository = "https://github.com/magical-api/python-library"
 homepage = "https://github.com/magical-api/python-library"
 classifiers = [
