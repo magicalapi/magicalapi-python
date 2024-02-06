@@ -17,24 +17,25 @@ jobs:
         python-version: ["3.10", "3.11", "3.12"]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
    # You can test your matrix by printing the current Python version
     - name: Display Python version
       run: python -c "import sys; print(sys.version)"
+
     # install dependencies using poetry (dev group)
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install poetry tox tox-gh-actions
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'poetry'
+
 
     # test with pytest
     - name: Test with tox
-      run: |
-        tox
+      run: tox
     # uploadtests result
     # - name: Upload pytest test results
     #   uses: actions/upload-artifact@v4
