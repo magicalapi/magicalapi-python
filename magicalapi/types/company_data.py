@@ -24,8 +24,8 @@ class Company(BaseModelValidated):
     logo_url: Optional[HttpUrl]
     employees: str
     followers: Optional[str]
-    about: str
-    # FIXME features
+    #
+    about: Optional[str]
     website: Optional[str]
     industry: Optional[str]
     size: Optional[str]
