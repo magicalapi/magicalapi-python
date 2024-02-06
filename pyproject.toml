@@ -7,13 +7,29 @@ readme = "README.md"
 repository = "https://github.com/magical-api/python-library"
 homepage = "https://github.com/magical-api/python-library"
 classifiers = [
+    "Development Status :: 4 - Beta",
+    "Typing :: Typed",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Internet",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Framework :: AsyncIO",
+    "Framework :: Pytest",
+    "Framework :: Pydantic",
+    "Framework :: Pydantic :: 2",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-    "Development Status :: 4 - Beta"
+    "Programming Language :: Python :: 3.12",
 
 ]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10"
 httpx = "^0.26.0"
 pydantic = "^2.5.3"
 pydantic-settings = "^2.1.0"
