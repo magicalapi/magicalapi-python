@@ -169,3 +169,23 @@ Resume Review
 ```python
 await client.resume_review.get_resume_review(url="https://example.com/resume.pdf")
 ```
+
+<!-- youtube suggestions -->
+<br>
+
+<h3>
+Youtube Suggestions 
+(
+<a href='https://magicalapi.com/services/youtube-suggestions' target="_blank">Service<a> , 
+<a href='./examples/youtube_suggestions.py' target="_blank">Example<a>
+)
+</h3>
+
+
+```python
+await client.youtube_suggestions.get_youtube_suggestions(
+    prompt_sentence="your prompt sentence to get suggestions based on it",
+    count=10,
+    suggestion_goal="hashtag",
+)
+```
