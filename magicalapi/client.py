@@ -21,14 +21,22 @@ class AsyncClient(AbstractAsyncContextManager):  # type: ignore
     The MagicalAPI client module to work and connect to the api.
     """
 
-    def __init__(self, api_key: str) -> None:
+    def __init__(self, api_key: str | None = None) -> None:
         """initializing MagicalAPI client.
 
 
         api_key(``str``):
             your Magical API account's `api_key` that you can get it from https://panel.magicalapi.com/
 
+            if passed empty, `api_key` will read from the .env file.
+
         """
+
+        # get api_key from .env or from arguments
+        # prefer reading api_key from arguments
+        if api_key is None:
+            # load from .env
+            api_key = settings.api_key
 
         if type(api_key) != str:
             raise TypeError(
