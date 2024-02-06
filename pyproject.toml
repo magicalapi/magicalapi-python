@@ -33,6 +33,7 @@ python = ">=3.10"
 httpx = "^0.26.0"
 pydantic = "^2.5.3"
 pydantic-settings = "^2.1.0"
+tox = "^4.12.1"
 
 
 [tool.poetry.group.dev.dependencies]
