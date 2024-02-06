@@ -1,4 +1,9 @@
-# MagicalAPI Library
+# MagicalAPI Python Client
+this is a Python client that provides easy access to MagicalAPI.com services, fully typed annotated, and asynchronous.  
+
+![Tests](https://github.com/magical-api/python-library/actions/workflows/tests.yml/badge.svg)
+
+
 
 ## Configuration
 the library's configurations are stored in `magicalapi/settings.py`, and they can be overridden by environment variables or a `.env` file if exists in the root directory of the project.  
