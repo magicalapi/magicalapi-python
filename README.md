@@ -4,11 +4,11 @@
 the library's configurations are stored in `magicalapi/settings.py`, and they can be overridden by environment variables or a `.env` file if exists in the root directory of the project.  
 the environment variables should start with the `MAG_` prefix, and they are case insensitive, so `MAG_EXAMPLE`, `Mag_example`, and `mag_EXAMPLE` are equal.  
 an example `.env` file content:
-```env
+```bash
 # Comments are ignored
 
-MAG_API_KEY = "mag_12345656787"
-MAG_REQUEST_TIMEOUT = 20
+MAG_API_KEY="mag_12345656787"
+MAG_REQUEST_TIMEOUT=20
 ```  
 
 <br>
