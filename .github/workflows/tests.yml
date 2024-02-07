@@ -1,11 +1,10 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 name: tests
 
 on:
-  - push
-  - pull_request
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
   test:
@@ -15,33 +14,42 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         python-version: ["3.10", "3.11", "3.12"]
+      fail-fast: false
 
     steps:
-   # You can test your matrix by printing the current Python version
-    - name: Display Python version
-      run: python -c "import sys; print(sys.version)"
+    - name: Check out
+      uses: actions/checkout@v3
 
-    # install dependencies using poetry (dev group)
-    - uses: actions/checkout@v4
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install poetry tox tox-gh-actions
-    - uses: actions/setup-python@v5
+
+    - name: Set Up python
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'poetry'
 
 
-    # test with pytest
+    - name: Install poetry
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+
+
+    - name: Load cached venv
+      uses: actions/cache@v3
+      with:
+        path: .tox
+        key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
+
+
+    - name: Install tox
+      run: |
+        pip install tox tox-gh-actions
+
+
     - name: Test with tox
       run: tox
-    # uploadtests result
-    # - name: Upload pytest test results
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: pytest-results-${{ matrix.python-version }}
-    #     path: junit/test-results-${{ matrix.python-version }}.xml
-    #   # Use always() to always run this step to publish test results when there are test failures
-    #   # if: ${{ always() }}
+
+
+    - name: Upload coverage reports to Codecov with GitHub Action on Python 3.11
+      uses: codecov/codecov-action@v3
+      if: ${{ matrix.python-version == '3.11' }}
 
