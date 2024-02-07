@@ -5,7 +5,6 @@ https://magicalapi.com/services/resume-parser
 
 from __future__ import annotations
 from typing import Optional
-from pydantic import HttpUrl
 from .base import OptionalModel, BaseResponse, BaseModelValidated
 
 
@@ -16,9 +15,9 @@ class Resume:
         email: str
         phone_number: str
         location: str
-        portfolio_website_url: HttpUrl
-        linkedin_url: HttpUrl
-        github_url: HttpUrl
+        portfolio_website_url: str
+        linkedin_url: str
+        github_url: str
         university: str
         graduation_year: str
         majors: str
