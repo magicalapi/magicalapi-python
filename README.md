@@ -1,56 +1,166 @@
-# MagicalAPI Python Client
-this is a Python client that provides easy access to MagicalAPI.com services, fully typed annotated, and asynchronous.  
+<a name="readme-top"></a>
 
-![Tests](https://github.com/magical-api/python-library/actions/workflows/tests.yml/badge.svg)
+<!-- PROJECT SHIELDS -->
+
+![Tests][tests-shield]
+![PyPI - Version][pypi-version-shields]
+![PyPI - Python Version][pypi-python-versions-shields]
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+<!-- PROJECT LOGO -->
+
+<br />
+<div align="center">
+  <a href="https://github.com/magical-api/python-library">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+<h3 align="center">MagicalAPI Python Client</h3>
+
+  <p align="center">
+    An Async and Type Annotated Python Client to Easy Access <a href="https://magicalapi.com">MagicalAPI.com</a> Service.
+    <br />
+    <!-- <a href="https://github.com/magical-api/python-library"><strong>Explore the docs »</strong></a> -->
+    <!-- <br /> -->
+    <!-- <br /> -->
+    <a href="https://github.com/magical-api/python-library">View Demo</a>
+    ·
+    <a href="https://github.com/magical-api/python-library/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/magical-api/python-library/issues">Request Feature</a>
+  </p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#waht-is-magicalapi">What is MagicalAPI</a>
+    </li>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <!-- <li><a href="#prerequisites">Prerequisites</a></li> -->
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <!-- <li><a href="#acknowledgments">Acknowledgments</a></li> -->
+  </ol>
+</details>
 
 
+<!-- ABOUT THE MAGICALAPI -->
 
-## Configuration
-the library's configurations are stored in `magicalapi/settings.py`, and they can be overridden by environment variables or a `.env` file if exists in the root directory of the project.  
-the environment variables should start with the `MAG_` prefix, and they are case insensitive, so `MAG_EXAMPLE`, `Mag_example`, and `mag_EXAMPLE` are equal.  
-an example `.env` file content:
-```bash
-# Comments are ignored
+## What is [MagicalAPI][website-url]?
 
-MAG_API_KEY="mag_12345656787"
-MAG_REQUEST_TIMEOUT=20
-```  
+MagicalAPI is an innovative platform that leverages the power of **artificial intelligence** to offer a range of services designed to enhance online **content creation**, **digital marketing**, and **business operations**. It specializes in tools for **YouTube SEO**, including **keyword and tag generation**, title and description optimization, and offers unique features like **resume parsing** and **profile data analysis** for platforms like **LinkedIn**. Whether you're looking to boost your online presence, gain insights into market trends, or streamline your content strategy, MagicalAPI provides **AI-driven** solutions tailored to meet these needs, making it an invaluable tool for businesses and individuals navigating the digital landscape.
 
 <br>
 
-## Examples
+<!-- ABOUT THE PROJECT -->
 
-here are some examples of how to send a request and get a response for each service.
+## About The Project
 
-full usage examples are in [examples](./examples) directory.
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-the complete usage exists on the first example and in others just contains  details about usage of specific service, because the base implementation is same in all services.
+this is a Python client that provides easy access to the [MagicalAPI.com][website-url] services, fully type annotated, and asynchonous.
 
-<!--youtube top keywords-->
+<!-- `magical-api`, `python-library`, `MagicalAPI`, `MagicalAPI Python Client` -->
 
-<h3
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Youtube Top Keywords 
-(
-<a href='https://magicalapi.com/services/youtube-keywords' target="_blank">Service<a> , 
-<a href='./examples/youtube_top_keywords.py' target="_blank">Example<a>
-)
+### Built With
 
-</h3>
+[![Pydantic][Pydantic.badge]](https://pydantic.dev/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+This is an example of how you install the client and use it in your own scripts and projects.
+
+### Installation
+
+Install package using `pip`
+
+```bash
+pip install magicalapi
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- USAGE EXAMPLES -->
+
+## Usage
+
+here are some samples of how to use the client for each service. at first you have to create an object of `AsyncClient` like that :
+
+```python
+from magicalapi.client import AsyncClient
+
+API_KEY = "mag_123456"
+client = AsyncClinet(api_key=API_KEY)
+```
+
+you can pass the `API_KEY` on the code, or put it on a `.env` file and client will read from there.
+
+### Config `.env` File
+
+example of using `.env` file, all of settings starts with prefix `MAG_` and they are case insensitive, so `MAG_EXAMPLE`, `Mag_example`, and `mag_EXAMPLE` are equal.   
+
+```bash
+# .env
+
+MAG_API_KEY="mag_1234567"
+```
+
+so now you can leave `api_key` parameter empty.
+
+```python
+from magicalapi.client import AsyncClient
+
+client = AsyncClinet()
+```
+
+<br>
+
+here is an example of how to get keywords of [Youtube Top Keywords](https://magicalapi.com/services/youtube-keywords) service :
 
 ```python
 import asyncio
 from magicalapi.client import AsyncClient
 from magicalapi.types.base import ErrorResponse
 
-API_KEY = "mag_1234567890"
+search_sentence = "chatgpt 4 turbo" # your search sentence to get keywords related to
+country = "1" # use get_countries method to see countries codes (Default = 1 : WorlWide)
+language = "1000" # use get_languages method to see countries codes (Default = 1000 : English)
+
 
 async def main():
-    async with AsyncClient(api_key=API_KEY) as client:
+    async with AsyncClient() as client:
+        # get youtube keywords
         keywords_response = await client.youtube_top_keywords.get_keywords(
-            search_sentence="github copilot",
-            country="1",
-            language="1000",
+            search_sentence=search_sentence,
+            country=country,
+            language=language,
         )
         if type(keywords_response) == ErrorResponse:
             # got error from api
@@ -60,137 +170,74 @@ async def main():
             print("credists :", keywords_response.usage.credits)
             print("keywords count :", len(keywords_response.data.keywords))
 
+            # save response in json file
             with open("keywords_response.json", "w") as file:
                 file.write(keywords_response.model_dump_json(indent=3))
+
+
+        # get languages list
+        # languages = await client.youtube_top_keywords.get_languages()
+        # get countries list
+        # countries = await client.youtube_top_keywords.get_countries()
 
 
 asyncio.run(main())
 ```
 
-<!--profile data-->
-<br>
+All of the methods in the client have **type hints** and help to simply use.
 
-<h3>
+_For full examples, please see the [Examples Directory](./examples/)_
 
-Profile Data 
-(
-<a href='https://magicalapi.com/services/profile-data' target="_blank">Service<a> , 
-<a href='./examples/profile_data.py' target="_blank">Example<a>
-)
-<a>
-</h3>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-```python
-await client.profile_data.get_profile_data(profile_name="profile_name")
-```
+<!-- CONTRIBUTING -->
 
+<!-- ## Contributing
 
-<!--company data-->
-<br>
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-<h3>
-Company Data 
-(
-<a href='https://magicalapi.com/services/company-data' target="_blank">Service<a> , 
-<a href='./examples/company_data.py' target="_blank">Example<a>
-)
-<a>
-</h3>
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
 
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-```python
-await client.company_data.get_company_data(company_name="company_name")
-```
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
-<!--youtub seo-->
-<br>
+<!-- LICENSE -->
 
-<h3>
-Youtube SEO 
-(
-<!--a href='https://magicalapi.com/services/youtube-seo' target="_blank">Service<a> , -->
-<a href='./examples/youtube_seo.py' target="_blank">Example<a>
-)
+## License
 
-<a>
-</h3>
+Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
 
 
-```python
-await client.youtube_seo.get_youtube_seo(url="https://youtube.com/?v=example")
-```
+[contributors-shield]: https://img.shields.io/github/contributors/magical-api/python-library.svg?style=for-the-badge
+[contributors-url]: https://github.com/magical-api/python-library/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/magical-api/python-library.svg?style=for-the-badge
+[forks-url]: https://github.com/magical-api/python-library/network/members
+[stars-shield]: https://img.shields.io/github/stars/magical-api/python-library.svg?style=for-the-badge
+[stars-url]: https://github.com/magical-api/python-library/stargazers
+[issues-shield]: https://img.shields.io/github/issues/magical-api/python-library.svg?style=for-the-badge
+[issues-url]: https://github.com/magical-api/python-library/issues
+[license-shield]: https://img.shields.io/github/license/magical-api/python-library.svg?style=for-the-badge
+[license-url]: https://github.com/magical-api/python-library/blob/master/LICENSE
 
-<!--resume parser-->
-<br>
+<!-- [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555 -->
 
-<h3>
+<!-- [linkedin-url]: https://linkedin.com/company/MagicalAPI -->
 
-Resume Parser 
-(
-<a href='https://magicalapi.com/services/resume-parser' target="_blank">Service<a> , 
-<a href='./examples/resume_parser.py' target="_blank">Example<a>
-)
-<a>
-</h3>
+<!-- [product-screenshot]: images/screenshot.png -->
 
-
-```python
-await client.resume_parser.get_resume_parser(url="https://example.com/resume.pdf")
-```
-
-<!--resume score-->
-<br>
-
-<h3>
-Resume Score 
-(
-<a href='https://magicalapi.com/services/resume-score' target="_blank">Service<a> , 
-<a href='./examples/resume_score.py' target="_blank">Example<a>
-)
-
-<a>
-</h3>
-
-
-```python
-await client.resume_score.get_resume_score(
-    url="https://example.com/resume.pdf",
-    job_description="an example job description"
-)
-```
-
-<!--resume review-->
-<br>
-
-<h3>
-Resume Review 
-(
-<!--a href='https://magicalapi.com/services/resume-review' target="_blank">Service<a> , -->
-<a href='./examples/resume_review.py' target="_blank">Example<a>
-)
-</h3>
-
-
-```python
-await client.resume_review.get_resume_review(url="https://example.com/resume.pdf")
-```
-
-<!-- youtube suggestions -->
-<br>
-
-<h3>
-Youtube Suggestions 
-(
-<a href='https://magicalapi.com/services/youtube-suggestions' target="_blank">Service<a> , 
-<a href='./examples/youtube_suggestions.py' target="_blank">Example<a>
-)
-</h3>
-
-
-```python
-await client.youtube_suggestions.get_youtube_suggestions(
-    prompt_sentence="your prompt sentence to get suggestions based on it",
-    count=10,
-    suggestion_goal="hashtag",
-)
-```
+[Pydantic.badge]: https://img.shields.io/badge/pydantic-black?style=for-the-badge&logo=pydantic&logoColor=red
+[Httpx.badge]: https://img.shields.io/badge/Httpx-gray?style=for-the-badge
+[tests-shield]: https://github.com/magical-api/python-library/actions/workflows/tests.yml/badge.svg
+[pypi-version-shields]: https://img.shields.io/pypi/v/magicalapi
+[pypi-python-versions-shields]: https://img.shields.io/pypi/pyversions/magicalapi
+[website-url]: https://magicalapi.com
