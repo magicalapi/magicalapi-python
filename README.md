@@ -69,7 +69,7 @@
 
 ## What is [MagicalAPI][website-url]?
 
-MagicalAPI is an innovative platform that leverages the power of **artificial intelligence** to offer a range of services designed to enhance online **content creation**, **digital marketing**, and **business operations**. It specializes in tools for **YouTube SEO**, including **keyword and tag generation**, title and description optimization, and offers unique features like **resume parsing** and **profile data analysis** for platforms like **LinkedIn**. Whether you're looking to boost your online presence, gain insights into market trends, or streamline your content strategy, MagicalAPI provides **AI-driven** solutions tailored to meet these needs, making it an invaluable tool for businesses and individuals navigating the digital landscape.
+MagicalAPI is your AI edge in **content** and **careers**, Your ultimate tool for **YouTube SEO**, **Resume Parsing**, **LinkedIn data** and more.
 
 <br>
 
@@ -79,7 +79,7 @@ MagicalAPI is an innovative platform that leverages the power of **artificial in
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-this is a Python client that provides easy access to the [MagicalAPI.com][website-url] services, fully type annotated, and asynchonous.
+This is a Python client that provides easy access to the [MagicalAPI.com][website-url] services, fully type annotated, and asynchronous.
 
 <!-- `magical-api`, `python-library`, `MagicalAPI`, `MagicalAPI Python Client` -->
 
@@ -95,7 +95,7 @@ this is a Python client that provides easy access to the [MagicalAPI.com][websit
 
 ## Getting Started
 
-This is an example of how you install the client and use it in your own scripts and projects.
+This is an example of how you can install the client and use it in your own scripts and projects.
 
 ### Installation
 
@@ -111,7 +111,8 @@ pip install magicalapi
 
 ## Usage
 
-here are some samples of how to use the client for each service. at first you have to create an object of `AsyncClient` like that :
+here are some samples of how to use the client for each service. 
+At first, you have to create an object of `AsyncClient` like this:
 
 ```python
 from magicalapi.client import AsyncClient
@@ -120,11 +121,11 @@ API_KEY = "mag_123456"
 client = AsyncClinet(api_key=API_KEY)
 ```
 
-you can pass the `API_KEY` on the code, or put it on a `.env` file and client will read from there.
+You can pass the `API_KEY` on the code, or put it on a `.env` file and the client will read from there.
 
 ### Config `.env` File
 
-example of using `.env` file, all of settings starts with prefix `MAG_` and they are case insensitive, so `MAG_EXAMPLE`, `Mag_example`, and `mag_EXAMPLE` are equal.   
+Example of using `.env` file, all settings start with the prefix `MAG_` and are case insensitive, so `MAG_EXAMPLE`, `Mag_example`, and `mag_EXAMPLE` are equal.   
 
 ```bash
 # .env
@@ -132,7 +133,7 @@ example of using `.env` file, all of settings starts with prefix `MAG_` and they
 MAG_API_KEY="mag_1234567"
 ```
 
-so now you can leave `api_key` parameter empty.
+So now you can leave `api_key` parameter empty.
 
 ```python
 from magicalapi.client import AsyncClient
@@ -142,7 +143,7 @@ client = AsyncClinet()
 
 <br>
 
-here is an example of how to get keywords of [Youtube Top Keywords](https://magicalapi.com/services/youtube-keywords) service :
+Here is an example of how to get keywords of [Youtube Top Keywords](https://magicalapi.com/services/youtube-keywords) service:
 
 ```python
 import asyncio
@@ -156,21 +157,21 @@ language = "1000" # use get_languages method to see countries codes (Default = 1
 
 async def main():
     async with AsyncClient() as client:
-        # get youtube keywords
+        # Get YouTube keywords
         keywords_response = await client.youtube_top_keywords.get_keywords(
             search_sentence=search_sentence,
             country=country,
             language=language,
         )
         if type(keywords_response) == ErrorResponse:
-            # got error from api
+            # got error from API
             print("Error :", keywords_response.message)
         else:
             # got response successfully
-            print("credists :", keywords_response.usage.credits)
+            print("credits :", keywords_response.usage.credits)
             print("keywords count :", len(keywords_response.data.keywords))
 
-            # save response in json file
+            # save response in JSON file
             with open("keywords_response.json", "w") as file:
                 file.write(keywords_response.model_dump_json(indent=3))
 
@@ -194,7 +195,7 @@ _For full examples, please see the [Examples Directory](./examples/)_
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what makes the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 Here is the [Contributing Guidelines](./CONTRIBUTING.rst).
 Don't forget to give the project a star! Thanks again!
