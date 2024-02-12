@@ -101,7 +101,8 @@ def youtube_seo_data():  # type: ignore
                         "viewCount": str(randint(1, 1000000)),
                         "likeCount": str(randint(1, 1000000)),
                         "favoriteCount": str(randint(1, 1000000)),
-                        "commentCount": str(randint(1, 1000000)),
+                        # "commentCount": str(randint(1, 1000000)),
+                        "commentCount": None,  # test no comment count
                     },
                 }
             ],

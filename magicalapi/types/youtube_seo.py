@@ -68,7 +68,7 @@ class YoutubeAPI:
         viewCount: int
         likeCount: int
         favoriteCount: int
-        commentCount: int
+        commentCount: Optional[int]
 
     class VideoItem(BaseModel):
         kind: str
