@@ -1,17 +1,19 @@
 import asyncio
 from magicalapi.client import AsyncClient
+from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse
-import json
 
-API_KEY = "mag_123456789"
 company_name = "google"
-output_file = f"company_data_{company_name}.json"
+output_file_name = f"company_data_{company_name}.json"
 
 
 async def main():
     try:
-        async with AsyncClient(api_key=API_KEY) as client:
-            response = await client.company_data.get_company_data(company_name=company_name)
+        # the api_key will load from the .env file
+        async with AsyncClient() as client:
+            response = await client.company_data.get_company_data(
+                company_name=company_name
+            )
 
             if isinstance(response, ErrorResponse):
                 # got error from api
@@ -21,9 +23,13 @@ async def main():
                 print("Credits:", response.usage.credits)
                 print(response.data)
                 # save response in json file
-                with open(output_file, "w") as file:
-                    json.dump(response.data, file, indent=3)
+                with open(output_file_name, "w") as file:
+                    file.write(response.model_dump_json(indent=3))
+                print(f"response saved to {output_file_name}")
 
+    except (APIServerError, APIServerTimedout) as e:
+        # handling server errors
+        print(e)
     except Exception as e:
         print("An error occurred:", str(e))
 

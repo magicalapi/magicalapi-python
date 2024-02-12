@@ -156,6 +156,7 @@ language = "1000" # use get_languages method to see countries codes (Default = 1
 
 
 async def main():
+    # the api_key will load from the .env file
     async with AsyncClient() as client:
         # Get YouTube keywords
         keywords_response = await client.youtube_top_keywords.get_keywords(

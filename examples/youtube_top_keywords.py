@@ -1,40 +1,50 @@
 import asyncio
 from magicalapi.client import AsyncClient
+from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse
 
-API_KEY = "mag_1234567890"
 search_sentence = "github copilot"
 country = "1"
 language = "1000"
+output_file_name = f"youtube_top_keywords_{search_sentence}.json"
 
 
 async def main():
-    async with AsyncClient(api_key=API_KEY) as client:
-        # get languages and countries list
-        # languages = await client.youtube_top_keywords.get_languages()
-        # countries = await client.youtube_top_keywords.get_countries()
-        # print("Languauges :")
-        # print(languages)
-        # print("Countries : ")
-        # print(countries)
+    try:
+        # the api_key will load from the .env file
+        async with AsyncClient() as client:
+            # get languages and countries list
+            # languages = await client.youtube_top_keywords.get_languages()
+            # countries = await client.youtube_top_keywords.get_countries()
+            # print("Languauges :")
+            # print(languages)
+            # print("Countries : ")
+            # print(countries)
 
-        # get youtube keywords
-        keywords_response = await client.youtube_top_keywords.get_keywords(
-            search_sentence=search_sentence,
-            country=country,
-            language=language,
-        )
-        if type(keywords_response) == ErrorResponse:
-            # got error from api
-            print("Error :", keywords_response.message)
-        else:
-            # got response successfully
-            print("credists :", keywords_response.usage.credits)
-            print("keywords count :", len(keywords_response.data.keywords))
+            # get youtube keywords
+            response = await client.youtube_top_keywords.get_keywords(
+                search_sentence=search_sentence,
+                country=country,
+                language=language,
+            )
+            if isinstance(response, ErrorResponse):
+                # got error from api
+                print("Error :", response.message)
+            else:
+                # got response successfully
+                print("credists :", response.usage.credits)
+                print("keywords count :", len(response.data.keywords))
 
-            # save response in json file
-            with open("keywords_response.json", "w") as file:
-                file.write(keywords_response.model_dump_json(indent=3))
+                # save response in json file
+                with open(output_file_name, "w") as file:
+                    file.write(response.model_dump_json(indent=3))
+
+                print(f"response saved to {output_file_name}")
+    except (APIServerError, APIServerTimedout) as e:
+        # handling server errors
+        print(e)
+    except Exception as e:
+        print("An error occurred:", str(e))
 
 
 asyncio.run(main())
