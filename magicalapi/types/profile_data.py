@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Any, List, Optional
 from pydantic import BaseModel, HttpUrl, field_validator
-from .base import BaseResponse, BaseModelValidated
+from .base import BaseResponse, BaseModelValidated, OptionalModel
 
 
 class StartEndDate(BaseModelValidated):
@@ -73,30 +73,30 @@ class Certification(BaseModelValidated):
 
 class Language(BaseModelValidated):
     name: str
-    description: str
+    description: Optional[str]
 
 
 class Volunteering(BaseModelValidated):
     role: str
-    organization: str
+    organization: Optional[str]
     volunteering_link: Optional[HttpUrl]
     date: Optional[StartEndDurationDate]
     cause: Optional[str]
-    description: str
+    description: Optional[str]
 
 
 class Publication(BaseModelValidated):
-    title: str
-    publisher: str
+    title: Optional[str]
+    publisher: Optional[str]
     publication_link: Optional[HttpUrl]
-    publication_date: str
-    description: str
+    publication_date: Optional[str]
+    description: Optional[str]
 
 
 class Project(BaseModelValidated):
     name: str
     date: Optional[StartEndDate]
-    description: str
+    description: Optional[str]
 
 
 class Course(BaseModelValidated):
@@ -108,7 +108,7 @@ class HonorAndAward(BaseModelValidated):
     title: str
     issuer: str
     issued_date: Optional[date]
-    description: str
+    description: Optional[str]
 
     @field_validator("issued_date", mode="before")
     @classmethod
@@ -127,10 +127,10 @@ class Profile(BaseModelValidated):
     profile: str
     crawled_at: datetime
     name: str
-    description: str
-    location: str
-    followers: str
-    connections: str
+    description: Optional[str]
+    location: Optional[str]
+    followers: Optional[str]
+    connections: Optional[str]
     experience: List[Experience]
     education: List[Education]
     certifications: List[Certification]

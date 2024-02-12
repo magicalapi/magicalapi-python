@@ -22,7 +22,7 @@ def profile_dataprofile_data():
         "profile": _username,
         "crawled_at": fake.date_time_this_year().strftime("%d/%m/%Y %H:%M:%S"),
         "name": fake.name(),
-        "description": fake.text(),
+        "description": "",  # empty text
         "location": "{}, {}".format(*fake.location_on_land()[2:4]),
         "followers": f"{randint(1,500)} followers",
         "connections": f"{randint(1,500)} connections",
@@ -104,6 +104,11 @@ def profile_dataprofile_data():
                 "name": choice(("English", "Spanish", "Kurdish", "Arabic")),
                 "description": fake.text(),
             },
+            # empty data
+            {
+                "name": choice(("English", "Spanish", "Kurdish", "Arabic")),
+                "description": "",
+            },
         ],
         "volunteerings": [
             {
@@ -117,7 +122,16 @@ def profile_dataprofile_data():
                 },
                 "cause": fake.text(max_nb_chars=25),
                 "description": fake.text(),
-            }
+            },
+            # empty date
+            {
+                "role": "Volunteer/Member",
+                "organization": fake.company(),
+                "volunteering_link": fake.uri(),
+                "date": "",
+                "cause": fake.text(max_nb_chars=25),
+                "description": "",
+            },
         ],
         "publications": [
             {
@@ -126,7 +140,15 @@ def profile_dataprofile_data():
                 "publication_link": fake.uri(),
                 "publication_date": _start_date.strftime("%b %Y"),
                 "description": fake.text(),
-            }
+            },
+            # empty date
+            {
+                "title": fake.name(),
+                "publisher": fake.company(),
+                "publication_link": fake.uri(),
+                "publication_date": "",
+                "description": "",
+            },
         ],
         "projects": [
             {
@@ -136,10 +158,18 @@ def profile_dataprofile_data():
                     "end_date": _end_date.strftime("%b %Y"),
                 },
                 "description": fake.text(),
-            }
+            },
+            # empty date
+            {
+                "name": fake.name(),
+                "date": "",
+                "description": "",
+            },
         ],
         "courses": [
             {"name": fake.text(max_nb_chars=25), "number": str(randint(1, 20))},
+            # empty
+            {"name": fake.text(max_nb_chars=25), "number": ""},
         ],
         "honors_and_awards": [
             {
@@ -153,7 +183,7 @@ def profile_dataprofile_data():
                 "title": fake.name(),
                 "issuer": fake.company(),
                 "issued_date": "",
-                "description": fake.text(),
+                "description": "",
             },
         ],
     }
