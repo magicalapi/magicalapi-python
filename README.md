@@ -118,7 +118,7 @@ At first, you have to create an object of `AsyncClient` like this:
 from magicalapi.client import AsyncClient
 
 API_KEY = "mag_123456"
-client = AsyncClinet(api_key=API_KEY)
+client = AsyncClient(api_key=API_KEY)
 ```
 
 You can pass the `API_KEY` on the code, or put it on a `.env` file and the client will read from there.
