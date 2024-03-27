@@ -1,9 +1,11 @@
 from datetime import date
 from random import choice, randint
+from typing import Any
+
 import pytest
 from faker import Faker
 from pydantic import ValidationError
-from typing import Any
+
 from magicalapi.types.profile_data import (
     Profile,
     ProfileDataResponse,

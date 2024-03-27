@@ -1,14 +1,15 @@
 import os
+from uuid import uuid4
+
 import pytest
-from magicalapi.settings import Settings, settings
+
 import magicalapi.client
 from magicalapi.client import AsyncClient
-from uuid import uuid4
+from magicalapi.settings import Settings, settings
 
 
 @pytest.fixture(scope="session", autouse=True)
 def api_key_env_var():
-
     # override environment variables
     _fake_api_key = str(uuid4())
     os.environ["MAG_API_KEY"] = _fake_api_key

@@ -1,4 +1,5 @@
 import asyncio
+
 from magicalapi.client import AsyncClient
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse

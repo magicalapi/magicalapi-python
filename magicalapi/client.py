@@ -1,17 +1,19 @@
+from contextlib import AbstractAsyncContextManager
+
+import httpx
+
 from magicalapi.services import (
     CompanyDataService,
     ProfileDataService,
-    YoutubeTopKeywordsService,
-    YoutubeSeoService,
     ResumeParserService,
     ResumeScoreService,
+    YoutubeSeoService,
     YoutubeSuggestionsService,
+    YoutubeTopKeywordsService,
 )
 from magicalapi.services.resume_review_service import ResumeReviewService
 from magicalapi.settings import settings
 from magicalapi.utils.logger import get_logger
-import httpx
-from contextlib import AbstractAsyncContextManager
 
 logger = get_logger("client")
 
@@ -38,7 +40,7 @@ class AsyncClient(AbstractAsyncContextManager):  # type: ignore
             # load from .env
             api_key = settings.api_key
 
-        if type(api_key) != str:
+        if not isinstance(api_key, str):
             raise TypeError(
                 f'api_key field type must be string, not a "{api_key.__class__.__name__}"'
             )
@@ -53,7 +55,7 @@ class AsyncClient(AbstractAsyncContextManager):  # type: ignore
             base_url=str(settings.base_url),
             timeout=settings.request_timeout,
         )
-        logger.debug(f"httpx client created")
+        logger.debug("httpx client created")
 
         # create service
         self.youtube_top_keywords = YoutubeTopKeywordsService(

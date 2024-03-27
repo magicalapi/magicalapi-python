@@ -1,9 +1,10 @@
 from datetime import date
 from random import randint
+from typing import Any
+
 import pytest
 from faker import Faker
 from pydantic import ValidationError
-from typing import Any
 
 from magicalapi.types.company_data import Company, CompanyDataResponse
 

@@ -1,12 +1,14 @@
 """
-types schem of youtube seo service 
+types schem of youtube seo service
 
 """
 
 from __future__ import annotations
+
 from pydantic import BaseModel
-from magicalapi.types.resume_parser import ResumeParser
+
 from magicalapi.types.base import BaseModelValidated, BaseResponse, OptionalModel
+from magicalapi.types.resume_parser import ResumeParser
 
 
 class ReviewItems(BaseModelValidated, OptionalModel):

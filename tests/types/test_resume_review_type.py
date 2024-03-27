@@ -1,7 +1,9 @@
-import pytest
-from typing import Any
 from random import randint
+from typing import Any
+
+import pytest
 from pydantic import ValidationError
+
 from magicalapi.types.resume_review import ResumeReviewResponse
 
 

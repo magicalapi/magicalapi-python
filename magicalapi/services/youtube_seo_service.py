@@ -3,11 +3,12 @@ this file stores the implementation of youtube seo Service.
 
 """
 
-from typing import Type
 from pydantic import BaseModel
+
 from magicalapi.types.base import ErrorResponse
 from magicalapi.types.schemas import HttpResponse
 from magicalapi.types.youtube_seo import YoutubeSeoResponse
+
 from .base_service import BaseService
 
 
@@ -30,6 +31,6 @@ class YoutubeSeoService(BaseService):
         )
 
     def validate_response(
-        self, response: HttpResponse, validate_model: Type[BaseModel]
+        self, response: HttpResponse, validate_model: type[BaseModel]
     ) -> YoutubeSeoResponse | ErrorResponse:
         return super().validate_response(response, validate_model)

@@ -1,4 +1,6 @@
-from typing import Any, Optional
+from types import NoneType
+from typing import Any
+
 from pydantic import BaseModel, field_validator
 
 
@@ -20,7 +22,7 @@ class OptionalModel(BaseModel):
     def __pydantic_init_subclass__(cls, **kwargs: Any) -> None:
         super().__pydantic_init_subclass__(**kwargs)
         for field in cls.model_fields.values():
-            field.annotation = Optional[field.annotation]
+            field.annotation = field.annotation | NoneType
             field.default = None
 
         cls.model_rebuild(force=True)

@@ -1,12 +1,13 @@
 from datetime import date, datetime
-from typing import Any, List, Optional
+
 from pydantic import BaseModel, HttpUrl, field_validator
-from .base import BaseResponse, BaseModelValidated, OptionalModel
+
+from .base import BaseModelValidated, BaseResponse
 
 
 class StartEndDate(BaseModelValidated):
     start_date: date
-    end_date: Optional[date]
+    end_date: date | None
 
     # validating the dates in format %b %Y ,Example : Jan 2024
     @field_validator("start_date", "end_date", mode="before")
@@ -33,35 +34,35 @@ class Duration(BaseModel):
 
 
 class StartEndDurationDate(StartEndDate):
-    duration: Optional[Duration]
+    duration: Duration | None
 
 
 class Experience(BaseModelValidated):
-    image_url: Optional[HttpUrl]
+    image_url: HttpUrl | None
     title: str
     company_name: str
-    company_link: Optional[HttpUrl]
-    date: Optional[StartEndDurationDate]
-    location: Optional[str]
-    description: Optional[str]
+    company_link: HttpUrl | None
+    date: StartEndDurationDate | None
+    location: str | None
+    description: str | None
 
 
 class Education(BaseModelValidated):
-    image_url: Optional[HttpUrl]
+    image_url: HttpUrl | None
     university_name: str
-    university_link: Optional[HttpUrl]
+    university_link: HttpUrl | None
     degree: str
     major: str
-    date: Optional[StartEndDateEducation]
+    date: StartEndDateEducation | None
 
 
 class Certification(BaseModelValidated):
-    image_url: Optional[HttpUrl]
+    image_url: HttpUrl | None
     title: str
-    course_link: Optional[HttpUrl]
+    course_link: HttpUrl | None
     issuer: str
-    credential: Optional[str]
-    issued_date: Optional[date]
+    credential: str | None
+    issued_date: date | None
 
     @field_validator("issued_date", mode="before")
     @classmethod
@@ -73,42 +74,42 @@ class Certification(BaseModelValidated):
 
 class Language(BaseModelValidated):
     name: str
-    description: Optional[str]
+    description: str | None
 
 
 class Volunteering(BaseModelValidated):
     role: str
-    organization: Optional[str]
-    volunteering_link: Optional[HttpUrl]
-    date: Optional[StartEndDurationDate]
-    cause: Optional[str]
-    description: Optional[str]
+    organization: str | None
+    volunteering_link: HttpUrl | None
+    date: StartEndDurationDate | None
+    cause: str | None
+    description: str | None
 
 
 class Publication(BaseModelValidated):
-    title: Optional[str]
-    publisher: Optional[str]
-    publication_link: Optional[HttpUrl]
-    publication_date: Optional[str]
-    description: Optional[str]
+    title: str | None
+    publisher: str | None
+    publication_link: HttpUrl | None
+    publication_date: str | None
+    description: str | None
 
 
 class Project(BaseModelValidated):
     name: str
-    date: Optional[StartEndDate]
-    description: Optional[str]
+    date: StartEndDate | None
+    description: str | None
 
 
 class Course(BaseModelValidated):
     name: str
-    number: Optional[str]
+    number: str | None
 
 
 class HonorAndAward(BaseModelValidated):
     title: str
     issuer: str
-    issued_date: Optional[date]
-    description: Optional[str]
+    issued_date: date | None
+    description: str | None
 
     @field_validator("issued_date", mode="before")
     @classmethod
@@ -127,19 +128,19 @@ class Profile(BaseModelValidated):
     profile: str
     crawled_at: datetime
     name: str
-    description: Optional[str]
-    location: Optional[str]
-    followers: Optional[str]
-    connections: Optional[str]
-    experience: List[Experience]
-    education: List[Education]
-    certifications: List[Certification]
-    languages: List[Language]
-    volunteerings: List[Volunteering]
-    publications: List[Publication]
-    projects: List[Project]
-    courses: List[Course]
-    honors_and_awards: List[HonorAndAward]
+    description: str | None
+    location: str | None
+    followers: str | None
+    connections: str | None
+    experience: list[Experience]
+    education: list[Education]
+    certifications: list[Certification]
+    languages: list[Language]
+    volunteerings: list[Volunteering]
+    publications: list[Publication]
+    projects: list[Project]
+    courses: list[Course]
+    honors_and_awards: list[HonorAndAward]
 
     @field_validator("crawled_at", mode="before")
     @classmethod

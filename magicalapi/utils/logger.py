@@ -3,16 +3,15 @@ logging handling module to create custom and particular loggers.
 
 """
 
-
 import logging
-from typing import Optional
+
 from magicalapi.settings import settings
 
 logging.basicConfig(format=settings.logging_format, style="{")
 
 
 def get_logger(
-    name: Optional[str] = None, log_level: Optional[str] = settings.log_level
+    name: str | None = None, log_level: str | None = settings.log_level
 ) -> logging.Logger:
     """
     get a logger object.
@@ -29,7 +28,7 @@ def get_logger(
     """
 
     # create logger
-    _logger_name = f"MagicalAPI"
+    _logger_name = "MagicalAPI"
     if name:
         _logger_name += f".{name}"
 

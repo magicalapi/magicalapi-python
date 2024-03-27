@@ -1,11 +1,11 @@
 """
-types schem of resume parser service 
+types schem of resume parser service
 https://magicalapi.com/services/resume-parser
 """
 
 from __future__ import annotations
-from typing import Optional
-from .base import OptionalModel, BaseResponse, BaseModelValidated
+
+from .base import BaseModelValidated, BaseResponse, OptionalModel
 
 
 class Resume:
@@ -49,7 +49,7 @@ class Resume:
 
 class ResumeParser(BaseModelValidated):
     basic: Resume.Basic
-    summary: Optional[str]
+    summary: str | None
     work_experiences: list[Resume.Experience]
     educations: list[Resume.Education]
     certifications: list[Resume.Certification]

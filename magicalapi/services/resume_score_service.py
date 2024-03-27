@@ -4,11 +4,12 @@ https://magicalapi.com/services/resume-score
 
 """
 
-from typing import Type
 from pydantic import BaseModel
+
 from magicalapi.types.base import ErrorResponse
-from magicalapi.types.schemas import HttpResponse
 from magicalapi.types.resume_score import ResumeScoreResponse
+from magicalapi.types.schemas import HttpResponse
+
 from .base_service import BaseService
 
 
@@ -39,6 +40,6 @@ class ResumeScoreService(BaseService):
         )
 
     def validate_response(
-        self, response: HttpResponse, validate_model: Type[BaseModel]
+        self, response: HttpResponse, validate_model: type[BaseModel]
     ) -> ResumeScoreResponse | ErrorResponse:
         return super().validate_response(response, validate_model)

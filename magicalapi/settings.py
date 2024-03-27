@@ -1,4 +1,5 @@
-from typing import Literal, Optional
+from typing import Literal
+
 from pydantic import HttpUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -17,7 +18,7 @@ class Settings(BaseSettings):
 
     """
 
-    api_key: Optional[str] = None
+    api_key: str | None = None
     base_url: HttpUrl = "https://gw.magicalapi.com"
     retry_201_delay: int = 2  # seconds
     request_timeout: int = 15  # seconds

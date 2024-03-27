@@ -4,11 +4,12 @@ https://magicalapi.com/services/company-data
 
 """
 
-from typing import Type
 from pydantic import BaseModel
+
 from magicalapi.types.base import ErrorResponse
-from magicalapi.types.schemas import HttpResponse
 from magicalapi.types.company_data import CompanyDataResponse
+from magicalapi.types.schemas import HttpResponse
+
 from .base_service import BaseService
 
 
@@ -34,6 +35,6 @@ class CompanyDataService(BaseService):
         )
 
     def validate_response(
-        self, response: HttpResponse, validate_model: Type[BaseModel]
+        self, response: HttpResponse, validate_model: type[BaseModel]
     ) -> CompanyDataResponse | ErrorResponse:
         return super().validate_response(response, validate_model)

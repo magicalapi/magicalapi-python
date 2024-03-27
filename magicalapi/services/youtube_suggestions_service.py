@@ -4,11 +4,14 @@ https://magicalapi.com/services/youtube-suggestions
 
 """
 
-from typing import Literal, Type
+from typing import Literal
+
 from pydantic import BaseModel
+
 from magicalapi.types.base import ErrorResponse
 from magicalapi.types.schemas import HttpResponse
 from magicalapi.types.youtube_suggestions import YoutubeSuggestionsResponse
+
 from .base_service import BaseService
 
 
@@ -45,6 +48,6 @@ class YoutubeSuggestionsService(BaseService):
         )
 
     def validate_response(
-        self, response: HttpResponse, validate_model: Type[BaseModel]
+        self, response: HttpResponse, validate_model: type[BaseModel]
     ) -> YoutubeSuggestionsResponse | ErrorResponse:
         return super().validate_response(response, validate_model)

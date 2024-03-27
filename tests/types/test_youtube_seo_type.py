@@ -1,8 +1,10 @@
-from uuid import uuid4
-from faker import Faker
-import pytest
 from random import choice, randint
+from uuid import uuid4
+
+import pytest
+from faker import Faker
 from pydantic import ValidationError
+
 from magicalapi.types.youtube_seo import YoutubeSeoResponse
 
 Faker.seed()

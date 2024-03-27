@@ -1,6 +1,7 @@
 from random import randint
-from pydantic import ValidationError
+
 import pytest
+from pydantic import ValidationError
 
 from magicalapi.types.youtube_top_keywords import (
     KeywordIdea,

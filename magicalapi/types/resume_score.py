@@ -1,10 +1,11 @@
 """
-types schem of resume score service 
+types schem of resume score service
 https://magicalapi.com/services/resume-score
 """
 
 from __future__ import annotations
-from .base import BaseResponse, BaseModelValidated
+
+from .base import BaseModelValidated, BaseResponse
 
 
 class ResumeScore(BaseModelValidated):

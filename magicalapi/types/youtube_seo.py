@@ -1,12 +1,15 @@
 """
-types schem of youtube seo service 
+types schem of youtube seo service
 
 """
 
 from __future__ import annotations
+
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Literal
+
 from pydantic import BaseModel, HttpUrl
+
 from magicalapi.types.base import BaseResponse
 
 
@@ -25,8 +28,8 @@ class YoutubeAPI:
         default: YoutubeAPI.Thumbnail
         medium: YoutubeAPI.Thumbnail
         high: YoutubeAPI.Thumbnail
-        standard: Optional[YoutubeAPI.Thumbnail] = None
-        maxres: Optional[YoutubeAPI.Thumbnail] = None
+        standard: YoutubeAPI.Thumbnail | None = None
+        maxres: YoutubeAPI.Thumbnail | None = None
 
     class Localized(BaseModel):
         title: str
@@ -41,9 +44,9 @@ class YoutubeAPI:
         channelTitle: str
         categoryId: str
         liveBroadcastContent: str
-        defaultLanguage: Optional[str] = None
+        defaultLanguage: str | None = None
         localized: YoutubeAPI.Localized
-        defaultAudioLanguage: Optional[str] = None
+        defaultAudioLanguage: str | None = None
         tags: list[str]
 
     class contentDetails(BaseModel):
@@ -68,7 +71,7 @@ class YoutubeAPI:
         viewCount: int
         likeCount: int
         favoriteCount: int
-        commentCount: Optional[int]
+        commentCount: int | None
 
     class VideoItem(BaseModel):
         kind: str
@@ -88,12 +91,12 @@ class YoutubeAPI:
 
 
 class SeoItems(BaseModel):
-    title: Optional[list[str]] = None
-    description: Optional[list[str]] = None
-    video_quality: Optional[list[str]] = None
-    thumbnail: Optional[list[str]] = None
-    tags: Optional[list[str]] = None
-    hashtags: Optional[list[str]] = None
+    title: list[str] | None = None
+    description: list[str] | None = None
+    video_quality: list[str] | None = None
+    thumbnail: list[str] | None = None
+    tags: list[str] | None = None
+    hashtags: list[str] | None = None
 
 
 class YoutubeSeo(BaseModel):

@@ -1,6 +1,7 @@
-from faker import Faker
-import pytest
 from random import randint
+
+import pytest
+from faker import Faker
 
 from magicalapi.types.youtube_suggestions import YoutubeSuggestionsResponse
 

@@ -1,7 +1,8 @@
 import random
+from random import choice, randint
+
 import pytest
 from faker import Faker
-from random import choice, randint
 
 Faker.seed()
 

@@ -1,8 +1,10 @@
-from faker import Faker
-import pytest
-from typing import Any
 from random import randint
+from typing import Any
+
+import pytest
+from faker import Faker
 from pydantic import ValidationError
+
 from magicalapi.types.resume_score import ResumeScoreResponse
 
 Faker.seed()

@@ -1,6 +1,6 @@
 from .base import ErrorResponse
-from .youtube_top_keywords import YoutubeTopKeywordsResponse, KeywordIdea
-from .profile_data import ProfileDataResponse, Profile
+from .profile_data import Profile, ProfileDataResponse
+from .youtube_top_keywords import KeywordIdea, YoutubeTopKeywordsResponse
 
 __all__ = [
     "ErrorResponse",

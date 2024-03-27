@@ -4,12 +4,15 @@ https://magicalapi.com/services/youtube-keywords
 
 """
 
-from typing import Type, overload
+from typing import overload
+
 from pydantic import BaseModel
+
 from magicalapi.types.base import ErrorResponse
 from magicalapi.types.company_data import CountriesResponse, LanguagesResponse
-from magicalapi.types.youtube_top_keywords import YoutubeTopKeywordsResponse
 from magicalapi.types.schemas import HttpResponse
+from magicalapi.types.youtube_top_keywords import YoutubeTopKeywordsResponse
+
 from .base_service import BaseService
 
 
@@ -20,7 +23,7 @@ class YoutubeTopKeywordsService(BaseService):
     def validate_response(
         self,
         response: HttpResponse,
-        validate_model: Type[YoutubeTopKeywordsResponse],
+        validate_model: type[YoutubeTopKeywordsResponse],
     ) -> YoutubeTopKeywordsResponse | ErrorResponse:
         pass
 
@@ -28,7 +31,7 @@ class YoutubeTopKeywordsService(BaseService):
     def validate_response(
         self,
         response: HttpResponse,
-        validate_model: Type[CountriesResponse],
+        validate_model: type[CountriesResponse],
     ) -> CountriesResponse | ErrorResponse:
         pass
 
@@ -36,13 +39,13 @@ class YoutubeTopKeywordsService(BaseService):
     def validate_response(
         self,
         response: HttpResponse,
-        validate_model: Type[LanguagesResponse],
+        validate_model: type[LanguagesResponse],
     ) -> LanguagesResponse | ErrorResponse:
         pass
 
     @overload
     def validate_response(
-        self, response: HttpResponse, validate_model: Type[BaseModel]
+        self, response: HttpResponse, validate_model: type[BaseModel]
     ) -> (
         YoutubeTopKeywordsResponse
         | LanguagesResponse
@@ -52,7 +55,7 @@ class YoutubeTopKeywordsService(BaseService):
         pass
 
     def validate_response(
-        self, response: HttpResponse, validate_model: Type[BaseModel]
+        self, response: HttpResponse, validate_model: type[BaseModel]
     ) -> (
         YoutubeTopKeywordsResponse
         | LanguagesResponse

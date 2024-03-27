@@ -6,13 +6,15 @@ sending requests and validating the responses.
 
 import asyncio
 import json
+from typing import Any
+
 import httpx
 from pydantic import BaseModel
-from typing import Any, Type
-from magicalapi.settings import settings
-from magicalapi.errors import APIServerError, APIServerTimedout
-from magicalapi.types.base import ErrorResponse
+
 from magicalapi.abstractions.base_service import BaseServiceAbc
+from magicalapi.errors import APIServerError, APIServerTimedout
+from magicalapi.settings import settings
+from magicalapi.types.base import ErrorResponse
 from magicalapi.types.schemas import HttpResponse, PendingResponse
 from magicalapi.utils.logger import get_logger
 
@@ -42,7 +44,7 @@ class BaseService(BaseServiceAbc):
             _credits = 0
             while httpx_response.status_code == 201:
                 # send request with request_id
-                logger.debug(f"hadnling response with status code 201.")
+                logger.debug("hadnling response with status code 201.")
                 pend_response = PendingResponse.model_validate(httpx_response.json())
                 # add creadits
                 _credits += pend_response.usage.credits
@@ -98,13 +100,13 @@ class BaseService(BaseServiceAbc):
             )
 
     def validate_response(
-        self, response: HttpResponse, validate_model: Type[BaseModel]
+        self, response: HttpResponse, validate_model: type[BaseModel]
     ):
         """
         this method validate the response from API and returns the correct model basesd on response type.
         """
         # check response successed
-        logger.debug(f"validating response.")
+        logger.debug("validating response.")
         logger.debug(f"response : {response}")
         if response.status_code == 200:
             return validate_model.model_validate_json(response.text)
@@ -112,12 +114,12 @@ class BaseService(BaseServiceAbc):
         # handle user error response
         try:
             # error response
-            logger.debug(f"response returned an error response.")
+            logger.debug("response returned an error response.")
             _response_data = json.loads(response.text)
             return ErrorResponse.model_validate(_response_data)
 
-        except:
-            logger.error(f"response got an unexpected error !", exc_info=True)
+        except Exception:
+            logger.error("response got an unexpected error !", exc_info=True)
             # raise exception
             raise APIServerError(
                 "getting response from API server got error, please try again later!"

@@ -1,8 +1,8 @@
 import asyncio
+
 from magicalapi.client import AsyncClient
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse
-
 
 prompt_sentence = "how get more views in youtube ?"
 count = 10

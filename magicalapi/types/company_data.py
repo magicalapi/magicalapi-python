@@ -1,13 +1,14 @@
 from datetime import datetime
-from typing import List, Optional
+
 from pydantic import BaseModel, HttpUrl, field_validator
-from .base import BaseResponse, BaseModelValidated
+
+from .base import BaseModelValidated, BaseResponse
 
 
 class Product(BaseModelValidated):
     name: str
-    link: Optional[HttpUrl]
-    type: Optional[str]
+    link: HttpUrl | None
+    type: str | None
 
 
 class Company(BaseModelValidated):
@@ -19,23 +20,23 @@ class Company(BaseModelValidated):
     company_name: str
     crawled_at: datetime
     name: str
-    tagline: Optional[str]
+    tagline: str | None
     cover_image_url: HttpUrl
-    logo_url: Optional[HttpUrl]
+    logo_url: HttpUrl | None
     employees: str
-    followers: Optional[str]
+    followers: str | None
     #
-    about: Optional[str]
-    website: Optional[str]
-    industry: Optional[str]
-    size: Optional[str]
-    headquarters: Optional[str]
-    organizationType: Optional[str]
-    foundedOn: Optional[str]
-    specialties: Optional[str]
+    about: str | None
+    website: str | None
+    industry: str | None
+    size: str | None
+    headquarters: str | None
+    organizationType: str | None
+    foundedOn: str | None
+    specialties: str | None
     #
-    locations: List[List[str]]
-    products: List[Product]
+    locations: list[list[str]]
+    products: list[Product]
 
     @field_validator("crawled_at", mode="before")
     @classmethod
