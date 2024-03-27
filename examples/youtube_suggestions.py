@@ -4,8 +4,8 @@ from magicalapi.client import AsyncClient
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse
 
-prompt_sentence = "how get more views in youtube ?"
-count = 10
+prompt_sentence = "How to create a profitable Shopify store"
+count = 5
 suggestion_goal = "hashtag"
 output_file_name = "youtube_suggestions.json"
 

@@ -4,7 +4,9 @@ from magicalapi.client import AsyncClient
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse
 
-resume_url = "https://example.com/resume.pdf"
+resume_url = (
+    "https://resume-resource.com/wp-content/uploads/00123-sales-professional-resume.pdf"
+)
 output_file_name = "resume_parser.json"
 
 

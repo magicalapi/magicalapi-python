@@ -4,7 +4,7 @@ from magicalapi.client import AsyncClient
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse
 
-video_url = "https://www.youtube.com/watch?v=example"
+video_url = "https://www.youtube.com/watch?v=PZZI1QXlM80"
 output_file_name = "youtube_seo.json"
 
 
