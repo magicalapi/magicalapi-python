@@ -17,7 +17,7 @@ from .base_service import BaseService
 
 
 class YoutubeTopKeywordsService(BaseService):
-    service_path = "/youtube-keywords"
+    service_path = "youtube-keywords"
 
     @overload
     def validate_response(

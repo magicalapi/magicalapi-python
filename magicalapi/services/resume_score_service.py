@@ -14,7 +14,7 @@ from .base_service import BaseService
 
 
 class ResumeScoreService(BaseService):
-    service_path = "/resume-score"
+    service_path = "resume-score"
 
     async def get_resume_score(
         self, url: str, job_description: str

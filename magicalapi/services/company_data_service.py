@@ -14,7 +14,7 @@ from .base_service import BaseService
 
 
 class CompanyDataService(BaseService):
-    service_path = "/company-data"
+    service_path = "company-data"
 
     async def get_company_data(
         self, company_name: str

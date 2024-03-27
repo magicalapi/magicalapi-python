@@ -14,7 +14,7 @@ from .base_service import BaseService
 
 
 class ResumeParserService(BaseService):
-    service_path = "/resume-parser"
+    service_path = "resume-parser"
 
     async def get_resume_parser(self, url: str) -> ResumeParserResponse | ErrorResponse:
         """this method sends request to resume parser service in magicalAPI.

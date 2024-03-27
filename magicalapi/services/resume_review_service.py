@@ -14,7 +14,7 @@ from .base_service import BaseService
 
 
 class ResumeReviewService(BaseService):
-    service_path = "/resume-review"
+    service_path = "resume-review"
 
     async def get_resume_review(self, url: str) -> ResumeReviewResponse | ErrorResponse:
         """this method sends request to resume review service in magicalAPI.

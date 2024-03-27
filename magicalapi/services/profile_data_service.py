@@ -12,9 +12,11 @@ from magicalapi.types.schemas import HttpResponse
 
 from .base_service import BaseService
 
+API_VERSION = 0
+
 
 class ProfileDataService(BaseService):
-    service_path = "/profile-data"
+    service_path = "profile-data"
 
     async def get_profile_data(
         self, profile_name: str
@@ -29,7 +31,12 @@ class ProfileDataService(BaseService):
         request_body = {
             "profile_name": profile_name,
         }
-        response = await self._send_post_request(self.service_path, data=request_body)
+        request_headers = {
+            "version": str(API_VERSION),
+        }
+        response = await self._send_post_request(
+            self.service_path, data=request_body, headers=request_headers
+        )
         return self.validate_response(
             response=response, validate_model=ProfileDataResponse
         )

@@ -25,7 +25,9 @@ class BaseService(BaseServiceAbc):
     def __init__(self, httpx_client: httpx.AsyncClient) -> None:
         self._httpx_client = httpx_client
 
-    async def _send_post_request(self, path: str, data: dict[str, Any]) -> HttpResponse:
+    async def _send_post_request(
+        self, path: str, data: dict[str, Any], headers: dict[str, str] = {}
+    ) -> HttpResponse:
         """
         send a post request to the API server with given `path` and `data`
         """
@@ -34,6 +36,7 @@ class BaseService(BaseServiceAbc):
                 f"sending POST request : {self._httpx_client.base_url.join(path)}"
             )
             httpx_response = await self._httpx_client.post(
+                headers=headers,
                 url=path,
                 content=json.dumps(data),
             )

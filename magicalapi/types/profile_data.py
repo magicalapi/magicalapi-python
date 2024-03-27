@@ -2,18 +2,18 @@ from datetime import date, datetime
 
 from pydantic import BaseModel, HttpUrl, field_validator
 
-from .base import BaseModelValidated, BaseResponse
+from .base import BaseModelValidated, BaseResponse, OptionalModel
 
 
 class StartEndDate(BaseModelValidated):
-    start_date: date
+    start_date: date | None
     end_date: date | None
 
     # validating the dates in format %b %Y ,Example : Jan 2024
     @field_validator("start_date", "end_date", mode="before")
     @classmethod
     def date_validator(cls, value: str) -> date | None:
-        if value == "":
+        if not value:
             return None
         return datetime.strptime(value, "%b %Y").date()
 
@@ -23,23 +23,18 @@ class StartEndDateEducation(StartEndDate):
     @field_validator("start_date", "end_date", mode="before")
     @classmethod
     def date_validator(cls, value: str) -> date | None:
-        if value == "":
+        if not value:
             return None
         return datetime.strptime(value, "%Y").date()
 
 
-class Duration(BaseModel):
-    years: int = 0
-    months: int
-
-
 class StartEndDurationDate(StartEndDate):
-    duration: Duration | None
+    duration: str | None
 
 
-class Experience(BaseModelValidated):
+class Experience(OptionalModel):
     image_url: HttpUrl | None
-    title: str
+    title: str | None
     company_name: str
     company_link: HttpUrl | None
     date: StartEndDurationDate | None
@@ -67,7 +62,7 @@ class Certification(BaseModelValidated):
     @field_validator("issued_date", mode="before")
     @classmethod
     def date_validator(cls, value: str) -> date | None:
-        if value == "":
+        if not value:
             return None
         return datetime.strptime(value, "%b %Y").date()
 
@@ -114,7 +109,7 @@ class HonorAndAward(BaseModelValidated):
     @field_validator("issued_date", mode="before")
     @classmethod
     def date_validator(cls, value: str) -> date | None:
-        if value == "":
+        if not value:
             return None
         return datetime.strptime(value, "%b %Y").date()
 

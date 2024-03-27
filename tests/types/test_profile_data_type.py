@@ -37,7 +37,7 @@ def profile_dataprofile_data():
                 "date": {
                     "start_date": _start_date.strftime("%b %Y"),
                     "end_date": _end_date.strftime("%b %Y"),
-                    "duration": {"years": randint(0, 10), "months": randint(1, 12)},
+                    "duration": f"{randint(0, 10)} years {randint(1, 12)} months",
                 },
                 "location": "{}, {}".format(*fake.location_on_land()[2:4]),
                 "description": fake.text(),
@@ -51,7 +51,7 @@ def profile_dataprofile_data():
                 "date": {
                     "start_date": _start_date.strftime("%b %Y"),
                     "end_date": "",
-                    "duration": {"years": randint(0, 10), "months": randint(1, 12)},
+                    "duration": f"{randint(0, 10)} years {randint(1, 12)} months",
                 },
                 "location": "",  # test convert empty string to None
                 "description": fake.text(),
@@ -120,7 +120,7 @@ def profile_dataprofile_data():
                 "date": {
                     "start_date": _start_date.strftime("%b %Y"),
                     "end_date": _end_date.strftime("%b %Y"),
-                    "duration": {"years": randint(0, 10), "months": randint(1, 12)},
+                    "duration": f"{randint(0, 10)} years {randint(1, 12)} months",
                 },
                 "cause": fake.text(max_nb_chars=25),
                 "description": fake.text(),

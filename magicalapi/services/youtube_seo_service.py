@@ -13,7 +13,7 @@ from .base_service import BaseService
 
 
 class YoutubeSeoService(BaseService):
-    service_path = "/youtube-seo"
+    service_path = "youtube-seo"
 
     async def get_youtube_seo(self, url: str) -> YoutubeSeoResponse | ErrorResponse:
         """this method sends request to youtube seo service in magicalAPI.

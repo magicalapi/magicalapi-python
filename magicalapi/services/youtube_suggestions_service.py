@@ -16,7 +16,7 @@ from .base_service import BaseService
 
 
 class YoutubeSuggestionsService(BaseService):
-    service_path = "/youtube-suggestions"
+    service_path = "youtube-suggestions"
 
     async def get_youtube_suggestions(
         self,
