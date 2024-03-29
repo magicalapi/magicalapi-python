@@ -90,19 +90,30 @@ class YoutubeAPI:
         pageInfo: YoutubeAPI.PageInfo
 
 
+class SeoItem(BaseModel):
+    good: list[str] = []
+    bad: list[str] = []
+
+
 class SeoItems(BaseModel):
-    title: list[str] | None = None
-    description: list[str] | None = None
-    video_quality: list[str] | None = None
-    thumbnail: list[str] | None = None
-    tags: list[str] | None = None
-    hashtags: list[str] | None = None
+    title: SeoItem
+    description: SeoItem
+    tags: SeoItem
+    video_quality: SeoItem
+    comments: SeoItem
+
+
+class LongVideoSeoItems(SeoItems):
+    thumbnail: SeoItem
+
+
+class ShortVideoSeoItems(SeoItems):
+    pass
 
 
 class YoutubeSeo(BaseModel):
     score: int
-    good: SeoItems
-    bad: SeoItems
+    result: LongVideoSeoItems | ShortVideoSeoItems
     details: YoutubeAPI.VideoDetails
 
 

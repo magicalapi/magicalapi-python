@@ -17,30 +17,33 @@ def youtube_seo_data():  # type: ignore
     _video_id = str(uuid4())
     youtube_seo = {  # type: ignore
         "score": 41,
-        "good": {
-            "video_quality": [
-                "The video is of the highest quality, ensuring a better viewer experience."
-            ],
-            "thumbnail": [
-                "The thumbnail image is of superb quality, attracting more views."
-            ],
-        },
-        "bad": {
-            "title": [
-                "Title not repeated in video caption.\n<b>Tip:</b> Repeat the video title in the caption for reinforcement and better search indexing.\n"
-            ],
-            "description": [
-                "Caption length outside 4000-5000 characters.\n<b>Tip:</b> Keep the caption between 4000 to 5000 characters to provide detailed context and keywords.\n",
-                "Absence of suggested video links.\n<b>Tip:</b> Include links to other relevant videos to increase viewership and channel retention.\n",
-                "Missing timestamps.\n<b>Tip:</b> Add timestamps for key segments to enhance viewer experience and retention.\n",
-            ],
-            "tags": [
-                "Tags length outside 450-500 characters.\n<b>Tip:</b> Ensure your video tags are between 450 to 500 characters to maximize keyword coverage.\n"
-            ],
-            "hashtags": [
-                "No hashtags in caption.\n<b>Tip:</b> Use relevant hashtags to improve discover ability in searches and on social platforms.\n",
-                "Incorrect number of hashtags.\n<b>Tip:</b> Utilize 3 to 5 hashtags to balance discover ability without appearing spammy.\n",
-            ],
+        "result": {
+            "title": {
+                "good": [],
+                "bad": [fake.text()],
+            },
+            "description": {
+                "good": [],
+                "bad": [fake.text(), fake.text(), fake.text()],
+            },
+            "tags": {
+                "good": [],
+                "bad": [fake.text()],
+            },
+            "comments": {
+                "good": [],
+                "bad": [fake.text()],
+            },
+            "video_quality": {
+                "good": [
+                    fake.text(),
+                ],
+                "bad": [],
+            },
+            "thumbnail": {
+                "good": [fake.text()],
+                "bad": [],
+            },
         },
         "details": {
             "kind": "youtube#videoListResponse",
