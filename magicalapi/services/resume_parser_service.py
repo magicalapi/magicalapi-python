@@ -12,6 +12,8 @@ from magicalapi.types.schemas import HttpResponse
 
 from .base_service import BaseService
 
+API_VERSION = 0
+
 
 class ResumeParserService(BaseService):
     service_path = "resume-parser"
@@ -27,7 +29,12 @@ class ResumeParserService(BaseService):
         request_body = {
             "url": url,
         }
-        response = await self._send_post_request(self.service_path, data=request_body)
+        request_headers = {
+            "version": str(API_VERSION),
+        }
+        response = await self._send_post_request(
+            self.service_path, data=request_body, headers=request_headers
+        )
         return self.validate_response(
             response=response, validate_model=ResumeParserResponse
         )

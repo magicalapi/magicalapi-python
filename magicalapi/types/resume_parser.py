@@ -3,11 +3,14 @@ types schem of resume parser service
 https://magicalapi.com/services/resume-parser
 """
 
-from __future__ import annotations
+# from __future__ import annotations
+
+from dataclasses import dataclass
 
 from .base import BaseModelValidated, BaseResponse, OptionalModel
 
 
+@dataclass
 class Resume:
     class Basic(BaseModelValidated, OptionalModel):
         first_name: str
