@@ -95,7 +95,9 @@ class BaseService(BaseServiceAbc):
                 f"sending GET request : {self._httpx_client.base_url.join(path)}"
             )
             httpx_response = await self._httpx_client.get(url=path)
-            return HttpResponse.model_validate(obj=httpx_response, from_attributes=True)
+            return HttpResponse(
+                text=httpx_response.text, status_code=httpx_response.status_code
+            )
         except httpx.TimeoutException:
             logger.warning("GET request timedout.", exc_info=True)
             raise APIServerTimedout(
@@ -122,7 +124,7 @@ class BaseService(BaseServiceAbc):
             return ErrorResponse.model_validate(_response_data)
 
         except Exception:
-            logger.error("response got an unexpected error !", exc_info=True)
+            logger.error(f"response got an unexpected error : {response}")
             # raise exception
             raise APIServerError(
                 "getting response from API server got error, please try again later!"
