@@ -31,28 +31,31 @@ def resume_review_data(resume_data):  # type: ignore
     # create a sample resume review result
     resume_review = {  # type: ignore
         "score": 41,
-        "good": {
-            "experiences": [
-                "Job titles in the experience section are clearly defined.",
-                "Company names in experiences are mentioned, adding credibility.",
-                "Job durations are clearly specified, outlining stability and experience.",
-            ],
-            "skills": ["Skills are listed, highlighting competencies and strengths."],
-            "format": [
-                "Resume file size is within the required limit for easy sharing.",
-                "Resume is concisely formatted to one page, focusing on relevancy.",
-            ],
-        },
-        "bad": {
-            "contact": [
-                "No LinkedIn profile linked.\n<b>Tip:</b> Provide a LinkedIn URL to showcase a broader professional network and background.\n"
-            ],
-            "educations": [
-                "Field of study missing in education.\n<b>Tip:</b> Indicate your major or field of study to outline your academic focus.\n"
-            ],
-            "summary": [
-                "No personal summary or objective.\n<b>Tip:</b> Write a brief professional summary or objective to give an overview of your career goals and aspirations.\n"
-            ],
+        "result": {
+            "experiences": {
+                "good": [
+                    fake.text(),
+                    fake.text(),
+                ],
+            },
+            "skills": {
+                "good": [fake.text()],
+            },
+            "format": {
+                "good": [
+                    fake.text(),
+                    fake.text(),
+                ],
+            },
+            "contact": {
+                "bad": [fake.text()],
+            },
+            "educations": {
+                "bad": [fake.text()],
+            },
+            "summary": {
+                "bad": [fake.text()],
+            },
         },
         "details": resume_data,
     }

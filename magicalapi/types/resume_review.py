@@ -49,19 +49,23 @@ class UpdatedParser(ResumeParser):
     educations: list[Resume.Education]
 
 
+class ReviewItem(BaseModelValidated):
+    good: list[str] = []
+    bad: list[str] = []
+
+
 class ReviewItems(BaseModelValidated, OptionalModel):
-    experiences: list[str]
-    skills: list[str]
-    format: list[str]
-    contact: list[str]
-    educations: list[str]
-    summary: list[str]
+    experiences: ReviewItem
+    skills: ReviewItem
+    format: ReviewItem
+    contact: ReviewItem
+    educations: ReviewItem
+    summary: ReviewItem
 
 
 class ResumeReview(BaseModel):
     score: int
-    good: ReviewItems
-    bad: ReviewItems
+    result: ReviewItems
     details: UpdatedParser
 
 
