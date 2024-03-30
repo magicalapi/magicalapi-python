@@ -9,7 +9,7 @@ import json
 from typing import Any
 
 import httpx
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 
 from magicalapi.abstractions.base_service import BaseServiceAbc
 from magicalapi.errors import APIServerError, APIServerTimedout
@@ -114,7 +114,15 @@ class BaseService(BaseServiceAbc):
         logger.debug("validating response.")
         logger.debug(f"response : {response}")
         if response.status_code == 200:
-            return validate_model.model_validate_json(response.text)
+            try:
+                # valdiate model
+                return validate_model.model_validate_json(response.text)
+            except ValidationError:
+                logger.exception(
+                    f"parsing response JSON data for model {validate_model.__name__} failed!"
+                )
+                # raise exception
+                raise APIServerError("parsing response JSON data failed!")
 
         # handle user error response
         try:
