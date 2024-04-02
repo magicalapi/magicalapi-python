@@ -34,4 +34,5 @@ class BaseResponse(BaseModelValidated):
 
 
 class ErrorResponse(BaseResponse):
+    status_code: int
     message: str
