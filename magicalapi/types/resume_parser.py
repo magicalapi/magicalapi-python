@@ -10,6 +10,15 @@ from dataclasses import dataclass
 from .base import BaseModelValidated, BaseResponse, OptionalModel
 
 
+class Duration(BaseModelValidated):
+    years: int | None = None
+    months: int | None = None
+
+
+class YearDate(BaseModelValidated):
+    year: int | str | None = None
+
+
 @dataclass
 class Resume:
     class Basic(BaseModelValidated, OptionalModel):
@@ -25,19 +34,23 @@ class Resume:
         graduation_year: str
         majors: str
 
+    class ProjectExperience(BaseModelValidated, OptionalModel):
+        title: str | None
+        description: str | None
+
     class Experience(BaseModelValidated, OptionalModel):
         title: str
         company: str
         location: str
-        duration: str
+        duration: Duration | None = None
         summary: str
 
     class Education(BaseModelValidated, OptionalModel):
         school: str
         degree: str
         field: str
-        start: str
-        end: str
+        start: YearDate | None = None
+        end: YearDate | None = None
 
     class Certification(BaseModelValidated, OptionalModel):
         title: str
@@ -53,6 +66,7 @@ class Resume:
 class ResumeParser(BaseModelValidated):
     basic: Resume.Basic
     summary: str | None
+    project_experiences: list[Resume.ProjectExperience]
     work_experiences: list[Resume.Experience]
     educations: list[Resume.Education]
     certifications: list[Resume.Certification]

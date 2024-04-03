@@ -12,7 +12,7 @@ from magicalapi.types.schemas import HttpResponse
 
 from .base_service import BaseService
 
-API_VERSION = 0
+API_VERSION = 1
 
 
 class ResumeParserService(BaseService):
