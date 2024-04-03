@@ -11,23 +11,7 @@ from magicalapi.types.resume_review import ResumeReviewResponse
 @pytest.fixture(scope="function")
 def resume_review_data(resume_data):  # type: ignore
     fake = Faker(locale="en")
-    # change reume_data for new version of parser data
-    resume_data["project_experiences"] = [
-        {"title": fake.text(), "description": fake.text()}
-    ]
-    for exp in resume_data["work_experiences"]:
-        exp["duration"] = {
-            "years": 1,
-            "months": 0,
-        }
 
-    for edu in resume_data["educations"]:
-        edu["start"] = {
-            "year": randint(1990, 2024),
-        }
-        edu["end"] = {
-            "year": "present",
-        }
     # create a sample resume review result
     resume_review = {  # type: ignore
         "score": 41,

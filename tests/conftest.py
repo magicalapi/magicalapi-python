@@ -1,3 +1,4 @@
+import datetime
 import random
 from random import choice, randint
 
@@ -68,14 +69,16 @@ def resume_data():
             "majors": fake.text(max_nb_chars=50),
         },
         "summary": fake.text(),
+        "project_experiences": [{"title": fake.text(), "description": fake.text()}],
         "work_experiences": [
             {
                 "title": fake.text(max_nb_chars=100),
                 "company": fake.company(),
                 "location": f"{_location[2]}, {_location[3]}",
-                "duration": fake.date_object().strftime("%m/%Y")
-                + " - "
-                + fake.date_object().strftime("%m/%Y"),
+                "duration": {
+                    "years": randint(0, 10),
+                    "months": randint(0, 12),
+                },
                 "summary": fake.text(),
             },
         ],
@@ -84,8 +87,17 @@ def resume_data():
                 "school": fake.company(),
                 "degree": fake.text(max_nb_chars=20),
                 "field": fake.text(max_nb_chars=40),
-                "start": fake.date_object().strftime("%m/%Y"),
-                "end": "present",
+                "start": {
+                    "year": randint(1990, datetime.date.today().year),
+                },
+                "end": {
+                    "year": choice(
+                        (
+                            "present",
+                            randint(1990, datetime.date.today().year),
+                        )
+                    ),
+                },
             },
         ],
         "certifications": [
