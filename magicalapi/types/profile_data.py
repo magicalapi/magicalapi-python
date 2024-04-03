@@ -28,11 +28,16 @@ class StartEndDateEducation(StartEndDate):
         return datetime.strptime(value, "%Y").date()
 
 
+class Duration(BaseModel):
+    years: int = 0
+    months: int
+
+
 class StartEndDurationDate(StartEndDate):
-    duration: str | None
+    duration: Duration | None
 
 
-class Experience(OptionalModel):
+class Experience(BaseModelValidated, OptionalModel):
     image_url: HttpUrl | None
     title: str | None
     company_name: str
