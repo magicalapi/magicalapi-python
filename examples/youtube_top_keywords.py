@@ -4,7 +4,7 @@ from magicalapi.client import AsyncClient
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse
 
-search_sentence = "github copilot"
+search_sentence = "movie trailers"
 country = "1"
 language = "1000"
 output_file_name = f"youtube_top_keywords_{search_sentence}.json"
