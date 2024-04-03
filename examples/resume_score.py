@@ -7,7 +7,7 @@ from magicalapi.types.base import ErrorResponse
 resume_url = (
     "https://resume-resource.com/wp-content/uploads/00123-sales-professional-resume.pdf"
 )
-job_description = "a description about job"
+job_description = "Sales Professional"
 output_file_name = "resume_score.json"
 
 
