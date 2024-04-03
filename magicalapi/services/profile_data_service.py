@@ -12,7 +12,7 @@ from magicalapi.types.schemas import HttpResponse
 
 from .base_service import BaseService
 
-API_VERSION = 0
+API_VERSION = 1
 
 
 class ProfileDataService(BaseService):
@@ -44,4 +44,4 @@ class ProfileDataService(BaseService):
     def validate_response(
         self, response: HttpResponse, validate_model: type[BaseModel]
     ) -> ProfileDataResponse | ErrorResponse:
-        return super().validate_response(response, validate_model)
+        return super().validate_response(response, validate_model)  # type:ignore
