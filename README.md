@@ -16,7 +16,7 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/magicalapi/python-library">
+  <a href="https://github.com/magicalapi/magicalapi-python">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -25,14 +25,14 @@
   <p align="center">
     An Async and Type Annotated Python Client to Easy Access <a href="https://magicalapi.com">MagicalAPI.com</a> Service.
     <br />
-    <!-- <a href="https://github.com/magicalapi/python-library"><strong>Explore the docs »</strong></a> -->
+    <!-- <a href="https://github.com/magicalapi/magicalapi-python"><strong>Explore the docs »</strong></a> -->
     <!-- <br /> -->
     <!-- <br /> -->
-    <a href="https://github.com/magicalapi/python-library">View Demo</a>
+    <a href="https://github.com/magicalapi/magicalapi-python">View Demo</a>
     ·
-    <a href="https://github.com/magicalapi/python-library/issues">Report Bug</a>
+    <a href="https://github.com/magicalapi/magicalapi-python/issues">Report Bug</a>
     ·
-    <a href="https://github.com/magicalapi/python-library/issues">Request Feature</a>
+    <a href="https://github.com/magicalapi/magicalapi-python/issues">Request Feature</a>
   </p>
 </div>
 
@@ -81,7 +81,7 @@ MagicalAPI is your AI edge in **content** and **careers**, Your ultimate tool fo
 
 This is a Python client that provides easy access to the [MagicalAPI.com][website-url] services, fully type annotated, and asynchronous.
 
-<!-- `magicalapi`, `python-library`, `MagicalAPI`, `MagicalAPI Python Client` -->
+<!-- `magicalapi`, `magicalapi-python`, `MagicalAPI`, `MagicalAPI Python Client` -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -214,16 +214,16 @@ Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more informati
 <!-- MARKDOWN LINKS & IMAGES -->
 
 
-[contributors-shield]: https://img.shields.io/github/contributors/magicalapi/python-library.svg?style=for-the-badge
-[contributors-url]: https://github.com/magicalapi/python-library/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/magicalapi/python-library.svg?style=for-the-badge
-[forks-url]: https://github.com/magicalapi/python-library/network/members
-[stars-shield]: https://img.shields.io/github/stars/magicalapi/python-library.svg?style=for-the-badge
-[stars-url]: https://github.com/magicalapi/python-library/stargazers
-[issues-shield]: https://img.shields.io/github/issues/magicalapi/python-library.svg?style=for-the-badge
-[issues-url]: https://github.com/magicalapi/python-library/issues
-[license-shield]: https://img.shields.io/github/license/magicalapi/python-library.svg?style=for-the-badge
-[license-url]: https://github.com/magicalapi/python-library/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/magicalapi/magicalapi-python.svg?style=for-the-badge
+[contributors-url]: https://github.com/magicalapi/magicalapi-python/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/magicalapi/magicalapi-python.svg?style=for-the-badge
+[forks-url]: https://github.com/magicalapi/magicalapi-python/network/members
+[stars-shield]: https://img.shields.io/github/stars/magicalapi/magicalapi-python.svg?style=for-the-badge
+[stars-url]: https://github.com/magicalapi/magicalapi-python/stargazers
+[issues-shield]: https://img.shields.io/github/issues/magicalapi/magicalapi-python.svg?style=for-the-badge
+[issues-url]: https://github.com/magicalapi/magicalapi-python/issues
+[license-shield]: https://img.shields.io/github/license/magicalapi/magicalapi-python.svg?style=for-the-badge
+[license-url]: https://github.com/magicalapi/magicalapi-python/blob/master/LICENSE
 
 <!-- [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555 -->
 
@@ -233,7 +233,7 @@ Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more informati
 
 [Pydantic.badge]: https://img.shields.io/badge/pydantic-black?style=for-the-badge&logo=pydantic&logoColor=red
 [Httpx.badge]: https://img.shields.io/badge/Httpx-gray?style=for-the-badge
-[tests-shield]: https://github.com/magicalapi/python-library/actions/workflows/tests.yml/badge.svg
+[tests-shield]: https://github.com/magicalapi/magicalapi-python/actions/workflows/tests.yml/badge.svg
 [pypi-version-shields]: https://img.shields.io/pypi/v/magicalapi
 [pypi-python-versions-shields]: https://img.shields.io/pypi/pyversions/magicalapi
 [website-url]: https://magicalapi.com
