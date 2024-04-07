@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "magicalapi"
-version = "0.1.0"
+version = "1.0.0"
 description = "a python client to access and work with MagicalAPI.com API services."
-authors = ["Amir Aref <amiraref808@gmail.com>"]
+authors = []
 readme = "README.md"
 license = "MIT"
-repository = "https://github.com/magicalapi/python-library"
-homepage = "https://github.com/magicalapi/python-library"
+repository = "https://github.com/magicalapi/magicalapi-python"
+homepage = "https://github.com/magicalapi/magicalapi-python"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Typing :: Typed",
