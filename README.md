@@ -2,9 +2,9 @@
 
 <!-- PROJECT SHIELDS -->
 
-![Tests][tests-shield]
-![PyPI - Version][pypi-version-shields]
-![PyPI - Python Version][pypi-python-versions-shields]
+[![Tests][tests-shield]][github-repo-url]
+[![PyPI - Version][pypi-version-shields]][pypi-url]
+[![PyPI - Python Version][pypi-python-versions-shields]][pypi-url]
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -224,7 +224,8 @@ Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more informati
 [issues-url]: https://github.com/magicalapi/magicalapi-python/issues
 [license-shield]: https://img.shields.io/github/license/magicalapi/magicalapi-python.svg?style=for-the-badge
 [license-url]: https://github.com/magicalapi/magicalapi-python/blob/master/LICENSE
-
+[pypi-url]: https://pypi.org/project/magicalapi
+[github-repo-url]: https://github.com/magicalapi/magicalapi-python
 <!-- [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555 -->
 
 <!-- [linkedin-url]: https://linkedin.com/company/MagicalAPI -->
