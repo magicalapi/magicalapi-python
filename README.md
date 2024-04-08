@@ -22,7 +22,7 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/magicalapi/magicalapi-python">
+  <a href="https://magicalapi.com">
     <img src="https://raw.githubusercontent.com/magicalapi/magicalapi-python/master/docs/logo.jpg?raw=true" alt="Logo" width="80" height="80">
   </a>
 
