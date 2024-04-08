@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "magicalapi"
-version = "1.0.1"
+version = "1.0.1-1"
 description = "This is a Python client that provides easy access to the MagicalAPI.com services, fully type annotated, and asynchronous."
 authors = ["MagicalAPI <info@magicalapi.com>"]
 readme = "README.md"
