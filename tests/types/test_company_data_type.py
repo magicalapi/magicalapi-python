@@ -44,7 +44,10 @@ def company_data():
             {
                 "name": fake.text(),
                 "link": fake.uri(),
-                "type": fake.text(max_nb_chars=20),
+                "url": fake.uri(),
+                "about": fake.text(max_nb_chars=20),
+                "used_for": [fake.text()],
+                "customers": [fake.uri()],
             }
         ],
     }

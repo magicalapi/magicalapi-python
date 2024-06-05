@@ -1,14 +1,20 @@
 from datetime import datetime
+from typing import TypeAlias
 
 from pydantic import BaseModel, HttpUrl, field_validator
 
 from .base import BaseModelValidated, BaseResponse
 
+URL: TypeAlias = str
+
 
 class Product(BaseModelValidated):
-    name: str
-    link: HttpUrl | None
-    type: str | None
+    name: str | None
+    link: URL | None  # link of product in linkedin.com
+    url: URL | None  # url of product
+    about: str | None
+    used_for: list[str]
+    customers: list[URL]
 
 
 class Company(BaseModelValidated):

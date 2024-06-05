@@ -4,8 +4,8 @@ from magicalapi.client import AsyncClient
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse
 
-company_name = "google"
-output_file_name = f"company_data_{company_name}.json"
+company_username = "google"
+output_file_name = f"company_data_{company_username}.json"
 
 
 async def main():
@@ -13,7 +13,7 @@ async def main():
         # the api_key will load from the .env file
         async with AsyncClient() as client:
             response = await client.company_data.get_company_data(
-                company_name=company_name
+                company_username=company_username
             )
 
             if isinstance(response, ErrorResponse):

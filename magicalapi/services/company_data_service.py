@@ -12,12 +12,17 @@ from magicalapi.types.schemas import HttpResponse
 
 from .base_service import BaseService
 
+API_VERSION = 1
+
 
 class CompanyDataService(BaseService):
     service_path = "company-data"
 
     async def get_company_data(
-        self, company_name: str
+        self,
+        company_username: str | None = None,
+        company_name: str | None = None,
+        company_website: str | None = None,
     ) -> CompanyDataResponse | ErrorResponse:
         """this method sends request to company data service in magicalAPI.
         https://magicalapi.com/services/company-data
@@ -26,10 +31,35 @@ class CompanyDataService(BaseService):
             the username of linkedin company that you want to get it's data.
 
         """
-        request_body = {
-            "company_name": company_name,
+        # check which parameters passed
+        if company_username is not None:
+            request_body = {
+                "company_username": company_username,
+            }
+        elif all((company_name, company_website)):
+            request_body = {
+                "company_website": company_website,
+                "company_name": company_name,
+            }
+        elif company_website is not None:
+            request_body = {
+                "company_website": company_website,
+            }
+        elif company_name is not None:
+            request_body = {
+                "company_name": company_name,
+            }
+        else:
+            raise ValueError(
+                "one of 3 paramters company_username, company_name, company_website at least should be passed !"
+            )
+
+        request_headers = {
+            "version": str(API_VERSION),
         }
-        response = await self._send_post_request(self.service_path, data=request_body)
+        response = await self._send_post_request(
+            self.service_path, data=request_body, headers=request_headers
+        )
         return self.validate_response(
             response=response, validate_model=CompanyDataResponse
         )
