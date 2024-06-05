@@ -2,22 +2,28 @@
 
 <!-- PROJECT SHIELDS -->
 
-[![Tests][tests-shield]][github-repo-url]
 [![PyPI - Version][pypi-version-shields]][pypi-url]
 [![PyPI - Python Version][pypi-python-versions-shields]][pypi-url]
+[![Downloads](https://static.pepy.tech/badge/magicalapi)][pypi-url]
+<!-- (https://pepy.tech/project/magicalapi) -->
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
+<!--[![Contributors][contributors-shield]][contributors-url]-->
+<!-- [![Forks][forks-shield]][forks-url]-->
+
+[![Tests][tests-shield]][github-repo-url]
 [![Issues][issues-shield]][issues-url]
+[![Stargazers][stars-shield]][stars-url]
 [![MIT License][license-shield]][license-url]
+
+
+
 
 <!-- PROJECT LOGO -->
 
 <br />
 <div align="center">
-  <a href="https://github.com/magicalapi/magicalapi-python">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://magicalapi.com">
+    <img src="https://raw.githubusercontent.com/magicalapi/magicalapi-python/master/docs/logo.jpg?raw=true" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">MagicalAPI Python Client</h3>
@@ -212,17 +218,17 @@ Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more informati
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
-
-
+<!-- SHIELDS -->
 [contributors-shield]: https://img.shields.io/github/contributors/magicalapi/magicalapi-python.svg?style=for-the-badge
-[contributors-url]: https://github.com/magicalapi/magicalapi-python/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/magicalapi/magicalapi-python.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/magicalapi/magicalapi-python?style=flat&color=green
+[issues-shield]: https://img.shields.io/github/issues/magicalapi/magicalapi-python.svg
+[license-shield]: https://img.shields.io/github/license/magicalapi/magicalapi-python.svg
+<!-- other links -->
+[contributors-url]: https://github.com/magicalapi/magicalapi-python/graphs/contributors
 [forks-url]: https://github.com/magicalapi/magicalapi-python/network/members
-[stars-shield]: https://img.shields.io/github/stars/magicalapi/magicalapi-python.svg?style=for-the-badge
 [stars-url]: https://github.com/magicalapi/magicalapi-python/stargazers
-[issues-shield]: https://img.shields.io/github/issues/magicalapi/magicalapi-python.svg?style=for-the-badge
 [issues-url]: https://github.com/magicalapi/magicalapi-python/issues
-[license-shield]: https://img.shields.io/github/license/magicalapi/magicalapi-python.svg?style=for-the-badge
 [license-url]: https://github.com/magicalapi/magicalapi-python/blob/master/LICENSE
 [pypi-url]: https://pypi.org/project/magicalapi
 [github-repo-url]: https://github.com/magicalapi/magicalapi-python
@@ -238,3 +244,5 @@ Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more informati
 [pypi-version-shields]: https://img.shields.io/pypi/v/magicalapi
 [pypi-python-versions-shields]: https://img.shields.io/pypi/pyversions/magicalapi
 [website-url]: https://magicalapi.com
+
+
