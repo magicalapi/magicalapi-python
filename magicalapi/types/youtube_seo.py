@@ -15,9 +15,6 @@ from magicalapi.types.base import BaseResponse
 
 class YoutubeAPI:
     # youtube api video response schema
-    class PageInfo(BaseModel):
-        totalResults: int
-        resultsPerPage: int
 
     class Thumbnail(BaseModel):
         url: HttpUrl
@@ -45,27 +42,14 @@ class YoutubeAPI:
         categoryId: str
         liveBroadcastContent: str
         defaultLanguage: str | None = None
-        localized: YoutubeAPI.Localized
         defaultAudioLanguage: str | None = None
         tags: list[str]
 
     class contentDetails(BaseModel):
         duration: str
-        dimension: str
         definition: Literal["hd", "sd"]
-        caption: Literal["true", "false"]
-        licensedContent: bool
         # TODO ensure empty always
         # contentRating:
-        projection: str
-
-    class status(BaseModel):
-        uploadStatus: str
-        privacyStatus: str
-        license: str
-        embeddable: bool
-        publicStatsViewable: bool
-        madeForKids: bool
 
     class statistics(BaseModel):
         viewCount: int
@@ -79,7 +63,6 @@ class YoutubeAPI:
         id: str
         snippet: YoutubeAPI.Snippet
         contentDetails: YoutubeAPI.contentDetails
-        status: YoutubeAPI.status
         statistics: YoutubeAPI.statistics
 
     class VideoDetails(BaseModel):
@@ -87,12 +70,11 @@ class YoutubeAPI:
         etag: str
         # TODO keep only the first item video
         items: list[YoutubeAPI.VideoItem]
-        pageInfo: YoutubeAPI.PageInfo
 
 
 class SeoItem(BaseModel):
-    good: list[str] = []
-    bad: list[str] = []
+    pros: list[str]
+    cons: list[str]
 
 
 class SeoItems(BaseModel):

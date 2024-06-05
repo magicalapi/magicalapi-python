@@ -129,7 +129,7 @@ class BaseService(BaseServiceAbc):
             # error response
             logger.debug("response returned an error response.")
             _response_data = json.loads(response.text)
-            return ErrorResponse.model_validate(_response_data)
+            return ErrorResponse(status_code=response.status_code, **_response_data)
 
         except Exception:
             logger.error(f"response got an unexpected error : {response}")

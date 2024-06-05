@@ -49,6 +49,7 @@ ruff = "^0.3.4"
 testpaths = [
     "tests",
 ]
+asyncio_mode = "auto"
 
 [tool.ruff]
 target-version = "py311"
