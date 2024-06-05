@@ -91,8 +91,8 @@ class YoutubeAPI:
 
 
 class SeoItem(BaseModel):
-    good: list[str] = []
-    bad: list[str] = []
+    pros: list[str]
+    cons: list[str]
 
 
 class SeoItems(BaseModel):

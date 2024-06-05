@@ -17,28 +17,34 @@ def resume_review_data(resume_data):  # type: ignore
         "score": 41,
         "result": {
             "experiences": {
-                "good": [
+                "pros": [
                     fake.text(),
                     fake.text(),
                 ],
+                "cons": [],
             },
             "skills": {
-                "good": [fake.text()],
+                "pros": [fake.text()],
+                "cons": [],
             },
             "format": {
-                "good": [
+                "pros": [
                     fake.text(),
                     fake.text(),
                 ],
+                "cons": [],
             },
             "contact": {
-                "bad": [fake.text()],
+                "pros": [],
+                "cons": [fake.text()],
             },
             "educations": {
-                "bad": [fake.text()],
+                "pros": [],
+                "cons": [fake.text()],
             },
             "summary": {
-                "bad": [fake.text()],
+                "pros": [],
+                "cons": [fake.text()],
             },
         },
         "details": resume_data,
@@ -54,6 +60,10 @@ def test_resume_review_validate_type(resume_review_data: Any):
     response = {"data": resume_review_data, "usage": {"credits": randint(10, 500)}}
 
     assert type(ResumeReviewResponse.model_validate(response)) == ResumeReviewResponse
+
+    response_object = ResumeReviewResponse.model_validate(response)
+
+    assert len(response_object.data.result.format.pros) == 2
 
 
 def test_resume_review_validate_type_failing(resume_review_data: Any):

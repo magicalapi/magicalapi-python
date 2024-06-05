@@ -19,30 +19,30 @@ def youtube_seo_data():  # type: ignore
         "score": 41,
         "result": {
             "title": {
-                "good": [],
-                "bad": [fake.text()],
+                "pros": [],
+                "cons": [fake.text()],
             },
             "description": {
-                "good": [],
-                "bad": [fake.text(), fake.text(), fake.text()],
+                "pros": [],
+                "cons": [fake.text(), fake.text(), fake.text()],
             },
             "tags": {
-                "good": [],
-                "bad": [fake.text()],
+                "pros": [],
+                "cons": [fake.text()],
             },
             "comments": {
-                "good": [],
-                "bad": [fake.text()],
+                "pros": [],
+                "cons": [fake.text()],
             },
             "video_quality": {
-                "good": [
+                "pros": [
                     fake.text(),
                 ],
-                "bad": [],
+                "cons": [],
             },
             "thumbnail": {
-                "good": [fake.text()],
-                "bad": [],
+                "pros": [fake.text()],
+                "cons": [],
             },
         },
         "details": {
