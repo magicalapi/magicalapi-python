@@ -12,8 +12,8 @@ from magicalapi.types.resume_parser import ResumeParser
 
 
 class ReviewItem(BaseModelValidated):
-    good: list[str] = []
-    bad: list[str] = []
+    pros: list[str]
+    cons: list[str]
 
 
 class ReviewItems(BaseModelValidated, OptionalModel):
