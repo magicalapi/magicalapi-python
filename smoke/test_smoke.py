@@ -1,3 +1,13 @@
+"""
+NOTE
+
+this file contains some tests that call the api endpoint,
+so before run this, you have to set the MAG_API_KEY in .env file,
+and the more IMPORTANT thing you have to know is this process can have costs for you in panel.magicalapi.com !
+because it makes real requests.
+
+"""
+
 import pytest
 import pytest_asyncio
 
@@ -19,34 +29,6 @@ async def client():
         yield client
 
 
-# @pytest.mark.asyncio
-# async def test_video_not_found(client: AsyncClient):
-#     # test api returns 404 error for not found video
-#     response = await client.youtube_seo.get_youtube_seo(
-#         url=f"https://youtube.com/watch?v={uuid4()}"
-#     )
-
-#     assert all(
-#         (
-#             isinstance(response, ErrorResponse),
-#             response.status_code == 404,
-#         )
-#     )
-
-
-# @pytest.mark.asyncio
-# async def test_video_url_is_invalid(client: AsyncClient):
-#     # test api returns 400 error for invalid video url
-#     response = await client.youtube_seo.get_youtube_seo(url="https://example.com")
-
-#     assert all(
-#         (
-#             isinstance(response, ErrorResponse),
-#             response.status_code == 400,  # bad request
-#         )
-#     )
-
-
 @pytest.mark.asyncio
 async def test_profile_data_is_ok(client: AsyncClient):
     # test api returns 200 and correct response schema
@@ -58,7 +40,7 @@ async def test_profile_data_is_ok(client: AsyncClient):
 @pytest.mark.asyncio
 async def test_company_data_is_ok(client: AsyncClient):
     # test api returns 200 and correct response schema
-    response = await client.company_data.get_company_data(company_name="google")
+    response = await client.company_data.get_company_data(company_username="google")
 
     assert isinstance(response, CompanyDataResponse)
 
