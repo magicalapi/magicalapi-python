@@ -30,7 +30,7 @@ async def client():
 
 
 @pytest.mark.asyncio
-async def test_profile_data_is_ok(client: AsyncClient):
+async def test_profile_data(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.profile_data.get_profile_data(profile_name="amiraref")
 
@@ -38,7 +38,7 @@ async def test_profile_data_is_ok(client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_company_data_is_ok(client: AsyncClient):
+async def test_company_data_with_username(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.company_data.get_company_data(company_username="google")
 
@@ -46,7 +46,33 @@ async def test_company_data_is_ok(client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_resume_parser_is_ok(client: AsyncClient):
+async def test_company_data_with_name_and_website(client: AsyncClient):
+    # test api returns 200 and correct response schema
+    response = await client.company_data.get_company_data(
+        company_name="apple", company_website="apple.com"
+    )
+
+    assert isinstance(response, CompanyDataResponse)
+
+
+@pytest.mark.asyncio
+async def test_company_data_with_website(client: AsyncClient):
+    # test api returns 200 and correct response schema
+    response = await client.company_data.get_company_data(company_website="apple.com")
+
+    assert isinstance(response, CompanyDataResponse)
+
+
+@pytest.mark.asyncio
+async def test_company_data_with_name(client: AsyncClient):
+    # test api returns 200 and correct response schema
+    response = await client.company_data.get_company_data(company_name="apple")
+
+    assert isinstance(response, CompanyDataResponse)
+
+
+@pytest.mark.asyncio
+async def test_resume_parser(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.resume_parser.get_resume_parser(
         url="https://resume-resource.com/wp-content/uploads/00123-sales-professional-resume.pdf"
@@ -56,7 +82,7 @@ async def test_resume_parser_is_ok(client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_resume_review_is_ok(client: AsyncClient):
+async def test_resume_review(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.resume_review.get_resume_review(
         url="https://resume-resource.com/wp-content/uploads/00123-sales-professional-resume.pdf"
@@ -66,7 +92,7 @@ async def test_resume_review_is_ok(client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_resume_score_is_ok(client: AsyncClient):
+async def test_resume_score(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.resume_score.get_resume_score(
         url="https://resume-resource.com/wp-content/uploads/00123-sales-professional-resume.pdf",
@@ -77,7 +103,7 @@ async def test_resume_score_is_ok(client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_youtube_seo_is_ok(client: AsyncClient):
+async def test_youtube_seo(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.youtube_seo.get_youtube_seo(
         url="https://www.youtube.com/watch?v=PZZI1QXlM80"
@@ -87,7 +113,7 @@ async def test_youtube_seo_is_ok(client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_youtube_suggestions_is_ok(client: AsyncClient):
+async def test_youtube_suggestions(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.youtube_suggestions.get_youtube_suggestions(
         prompt_sentence="How to create a profitable Shopify store",
@@ -99,7 +125,7 @@ async def test_youtube_suggestions_is_ok(client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_youtube_keywords_is_ok(client: AsyncClient):
+async def test_youtube_keywords(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.youtube_top_keywords.get_keywords(
         search_sentence="movie trailers", country="1", language="1000"
