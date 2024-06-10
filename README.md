@@ -194,7 +194,7 @@ asyncio.run(main())
 
 All of the methods in the client have **type hints** and help to simply use.
 
-_For full examples, please see the [Examples Directory](./examples/)_
+_For full examples, please see the [Examples Directory](https://github.com/magicalapi/magicalapi-python/blob/master/examples/)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -204,7 +204,7 @@ _For full examples, please see the [Examples Directory](./examples/)_
 
 Contributions are what makes the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-Here is the [Contributing Guidelines](./CONTRIBUTING.rst).
+Here is the [Contributing Guidelines](https://github.com/magicalapi/magicalapi-python/blob/master/CONTRIBUTING.rst).
 Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -213,7 +213,7 @@ Don't forget to give the project a star! Thanks again!
 
 ## License
 
-Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more information.
+Distributed under the MIT License. See [`LICENSE`](https://github.com/magicalapi/magicalapi-python/blob/master/LICENSE) for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
