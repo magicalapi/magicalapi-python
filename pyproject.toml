@@ -1,12 +1,13 @@
-[tool.poetry]
+[project]
 name = "magicalapi"
 version = "1.1.1"
 description = "This is a Python client that provides easy access to the MagicalAPI.com services, fully type annotated, and asynchronous."
-authors = ["MagicalAPI <info@magicalapi.com>"]
+authors = [
+    { name = "MagicalAPI", email = "info@magicalapi.com" }
+]
 readme = "README.md"
 license = "MIT"
-repository = "https://github.com/magicalapi/magicalapi-python"
-homepage = "https://github.com/magicalapi/magicalapi-python"
+requires-python = ">= 3.10"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Typing :: Typed",
@@ -28,22 +29,40 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 
 ]
+dependencies = [
+	"httpx>=0.26.0",
+	"pydantic>=2.5.3",
+	"pydantic-settings>=2.1.0",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.10"
-httpx = "^0.26.0"
-pydantic = "^2.5.3"
-pydantic-settings = "^2.1.0"
+[project.urls]
+Repository = "https://github.com/magicalapi/magicalapi-python"
+Homepage = "https://github.com/magicalapi/magicalapi-python"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=7.4.4",
+    "faker>=22.4.0",
+    "pytest-dependency>=0.6.0",
+    "pytest-asyncio>=0.23.3",
+    "pytest-cov>=4.1.0",
+    "tox>=4.12.1",
+    "ruff>=0.3.4",
+    "tox-gh-actions>=3.2.0",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["magicalapi"]
 
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4.4"
-faker = "^22.4.0"
-pytest-dependency = "^0.6.0"
-pytest-asyncio = "^0.23.3"
-pytest-cov = "^4.1.0"
-tox = "^4.12.1"
-ruff = "^0.3.4"
 
 [tool.pytest.ini_options]
 testpaths = [
@@ -61,6 +80,3 @@ select = [
     "I", # isort
 ]
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
