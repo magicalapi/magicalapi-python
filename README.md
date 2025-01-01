@@ -23,7 +23,7 @@
 <br />
 <div align="center">
   <a href="https://magicalapi.com">
-    <img src="https://raw.githubusercontent.com/magicalapi/magicalapi-python/master/docs/logo.jpg?raw=true" alt="Logo" width="80" height="80">
+    <img src="https://raw.githubusercontent.com/magicalapi/magicalapi-python/master/docs/logo.png?raw=true" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">MagicalAPI Python Client</h3>
@@ -34,8 +34,8 @@
     <!-- <a href="https://github.com/magicalapi/magicalapi-python"><strong>Explore the docs »</strong></a> -->
     <!-- <br /> -->
     <!-- <br /> -->
-    <a href="https://github.com/magicalapi/magicalapi-python">View Demo</a>
-    ·
+    <!-- <a href="https://github.com/magicalapi/magicalapi-python">View Demo</a> -->
+    <!-- · -->
     <a href="https://github.com/magicalapi/magicalapi-python/issues">Report Bug</a>
     ·
     <a href="https://github.com/magicalapi/magicalapi-python/issues">Request Feature</a>
