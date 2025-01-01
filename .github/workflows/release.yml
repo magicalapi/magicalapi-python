@@ -6,12 +6,10 @@ on:
 
 jobs:
   smoke-test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest]
         python-version: ["3.12"]
-        poetry-version: ["1.8.2"]
       fail-fast: false
 
     steps:
@@ -23,17 +21,25 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Run image
-      uses: abatilo/actions-poetry@v2.0.0
+    - name: Install the latest version of rye
+      uses: eifinger/setup-rye@v4
+      id: setup-rye
       with:
-        poetry-version: ${{ matrix.poetry-version }}
+        enable-cache: true
+        cache-prefix: ${{ matrix.python-version }}
+
+    - name: Pin python-version ${{ matrix.python-version }}
+      run: rye pin ${{ matrix.python-version }}
+
     - name: Install dependencies
-      run: poetry install --with dev
+      if: steps.setup-rye.outputs.cache-hit != 'true'
+      run: |
+        rye sync --no-lock
 
     - name: Run tests
       env:
         MAG_API_KEY: ${{ secrets.MAG_API_KEY }}
-      run: poetry run pytest -vs smoke/test_smoke.py
+      run: rye run pytest -vs smoke/test_smoke.py
 
     # - name: Upload coverage to Codecov
     #   uses: codecov/codecov-action@v1
@@ -45,21 +51,23 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.11]
-        poetry-version: [1.8.2]
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Run image
-        uses: abatilo/actions-poetry@v2.0.0
+
+      - name: Install the latest version of rye
+        uses: eifinger/setup-rye@v4
+        id: setup-rye
         with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - name: Publish
+          enable-cache: true
+          cache-prefix: ${{ matrix.python-version }}
+
+      - name: Publish To PyPi
         env:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: |
-          poetry config pypi-token.pypi $PYPI_TOKEN
-          poetry publish --build
+          rye build
+          rye publish --yes --token $PYPI_TOKEN
