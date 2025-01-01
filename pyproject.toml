@@ -54,6 +54,8 @@ dev-dependencies = [
     "tox>=4.12.1",
     "ruff>=0.3.4",
     "tox-gh-actions>=3.2.0",
+    "tomli>=2.2.1",
+    "exceptiongroup>=1.2.2",
 ]
 
 [tool.hatch.metadata]
