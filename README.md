@@ -23,7 +23,7 @@
 <br />
 <div align="center">
   <a href="https://magicalapi.com">
-    <img src="https://raw.githubusercontent.com/magicalapi/magicalapi-python/master/docs/logo.jpg?raw=true" alt="Logo" width="80" height="80">
+    <img src="https://raw.githubusercontent.com/magicalapi/magicalapi-python/master/docs/logo.png?raw=true" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">MagicalAPI Python Client</h3>
@@ -34,8 +34,8 @@
     <!-- <a href="https://github.com/magicalapi/magicalapi-python"><strong>Explore the docs »</strong></a> -->
     <!-- <br /> -->
     <!-- <br /> -->
-    <a href="https://github.com/magicalapi/magicalapi-python">View Demo</a>
-    ·
+    <!-- <a href="https://github.com/magicalapi/magicalapi-python">View Demo</a> -->
+    <!-- · -->
     <a href="https://github.com/magicalapi/magicalapi-python/issues">Report Bug</a>
     ·
     <a href="https://github.com/magicalapi/magicalapi-python/issues">Request Feature</a>
@@ -75,7 +75,7 @@
 
 ## What is [MagicalAPI][website-url]?
 
-MagicalAPI is your AI edge in **content** and **careers**, Your ultimate tool for **YouTube SEO**, **Resume Parsing**, **LinkedIn data** and more.
+MagicalAPI is your AI edge in **content** and **careers**, Your ultimate tool for **Resume Parsing**, **LinkedIn data** and more.
 
 <br>
 
@@ -149,44 +149,43 @@ client = AsyncClinet()
 
 <br>
 
-Here is an example of how to get keywords of [Youtube Top Keywords](https://magicalapi.com/services/youtube-keywords) service:
+Here is an example of how to parse a resume using [Resume Parser](https://magicalapi.com/resume/) service:
 
 ```python
 import asyncio
+
 from magicalapi.client import AsyncClient
+from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.types.base import ErrorResponse
 
-search_sentence = "chatgpt 4 turbo" # your search sentence to get keywords related to
-country = "1" # use get_countries method to see countries codes (Default = 1 : WorlWide)
-language = "1000" # use get_languages method to see countries codes (Default = 1000 : English)
+resume_url = (
+    "https://resume-resource.com/wp-content/uploads/00123-sales-professional-resume.pdf"
+)
+output_file_name = "resume_parser.json"
 
 
 async def main():
-    # the api_key will load from the .env file
-    async with AsyncClient() as client:
-        # Get YouTube keywords
-        keywords_response = await client.youtube_top_keywords.get_keywords(
-            search_sentence=search_sentence,
-            country=country,
-            language=language,
-        )
-        if type(keywords_response) == ErrorResponse:
-            # got error from API
-            print("Error :", keywords_response.message)
-        else:
-            # got response successfully
-            print("credits :", keywords_response.usage.credits)
-            print("keywords count :", len(keywords_response.data.keywords))
+    try:
+        # the api_key will load from the .env file
+        async with AsyncClient() as client:
+            response = await client.resume_parser.get_resume_parser(url=resume_url)
 
-            # save response in JSON file
-            with open("keywords_response.json", "w") as file:
-                file.write(keywords_response.model_dump_json(indent=3))
+            if isinstance(response, ErrorResponse):
+                # got error from api
+                print("Error :", response.message)
+            else:
+                # got response successfully
+                print("credists :", response.usage.credits)
+                # save response in json file
+                with open(output_file_name, "w") as file:
+                    file.write(response.model_dump_json(indent=3))
 
-
-        # get languages list
-        # languages = await client.youtube_top_keywords.get_languages()
-        # get countries list
-        # countries = await client.youtube_top_keywords.get_countries()
+                    print(f"response saved to {output_file_name}")
+    except (APIServerError, APIServerTimedout) as e:
+        # handling server errors
+        print(e)
+    except Exception as e:
+        print("An error occurred:", str(e))
 
 
 asyncio.run(main())

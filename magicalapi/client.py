@@ -7,9 +7,6 @@ from magicalapi.services import (
     ProfileDataService,
     ResumeParserService,
     ResumeScoreService,
-    YoutubeSeoService,
-    YoutubeSuggestionsService,
-    YoutubeTopKeywordsService,
 )
 from magicalapi.services.resume_review_service import ResumeReviewService
 from magicalapi.settings import settings
@@ -58,18 +55,11 @@ class AsyncClient(AbstractAsyncContextManager):  # type: ignore
         logger.debug("httpx client created")
 
         # create service
-        self.youtube_top_keywords = YoutubeTopKeywordsService(
-            httpx_client=self._httpx_client
-        )
         self.profile_data = ProfileDataService(httpx_client=self._httpx_client)
         self.company_data = CompanyDataService(httpx_client=self._httpx_client)
-        self.youtube_seo = YoutubeSeoService(httpx_client=self._httpx_client)
         self.resume_parser = ResumeParserService(httpx_client=self._httpx_client)
         self.resume_score = ResumeScoreService(httpx_client=self._httpx_client)
         self.resume_review = ResumeReviewService(httpx_client=self._httpx_client)
-        self.youtube_suggestions = YoutubeSuggestionsService(
-            httpx_client=self._httpx_client
-        )
 
         logger.debug(f"async client created : {self}")
 

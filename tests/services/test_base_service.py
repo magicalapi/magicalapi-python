@@ -8,11 +8,8 @@ import pytest_asyncio
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.services.base_service import BaseService
 from magicalapi.types.base import ErrorResponse
+from magicalapi.types.resume_score import ResumeScore, ResumeScoreResponse
 from magicalapi.types.schemas import HttpResponse
-from magicalapi.types.youtube_top_keywords import (
-    KeywordIdea,
-    YoutubeTopKeywordsResponse,
-)
 
 
 @pytest_asyncio.fixture(scope="function")
@@ -68,38 +65,32 @@ async def test_base_service_request_timed_out(httpxclient: httpx.AsyncClient):
         await base_service._send_get_request(path="https://httpbin.org/delay/6")
 
 
-def test_base_service_validating_response(
-    httpxclient: httpx.AsyncClient, youtube_keyword: KeywordIdea
-):
+def test_base_service_validating_response(httpxclient: httpx.AsyncClient):
     # test validating base service valida_response method
     base_service = BaseService(httpxclient)
     # fake response
     fake_json_response = {
-        "data": {"keywords": [youtube_keyword]},
+        "data": {"score": 10, "reason": "some reason"},
         "usage": {"credits": randint(1, 200)},
     }
-    # test validating youtube top keywords validation
+    # test validating resume score keywords validation
     # 200 response
     fake_response = HttpResponse(text=json.dumps(fake_json_response), status_code=200)
-    assert (
-        type(
-            base_service.validate_response(
-                response=fake_response, validate_model=YoutubeTopKeywordsResponse
-            )
-        )
-        == YoutubeTopKeywordsResponse
+    assert isinstance(
+        base_service.validate_response(
+            response=fake_response, validate_model=ResumeScoreResponse
+        ),
+        ResumeScoreResponse,
     )
 
     # 404 response
     fake_json_response = {"usage": {"credits": 0}, "message": "request not found !"}
     fake_response = HttpResponse(text=json.dumps(fake_json_response), status_code=404)
-    assert (
-        type(
-            base_service.validate_response(
-                response=fake_response, validate_model=YoutubeTopKeywordsResponse
-            )
-        )
-        == ErrorResponse
+    assert isinstance(
+        base_service.validate_response(
+            response=fake_response, validate_model=ResumeScoreResponse
+        ),
+        ErrorResponse,
     )
 
 
@@ -110,5 +101,5 @@ def test_base_service_validating_response_raise_error(httpxclient: httpx.AsyncCl
     fake_response = HttpResponse(text="Internal Server Error!", status_code=500)
     with pytest.raises(APIServerError):
         base_service.validate_response(
-            response=fake_response, validate_model=YoutubeTopKeywordsResponse
+            response=fake_response, validate_model=ResumeScoreResponse
         )

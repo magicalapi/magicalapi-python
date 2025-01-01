@@ -1,6 +1,6 @@
 [project]
 name = "magicalapi"
-version = "1.1.1"
+version = "1.2.0"
 description = "This is a Python client that provides easy access to the MagicalAPI.com services, fully type annotated, and asynchronous."
 authors = [
     { name = "MagicalAPI", email = "info@magicalapi.com" }
@@ -64,6 +64,9 @@ allow-direct-references = true
 [tool.hatch.build.targets.wheel]
 packages = ["magicalapi"]
 
+[tool.rye.scripts]
+smoke = { cmd = "pytest -vs smoke", env-file = ".env"}
+test = { cmd = "pytest -vs tests"}
 
 
 [tool.pytest.ini_options]

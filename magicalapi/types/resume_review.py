@@ -1,5 +1,5 @@
 """
-types schem of youtube seo service
+types schem of resume review service
 
 """
 
