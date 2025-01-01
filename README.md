@@ -74,8 +74,7 @@
 <!-- ABOUT THE MAGICALAPI -->
 
 ## What is [MagicalAPI][website-url]?
-
-MagicalAPI is your AI edge in **content** and **careers**, Your ultimate tool for **Resume Parsing**, **LinkedIn data** and more.
+MagicalAPI is your AI edge in **careers** and **data insights**, Your ultimate tool for **Resume Parsing**, **LinkedIn data** and more.
 
 <br>
 
