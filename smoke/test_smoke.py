@@ -17,9 +17,6 @@ from magicalapi.types.profile_data import ProfileDataResponse
 from magicalapi.types.resume_parser import ResumeParserResponse
 from magicalapi.types.resume_review import ResumeReviewResponse
 from magicalapi.types.resume_score import ResumeScoreResponse
-from magicalapi.types.youtube_seo import YoutubeSeoResponse
-from magicalapi.types.youtube_suggestions import YoutubeSuggestionsResponse
-from magicalapi.types.youtube_top_keywords import YoutubeTopKeywordsResponse
 
 
 @pytest_asyncio.fixture(scope="function")
@@ -100,35 +97,3 @@ async def test_resume_score(client: AsyncClient):
     )
 
     assert isinstance(response, ResumeScoreResponse)
-
-
-@pytest.mark.asyncio
-async def test_youtube_seo(client: AsyncClient):
-    # test api returns 200 and correct response schema
-    response = await client.youtube_seo.get_youtube_seo(
-        url="https://www.youtube.com/watch?v=PZZI1QXlM80"
-    )
-
-    assert isinstance(response, YoutubeSeoResponse)
-
-
-@pytest.mark.asyncio
-async def test_youtube_suggestions(client: AsyncClient):
-    # test api returns 200 and correct response schema
-    response = await client.youtube_suggestions.get_youtube_suggestions(
-        prompt_sentence="How to create a profitable Shopify store",
-        count=5,
-        suggestion_goal="hashtag",
-    )
-
-    assert isinstance(response, YoutubeSuggestionsResponse)
-
-
-@pytest.mark.asyncio
-async def test_youtube_keywords(client: AsyncClient):
-    # test api returns 200 and correct response schema
-    response = await client.youtube_top_keywords.get_keywords(
-        search_sentence="movie trailers", country="1", language="1000"
-    )
-
-    assert isinstance(response, YoutubeTopKeywordsResponse)

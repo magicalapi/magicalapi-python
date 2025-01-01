@@ -64,6 +64,9 @@ allow-direct-references = true
 [tool.hatch.build.targets.wheel]
 packages = ["magicalapi"]
 
+[tool.rye.scripts]
+smoke = { cmd = "pytest -vs smoke", env-file = ".env"}
+test = { cmd = "pytest -vs tests"}
 
 
 [tool.pytest.ini_options]
