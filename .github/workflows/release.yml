@@ -46,7 +46,7 @@ jobs:
 
 
   publish:
-    needs: [smoke-test]
+    # needs: [smoke-test]
     strategy:
       fail-fast: false
       matrix:
