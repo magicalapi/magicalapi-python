@@ -1,6 +1,6 @@
 [project]
 name = "magicalapi"
-version = "1.2.0-2"
+version = "1.2.1"
 description = "This is a Python client that provides easy access to the MagicalAPI.com services, fully type annotated, and asynchronous."
 authors = [
     { name = "MagicalAPI", email = "info@magicalapi.com" }
