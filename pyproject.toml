@@ -56,6 +56,8 @@ dev-dependencies = [
     "tox-gh-actions>=3.2.0",
     "tomli>=2.2.1",
     "exceptiongroup>=1.2.2",
+    "twine>=6.0.1",
+    "pkginfo>=1.12.0",
 ]
 
 [tool.hatch.metadata]

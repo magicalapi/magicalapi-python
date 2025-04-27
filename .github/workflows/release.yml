@@ -70,4 +70,4 @@ jobs:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: |
           rye build
-          rye publish --yes --token $PYPI_TOKEN
+          rye run twine upload dist/* -u __token__ -p $PYPI_TOKEN
