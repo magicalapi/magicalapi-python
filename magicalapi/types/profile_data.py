@@ -15,7 +15,17 @@ class StartEndDate(BaseModelValidated):
     def date_validator(cls, value: str) -> date | None:
         if not value:
             return None
-        return datetime.strptime(value, "%b %Y").date()
+        formats = [
+            "%b %Y",
+            "%Y-%m",
+        ]
+        while True:
+            date_format = formats.pop(0)
+            try:
+                return datetime.strptime(str(value), date_format).date()
+            except Exception as e:
+                if not formats:
+                    raise e
 
 
 class StartEndDateEducation(StartEndDate):
@@ -25,7 +35,18 @@ class StartEndDateEducation(StartEndDate):
     def date_validator(cls, value: str) -> date | None:
         if not value:
             return None
-        return datetime.strptime(value, "%Y").date()
+        formats = [
+            "%Y",
+            "%b %Y",
+            "%Y-%m",
+        ]
+        while True:
+            date_format = formats.pop(0)
+            try:
+                return datetime.strptime(str(value), date_format).date()
+            except Exception as e:
+                if not formats:
+                    raise e
 
 
 class Duration(BaseModel):
@@ -51,15 +72,15 @@ class Education(BaseModelValidated):
     image_url: HttpUrl | None
     university_name: str
     university_link: HttpUrl | None
-    degree: str
-    major: str
+    degree: str | None
+    major: str | None
     date: StartEndDateEducation | None
 
 
 class Certification(BaseModelValidated):
-    image_url: HttpUrl | None
+    image_url: str | None
     title: str
-    course_link: HttpUrl | None
+    course_link: str | None
     issuer: str
     credential: str | None
     issued_date: date | None
