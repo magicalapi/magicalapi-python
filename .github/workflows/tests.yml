@@ -29,25 +29,20 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
 
-    - name: Install the latest version of rye
-      uses: eifinger/setup-rye@v4
-      id: setup-rye
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      id: setup-uv
       with:
         enable-cache: true
         cache-prefix: ${{ matrix.python-version }}
 
-    - name: Pin python-version ${{ matrix.python-version }}
-      run: rye pin ${{ matrix.python-version }}
-
-
-    - name: Install dependencies
-      if: steps.setup-rye.outputs.cache-hit != 'true'
-      run: |
-        rye sync --no-lock
-
+    - name: Install uv and set the python version
+      uses: astral-sh/setup-uv@v5
+      with:
+        python-version: ${{ matrix.python-version }}
 
     - name: Test with tox
-      run: rye run tox
+      run: uv run tox
 
     #
     # - name: Upload coverage reports to Codecov with GitHub Action on Python 3.11
