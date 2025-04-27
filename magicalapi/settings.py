@@ -26,7 +26,10 @@ class Settings(BaseSettings):
     logging_format: str = "{asctime} [{levelname}] - {name} : {message}"
 
     model_config = SettingsConfigDict(
-        env_file=".env", env_prefix="mag_", case_sensitive=False
+        env_file=".env",
+        env_prefix="mag_",
+        case_sensitive=False,
+        extra="ignore",
     )
 
 

@@ -54,20 +54,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
 
-      - name: Install the latest version of rye
-        uses: eifinger/setup-rye@v4
-        id: setup-rye
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        id: setup-uv
         with:
           enable-cache: true
           cache-prefix: ${{ matrix.python-version }}
+
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Publish To PyPi
         env:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: |
-          rye build
-          rye run twine upload dist/* -u __token__ -p $PYPI_TOKEN
+          uv build
+          uv publish --token $PYPI_TOKEN
