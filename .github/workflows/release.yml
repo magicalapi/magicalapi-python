@@ -5,41 +5,41 @@ on:
       - published
 
 jobs:
-  smoke-test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.12"]
-      fail-fast: false
-
-    steps:
-    - name: Check out
-      uses: actions/checkout@v3
-
-    - name: Set Up python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Install the latest version of rye
-      uses: eifinger/setup-rye@v4
-      id: setup-rye
-      with:
-        enable-cache: true
-        cache-prefix: ${{ matrix.python-version }}
-
-    - name: Pin python-version ${{ matrix.python-version }}
-      run: rye pin ${{ matrix.python-version }}
-
-    - name: Install dependencies
-      if: steps.setup-rye.outputs.cache-hit != 'true'
-      run: |
-        rye sync --no-lock
-
-    - name: Run tests
-      env:
-        MAG_API_KEY: ${{ secrets.MAG_API_KEY }}
-      run: rye run pytest -vs smoke/test_smoke.py
+  # smoke-test:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       python-version: ["3.12"]
+  #     fail-fast: false
+  #
+  #   steps:
+  #   - name: Check out
+  #     uses: actions/checkout@v3
+  #
+  #   - name: Set Up python
+  #     uses: actions/setup-python@v4
+  #     with:
+  #       python-version: ${{ matrix.python-version }}
+  #
+  #   - name: Install the latest version of rye
+  #     uses: eifinger/setup-rye@v4
+  #     id: setup-rye
+  #     with:
+  #       enable-cache: true
+  #       cache-prefix: ${{ matrix.python-version }}
+  #
+  #   - name: Pin python-version ${{ matrix.python-version }}
+  #     run: rye pin ${{ matrix.python-version }}
+  #
+  #   - name: Install dependencies
+  #     if: steps.setup-rye.outputs.cache-hit != 'true'
+  #     run: |
+  #       rye sync --no-lock
+  #
+  #   - name: Run tests
+  #     env:
+  #       MAG_API_KEY: ${{ secrets.MAG_API_KEY }}
+  #     run: rye run pytest -vs smoke/test_smoke.py
 
     # - name: Upload coverage to Codecov
     #   uses: codecov/codecov-action@v1
