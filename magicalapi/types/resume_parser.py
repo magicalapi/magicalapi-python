@@ -33,6 +33,7 @@ class Resume:
         university: str
         graduation_year: str
         majors: str
+        birthday: str
 
     class ProjectExperience(BaseModelValidated, OptionalModel):
         title: str | None
@@ -63,6 +64,10 @@ class Resume:
         name: str
 
 
+class Intereset(BaseModelValidated, OptionalModel):
+    name: str
+
+
 class ResumeParser(BaseModelValidated):
     basic: Resume.Basic
     summary: str | None
@@ -72,6 +77,7 @@ class ResumeParser(BaseModelValidated):
     certifications: list[Resume.Certification]
     languages: list[Resume.Language]
     skills: list[Resume.Skill]
+    interests: list[Intereset]
 
 
 class ResumeParserResponse(BaseResponse):

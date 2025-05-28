@@ -60,7 +60,6 @@ jobs:
         id: setup-uv
         with:
           enable-cache: true
-          cache-prefix: ${{ matrix.python-version }}
 
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v5
