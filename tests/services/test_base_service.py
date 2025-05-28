@@ -1,3 +1,4 @@
+from collections.abc import AsyncGenerator
 import json
 from random import randint
 
@@ -13,9 +14,18 @@ from magicalapi.types.schemas import HttpResponse
 
 
 @pytest_asyncio.fixture(scope="function")
-async def httpxclient():
+async def httpxclient(request) -> AsyncGenerator[httpx.AsyncClient]:
+    timeout = (
+        request.param
+        if hasattr(request, "param") and isinstance(request.param, int | float)
+        else None
+    )
+
     # base url is empty
-    client = httpx.AsyncClient(headers={"content-type": "application/json"}, timeout=5)
+    client = httpx.AsyncClient(
+        headers={"content-type": "application/json"},
+        timeout=timeout,
+    )
 
     yield client
 
@@ -51,6 +61,7 @@ async def test_base_service_get_request(httpxclient: httpx.AsyncClient):
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize("httpxclient", [4.0], indirect=True)
 async def test_base_service_request_timed_out(httpxclient: httpx.AsyncClient):
     base_service = BaseService(httpxclient)
     # change in fixture timeout
@@ -58,11 +69,11 @@ async def test_base_service_request_timed_out(httpxclient: httpx.AsyncClient):
     # post request
     with pytest.raises(APIServerTimedout):
         await base_service._send_post_request(
-            path="https://httpbin.org/delay/6", data={}
+            path="https://httpbin.org/delay/10", data={}
         )
     # gee request
     with pytest.raises(APIServerTimedout):
-        await base_service._send_get_request(path="https://httpbin.org/delay/6")
+        await base_service._send_get_request(path="https://httpbin.org/delay/10")
 
 
 def test_base_service_validating_response(httpxclient: httpx.AsyncClient):

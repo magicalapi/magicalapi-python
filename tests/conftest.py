@@ -27,6 +27,7 @@ def resume_data():
             "university": fake.company(),
             "graduation_year": fake.date_object().strftime("%m/%Y"),
             "majors": fake.text(max_nb_chars=50),
+            "birthday": fake.text(max_nb_chars=50),
         },
         "summary": fake.text(),
         "project_experiences": [{"title": fake.text(), "description": fake.text()}],
@@ -72,6 +73,7 @@ def resume_data():
         "skills": [
             {"name": "Python"},
         ],
+        "interests": [{"name": fake.text()} for _ in range(randint(1, 5))],
     }
     yield resume_parser_data
 
