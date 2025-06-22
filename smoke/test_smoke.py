@@ -72,7 +72,7 @@ async def test_company_data_with_name(client: AsyncClient):
 async def test_resume_parser(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.resume_parser.get_resume_parser(
-        url="https://podspace.pod.ir/api/files/2RJVVA2A6IEXV7US"
+        url="https://pub-4aa6fc29899047be8d4a342594b2c033.r2.dev/00016-poduct-manager-resume-example.pdf",
     )
 
     assert isinstance(response, ResumeParserResponse)

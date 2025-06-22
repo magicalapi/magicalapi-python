@@ -6,47 +6,50 @@ from .base import BaseModelValidated, BaseResponse, OptionalModel
 
 
 class StartEndDate(BaseModelValidated):
-    start_date: date | None
-    end_date: date | None
+    # Example: "Jan 2024" or "2024-01" or "Present"
+    start_date: str | None
+    end_date: str | None
 
     # validating the dates in format %b %Y ,Example : Jan 2024
-    @field_validator("start_date", "end_date", mode="before")
-    @classmethod
-    def date_validator(cls, value: str) -> date | None:
-        if not value:
-            return None
-        formats = [
-            "%b %Y",
-            "%Y-%m",
-        ]
-        while True:
-            date_format = formats.pop(0)
-            try:
-                return datetime.strptime(str(value), date_format).date()
-            except Exception as e:
-                if not formats:
-                    raise e
+    # @field_validator("start_date", "end_date", mode="before")
+    # @classmethod
+    # def date_validator(cls, value: str) -> date | None:
+    #     if not value:
+    #         return None
+    #     formats = [
+    #         "%b %Y",
+    #         "%Y-%m",
+    #     ]
+    #     while True:
+    #         date_format = formats.pop(0)
+    #         try:
+    #             return datetime.strptime(str(value), date_format).date()
+    #         except Exception as e:
+    #             if not formats:
+    #                 raise e
+    #
 
 
 class StartEndDateEducation(StartEndDate):
+    pass
     # validating the dates in format %Y,Example : 2024
-    @field_validator("start_date", "end_date", mode="before")
-    @classmethod
-    def date_validator(cls, value: str) -> date | None:
-        if not value:
-            return None
-        formats = [
-            "%Y",
-            "%b %Y",
-            "%Y-%m",
-        ]
-        while True:
-            date_format = formats.pop(0)
-            try:
-                return datetime.strptime(str(value), date_format).date()
-            except Exception as e:
-                if not formats:
-                    raise e
+    # @field_validator("start_date", "end_date", mode="before")
+    # @classmethod
+    # def date_validator(cls, value: str) -> date | None:
+    #     if not value:
+    #         return None
+    #     formats = [
+    #         "%Y",
+    #         "%b %Y",
+    #         "%Y-%m",
+    #     ]
+    #     while True:
+    #         date_format = formats.pop(0)
+    #         try:
+    #             return datetime.strptime(str(value), date_format).date()
+    #         except Exception as e:
+    #             if not formats:
+    #                 raise e
 
 
 class Duration(BaseModel):
