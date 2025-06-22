@@ -44,37 +44,31 @@
 
 <!-- TABLE OF CONTENTS -->
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#waht-is-magicalapi">What is MagicalAPI</a>
-    </li>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <!-- <li><a href="#prerequisites">Prerequisites</a></li> -->
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <!-- <li><a href="#acknowledgments">Acknowledgments</a></li> -->
-  </ol>
-</details>
+## Table of Contents
+- [What is MagicalAPI?](#what-is-magicalapi)
+- [Features](#features)
+- [About the Project](#about-the-project)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
 
 <!-- ABOUT THE MAGICALAPI -->
 
 ## What is [MagicalAPI][website-url]?
-MagicalAPI is your AI edge in **careers** and **data insights**, Your ultimate tool for **Resume Parsing**, **LinkedIn data** and more.
+[MagicalAPI](https://magicalapi.com) is your AI edge in **careers** and **data insights**, Your ultimate tool for **Resume Parsing**, **LinkedIn data** and more.
+It offers services like:
+- **Resume Parsing**: Extract structured data from resumes.
+- **LinkedIn Data Extraction**: Scrape and analyze LinkedIn profiles.
+- **Career Insights**: Gain AI-driven recommendations for career development.
+
+## Features
+- **Resume Parsing**: Parse resumes to extract key information like skills, experience, and education.
+- **LinkedIn Profile Scraping**: Extract data from LinkedIn profiles for analysis.
+- **Career Insights**: Leverage AI to get actionable career recommendations.
+- **Type-Annotated and Async**: Built for modern Python with type hints and asynchronous support.
+
 
 <br>
 
@@ -90,11 +84,13 @@ This is a Python client that provides easy access to the [MagicalAPI.com][websit
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!--
 ### Built With
 
 [![Pydantic][Pydantic.badge]](https://pydantic.dev/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+-->
 
 <!-- GETTING STARTED -->
 
