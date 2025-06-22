@@ -1,5 +1,5 @@
-from collections.abc import AsyncGenerator
 import json
+from collections.abc import AsyncGenerator
 from random import randint
 
 import httpx
@@ -9,7 +9,7 @@ import pytest_asyncio
 from magicalapi.errors import APIServerError, APIServerTimedout
 from magicalapi.services.base_service import BaseService
 from magicalapi.types.base import ErrorResponse
-from magicalapi.types.resume_score import ResumeScore, ResumeScoreResponse
+from magicalapi.types.resume_score import ResumeScoreResponse
 from magicalapi.types.schemas import HttpResponse
 
 

@@ -72,7 +72,7 @@ async def test_company_data_with_name(client: AsyncClient):
 async def test_resume_parser(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.resume_parser.get_resume_parser(
-        url="https://resume-resource.com/wp-content/uploads/00123-sales-professional-resume.pdf"
+        url="https://pub-4aa6fc29899047be8d4a342594b2c033.r2.dev/00016-poduct-manager-resume-example.pdf",
     )
 
     assert isinstance(response, ResumeParserResponse)
@@ -82,7 +82,7 @@ async def test_resume_parser(client: AsyncClient):
 async def test_resume_review(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.resume_review.get_resume_review(
-        url="https://resume-resource.com/wp-content/uploads/00123-sales-professional-resume.pdf"
+        url="https://pub-4aa6fc29899047be8d4a342594b2c033.r2.dev/00016-poduct-manager-resume-example.pdf"
     )
 
     assert isinstance(response, ResumeReviewResponse)
@@ -92,7 +92,7 @@ async def test_resume_review(client: AsyncClient):
 async def test_resume_score(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.resume_score.get_resume_score(
-        url="https://resume-resource.com/wp-content/uploads/00123-sales-professional-resume.pdf",
+        url="https://pub-4aa6fc29899047be8d4a342594b2c033.r2.dev/00016-poduct-manager-resume-example.pdf",
         job_description="Sales Professional",
     )
 

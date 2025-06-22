@@ -8,12 +8,20 @@ from __future__ import annotations
 from pydantic import BaseModel
 
 from magicalapi.types.base import BaseModelValidated, BaseResponse, OptionalModel
-from magicalapi.types.resume_parser import ResumeParser
+
+
+class ReviewCons(BaseModelValidated):
+    message: str
+    tips: list[str]
 
 
 class ReviewItem(BaseModelValidated):
     pros: list[str]
-    cons: list[str]
+    cons: list[ReviewCons]
+
+
+class SuggestedItem(BaseModelValidated):
+    content: str | None
 
 
 class ReviewItems(BaseModelValidated, OptionalModel):
@@ -25,10 +33,19 @@ class ReviewItems(BaseModelValidated, OptionalModel):
     summary: ReviewItem
 
 
+class SuggestedItems(BaseModelValidated, OptionalModel):
+    experiences: SuggestedItem
+    skills: SuggestedItem
+    format: SuggestedItem
+    contact: SuggestedItem
+    educations: SuggestedItem
+    summary: SuggestedItem
+
+
 class ResumeReview(BaseModel):
     score: int
     result: ReviewItems
-    details: ResumeParser
+    suggested: SuggestedItems
 
 
 class ResumeReviewResponse(BaseResponse):

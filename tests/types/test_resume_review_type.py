@@ -36,18 +36,52 @@ def resume_review_data(resume_data):  # type: ignore
             },
             "contact": {
                 "pros": [],
-                "cons": [fake.text()],
+                "cons": [
+                    {
+                        "message": fake.text(),
+                        "tips": [fake.text(), fake.text()],
+                    },
+                ],
             },
             "educations": {
                 "pros": [],
-                "cons": [fake.text()],
+                "cons": [
+                    {
+                        "message": fake.text(),
+                        "tips": [fake.text(), fake.text()],
+                    },
+                ],
             },
             "summary": {
                 "pros": [],
-                "cons": [fake.text()],
+                "cons": [
+                    {
+                        "message": fake.text(),
+                        "tips": [fake.text(), fake.text()],
+                    },
+                ],
             },
         },
-        "details": resume_data,
+        "suggested": {
+            "experiences": {
+                "content": fake.text(),
+            },
+            "skills": {
+                "content": fake.text(),
+            },
+            "format": {
+                "content": fake.text(),
+            },
+            "contact": {
+                "content": fake.text(),
+            },
+            "educations": {
+                "content": None,
+            },
+            "summary": {
+                "content": None,
+            },
+        },
     }
 
     yield resume_review
