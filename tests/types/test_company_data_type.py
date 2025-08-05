@@ -50,6 +50,59 @@ def company_data():
                 "customers": [fake.uri()],
             }
         ],
+        #
+        "employees_at_linkedin": [
+            {
+                "title": fake.job(),
+                "subtitle": fake.text(max_nb_chars=30),
+                "link": f"https://linkedin.com/in/{fake.user_name()}/",
+                "image_url": fake.image_url(),
+            }
+            for _ in range(randint(1, 5))
+        ],
+        "similar_companies": [
+            {
+                "title": fake.company(),
+                "subtitle": fake.text(max_nb_chars=50),
+                "location": fake.city(),
+                "link": f"https://linkedin.com/company/{fake.slug()}/",
+            }
+            for _ in range(randint(1, 3))
+        ],
+        "funding": {
+            "last_round": {
+                "date": fake.date_between(
+                    start_date="-5y", end_date="today"
+                ).isoformat(),
+                "type": fake.random_element(
+                    elements=("Seed", "Series A", "Series B", "Series C", "IPO")
+                ),
+                "raised_amount": f"${randint(1, 100)}M",
+            },
+            "rounds_count": randint(1, 5),
+            "investors": [
+                {
+                    "name": fake.company(),
+                    "link": f"https://linkedin.com/company/{fake.slug()}/",
+                    "image_url": fake.image_url(),
+                }
+                for _ in range(randint(1, 4))
+            ],
+            "crunchbase_url": f"https://crunchbase.com/organization/{fake.slug()}",
+        },
+        "posts": [
+            {
+                "text": fake.text(max_nb_chars=200),
+                "post_url": f"https://linkedin.com/posts/{fake.user_name()}_{fake.uuid4()}",
+                "post_id": fake.uuid4(),
+                "time": fake.date_time_this_month().strftime("%Y-%m-%d %H:%M:%S"),
+                "videos": [fake.url() for _ in range(randint(0, 2))],
+                "images": [fake.image_url() for _ in range(randint(0, 3))],
+                "likes_count": randint(0, 1000),
+                "comments_count": randint(0, 100),
+            }
+            for _ in range(randint(1, 3))
+        ],
     }
 
     yield company
