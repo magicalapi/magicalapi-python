@@ -13,7 +13,7 @@ from magicalapi.types.profile_data import (
 
 
 @pytest.fixture()
-def profile_dataprofile_data():
+def profile_data():
     # create a sample profile data dictionary
     fake = Faker(locale="en_US")
     _username = fake.user_name()
@@ -188,6 +188,33 @@ def profile_dataprofile_data():
                 "description": "",
             },
         ],
+        #
+        "activities": [
+            {
+                "title": fake.text(max_nb_chars=50),
+                "subtitle": fake.text(max_nb_chars=30),
+                "image_url": fake.image_url(),
+                "link": fake.uri(),
+            }
+            for _ in range(randint(1, 3))
+        ],
+        "similar_profiles": [
+            {
+                "url": f"https://linkedin.com/in/{fake.user_name()}/",
+                "name": fake.name(),
+                "title": fake.job(),
+                "image_url": fake.image_url(),
+            }
+            for _ in range(randint(1, 5))
+        ],
+        "patents": [
+            {
+                "title": fake.text(max_nb_chars=100),
+                "patent_id": f"US{randint(1000000, 9999999)}",
+                "link": f"https://patents.google.com/patent/US{randint(1000000, 9999999)}",
+            }
+            for _ in range(randint(0, 2))
+        ],
     }
 
     yield profile
@@ -195,24 +222,24 @@ def profile_dataprofile_data():
 
 
 @pytest.mark.dependency()
-def test_profile_data_type(profile_dataprofile_data: dict[str, Any]):
+def test_profile_data_type(profile_data: dict[str, Any]):
     # check profile data validated successfull
     try:
-        Profile.model_validate(profile_dataprofile_data)
+        Profile.model_validate(profile_data)
     except ValidationError as exc:
         assert False, "validating profile data failed : " + str(exc)
 
 
 @pytest.mark.dependency()
-def test_profile_data_type_failing(profile_dataprofile_data: dict[str, Any]):
+def test_profile_data_type_failing(profile_data: dict[str, Any]):
     # validating profile data must fail
-    profile_dataprofile_data["experience"][0]["date"]["start_date"] = "none"
-    del profile_dataprofile_data["education"][0]["date"]
-    del profile_dataprofile_data["projects"][0]["date"]["end_date"]
-    profile_dataprofile_data["publications"][0]["publication_date"] = 12
-    profile_dataprofile_data["honors_and_awards"][0]["issued_date"] = None
+    profile_data["experience"][0]["date"]["start_date"] = "none"
+    del profile_data["education"][0]["date"]
+    del profile_data["projects"][0]["date"]["end_date"]
+    profile_data["publications"][0]["publication_date"] = 12
+    profile_data["honors_and_awards"][0]["issued_date"] = None
     try:
-        Profile.model_validate(profile_dataprofile_data)
+        Profile.model_validate(profile_data)
     except:
         pass
     else:
@@ -223,10 +250,10 @@ def test_profile_data_type_failing(profile_dataprofile_data: dict[str, Any]):
 @pytest.mark.dependency(
     depends=["test_profile_data_type", "test_profile_data_type_failing"]
 )
-def test_profile_data_response_type(profile_dataprofile_data: dict[str, Any]):
+def test_profile_data_response_type(profile_data: dict[str, Any]):
     try:
         response_schema = {
-            "data": profile_dataprofile_data,
+            "data": profile_data,
             "usage": {"credits": randint(1, 200)},
         }
         ProfileDataResponse.model_validate(response_schema)

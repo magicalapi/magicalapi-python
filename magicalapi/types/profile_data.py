@@ -7,8 +7,8 @@ from .base import BaseModelValidated, BaseResponse, OptionalModel
 
 class StartEndDate(BaseModelValidated):
     # Example: "Jan 2024" or "2024-01" or "Present"
-    start_date: str | None
-    end_date: str | None
+    start_date: int | str | None
+    end_date: int | str | None
 
     # validating the dates in format %b %Y ,Example : Jan 2024
     # @field_validator("start_date", "end_date", mode="before")
@@ -52,7 +52,7 @@ class StartEndDateEducation(StartEndDate):
     #                 raise e
 
 
-class Duration(BaseModel):
+class Duration(BaseModelValidated):
     years: int = 0
     months: int
 
@@ -143,6 +143,26 @@ class HonorAndAward(BaseModelValidated):
         return datetime.strptime(value, "%b %Y").date()
 
 
+class Activity(BaseModelValidated):
+    title: str | None
+    subtitle: str | None
+    image_url: str | None
+    link: str | None
+
+
+class SimilarProfile(BaseModelValidated):
+    url: str | None
+    name: str | None
+    title: str | None
+    image_url: str | None
+
+
+class Patent(BaseModelValidated):
+    title: str | None
+    patent_id: str | None
+    link: str | None
+
+
 class Profile(BaseModelValidated):
     """
     The main type of linkedin profile data service
@@ -165,6 +185,10 @@ class Profile(BaseModelValidated):
     projects: list[Project]
     courses: list[Course]
     honors_and_awards: list[HonorAndAward]
+
+    activities: list[Activity]
+    similar_profiles: list[SimilarProfile]
+    patents: list[Patent]
 
     @field_validator("crawled_at", mode="before")
     @classmethod
