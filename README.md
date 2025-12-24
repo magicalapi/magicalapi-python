@@ -144,6 +144,22 @@ client = AsyncClinet()
 
 <br>
 
+### Using Webhooks (Optional)
+
+For asynchronous response delivery, you can provide a `webhook_url` when initializing the client. The API will send the response to your webhook endpoint instead of using the polling mechanism.
+
+```python
+from magicalapi.client import AsyncClient
+
+# Your webhook must be whitelisted in MagicalAPI panel
+webhook_url = "https://your-domain.com/webhook"
+client = AsyncClient(webhook_url=webhook_url)
+```
+
+**Important:** Webhook domains must be registered in the [MagicalAPI panel](https://panel.magicalapi.com/). For setup guide, see the [webhook documentation](https://docs.magicalapi.com/docs/webhook) and [example](https://github.com/magicalapi/magicalapi-python/blob/master/examples/webhook_example.py).
+
+<br>
+
 Here is an example of how to parse a resume using [Resume Parser](https://magicalapi.com/resume/) service:
 
 ```python
