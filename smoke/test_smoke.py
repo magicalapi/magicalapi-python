@@ -12,11 +12,13 @@ import pytest
 import pytest_asyncio
 
 from magicalapi.client import AsyncClient
+from magicalapi.types.base import ErrorResponse
 from magicalapi.types.company_data import CompanyDataResponse
 from magicalapi.types.profile_data import ProfileDataResponse
 from magicalapi.types.resume_parser import ResumeParserResponse
 from magicalapi.types.resume_review import ResumeReviewResponse
 from magicalapi.types.resume_score import ResumeScoreResponse
+from magicalapi.types.schemas import WebhookCreatedResponse
 
 
 @pytest_asyncio.fixture(scope="function")

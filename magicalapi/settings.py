@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     """
 
     api_key: str | None = None
+    webhook_url: str | None = None
     base_url: HttpUrl = "https://gw.magicalapi.com"
     retry_201_delay: int = 2  # seconds
     request_timeout: int = 15  # seconds

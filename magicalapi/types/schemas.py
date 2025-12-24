@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Literal
 
 from pydantic import BaseModel
 
@@ -20,4 +21,14 @@ class RequestID(BaseModel):
 
 class PendingResponse(BaseModel):
     data: RequestID
+    usage: Usage
+
+
+class DataStatusResponse(BaseModel):
+    status: Literal["created", "pending", "completed"]
+    message: str
+
+
+class WebhookCreatedResponse(BaseModel):
+    data: DataStatusResponse
     usage: Usage
