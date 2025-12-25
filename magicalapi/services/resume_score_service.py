@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 from magicalapi.types.base import ErrorResponse
 from magicalapi.types.resume_score import ResumeScoreResponse
-from magicalapi.types.schemas import HttpResponse
+from magicalapi.types.schemas import HttpResponse, WebhookCreatedResponse
 
 from .base_service import BaseService
 
@@ -18,7 +18,7 @@ class ResumeScoreService(BaseService):
 
     async def get_resume_score(
         self, url: str, job_description: str
-    ) -> ResumeScoreResponse | ErrorResponse:
+    ) -> ResumeScoreResponse | WebhookCreatedResponse | ErrorResponse:
         """this method sends request to resume score service in magicalAPI.
         https://magicalapi.com/services/resume-score
 
@@ -28,6 +28,11 @@ class ResumeScoreService(BaseService):
         job_description (``str``):
             give some description of the job,
             your resume score will calculate based on your job description.
+
+        Returns:
+            ResumeScoreResponse: When request completes successfully (no webhook).
+            WebhookCreatedResponse: When using webhook_url (immediate acknowledgment).
+            ErrorResponse: When an error occurs (e.g., 403 if webhook domain not whitelisted).
 
         """
         request_body = {
@@ -41,5 +46,5 @@ class ResumeScoreService(BaseService):
 
     def validate_response(
         self, response: HttpResponse, validate_model: type[BaseModel]
-    ) -> ResumeScoreResponse | ErrorResponse:
+    ) -> ResumeScoreResponse | WebhookCreatedResponse | ErrorResponse:
         return super().validate_response(response, validate_model)

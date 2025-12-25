@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 from magicalapi.types.base import ErrorResponse
 from magicalapi.types.company_data import CompanyDataResponse
-from magicalapi.types.schemas import HttpResponse
+from magicalapi.types.schemas import HttpResponse, WebhookCreatedResponse
 
 from .base_service import BaseService
 
@@ -23,12 +23,17 @@ class CompanyDataService(BaseService):
         company_username: str | None = None,
         company_name: str | None = None,
         company_website: str | None = None,
-    ) -> CompanyDataResponse | ErrorResponse:
+    ) -> CompanyDataResponse | WebhookCreatedResponse | ErrorResponse:
         """this method sends request to company data service in magicalAPI.
         https://magicalapi.com/services/company-data
 
         company_name (``str``):
             the username of linkedin company that you want to get it's data.
+
+        Returns:
+            CompanyDataResponse: When request completes successfully (no webhook).
+            WebhookCreatedResponse: When using webhook_url (immediate acknowledgment).
+            ErrorResponse: When an error occurs (e.g., 403 if webhook domain not whitelisted).
 
         """
         # check which parameters passed
@@ -66,5 +71,5 @@ class CompanyDataService(BaseService):
 
     def validate_response(
         self, response: HttpResponse, validate_model: type[BaseModel]
-    ) -> CompanyDataResponse | ErrorResponse:
+    ) -> CompanyDataResponse | WebhookCreatedResponse | ErrorResponse:
         return super().validate_response(response, validate_model)
