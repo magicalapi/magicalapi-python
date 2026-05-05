@@ -26,10 +26,11 @@
     <img src="https://raw.githubusercontent.com/magicalapi/magicalapi-python/master/docs/logo.png?raw=true" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">MagicalAPI Python Client</h3>
+<h3 align="center">MagicalAPI Python SDK</h3>
 
   <p align="center">
-    An Async and Type Annotated Python Client to Easy Access <a href="https://magicalapi.com">MagicalAPI.com</a> Service.
+    MagicalAPI Python SDK lets developers integrate AI-powered resume parsing, resume scoring, resume matching, and LinkedIn public data extraction into Python applications.
+    <a href="https://magicalapi.com">MagicalAPI.com</a>
     <br />
     <!-- <a href="https://github.com/magicalapi/magicalapi-python"><strong>Explore the docs »</strong></a> -->
     <!-- <br /> -->
@@ -46,7 +47,9 @@
 
 ## Table of Contents
 - [What is MagicalAPI?](#what-is-magicalapi)
+- [What you can build](#what-you-can-build)
 - [Features](#features)
+- [Services](#supported-apis)
 - [About the Project](#about-the-project)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
@@ -63,12 +66,25 @@ It offers services like:
 - **LinkedIn Data Extraction**: Scrape and analyze LinkedIn profiles.
 - **Career Insights**: Gain AI-driven recommendations for career development.
 
+## What you can build
+- Resume parsing pipelines for HR platforms
+- Candidate scoring and job matching workflows
+- LinkedIn profile enrichment tools
+- Recruiting automation systems
+- ATS integrations
+
 ## Features
 - **Resume Parsing**: Parse resumes to extract key information like skills, experience, and education.
 - **LinkedIn Profile Scraping**: Extract data from LinkedIn profiles for analysis.
 - **Career Insights**: Leverage AI to get actionable career recommendations.
 - **Type-Annotated and Async**: Built for modern Python with type hints and asynchronous support.
 
+## Supported APIs
+- Resume Parser
+- Resume Checker
+- Resume Matcher
+- LinkedIn Profile Scraper
+- LinkedIn Company Scraper
 
 <br>
 
@@ -78,7 +94,7 @@ It offers services like:
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-This is a Python client that provides easy access to the [MagicalAPI.com][website-url] services, fully type annotated, and asynchronous.
+This is a Python client that provides easy access to the [MagicalAPI.com][website-url] services, fully type-annotated and asynchronous.
 
 <!-- `magicalapi`, `magicalapi-python`, `MagicalAPI`, `MagicalAPI Python Client` -->
 
@@ -100,7 +116,7 @@ This is an example of how you can install the client and use it in your own scri
 
 ### Installation
 
-Install package using `pip`
+Install the package using `pip`
 
 ```bash
 pip install magicalapi
@@ -112,7 +128,7 @@ pip install magicalapi
 
 ## Usage
 
-here are some samples of how to use the client for each service. 
+Here are some samples of how to use the client for each service. 
 At first, you have to create an object of `AsyncClient` like this:
 
 ```python
