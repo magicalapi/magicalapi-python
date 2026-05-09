@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 
 from pydantic import BaseModel, HttpUrl, field_validator
 
@@ -73,7 +73,7 @@ class Experience(BaseModelValidated, OptionalModel):
 
 class Education(BaseModelValidated):
     image_url: HttpUrl | None
-    university_name: str
+    university_name: str | None
     university_link: HttpUrl | None
     degree: str | None
     major: str | None
@@ -86,14 +86,7 @@ class Certification(BaseModelValidated):
     course_link: str | None
     issuer: str
     credential: str | None
-    issued_date: date | None
-
-    @field_validator("issued_date", mode="before")
-    @classmethod
-    def date_validator(cls, value: str) -> date | None:
-        if not value:
-            return None
-        return datetime.strptime(value, "%b %Y").date()
+    issued_date: str | None
 
 
 class Language(BaseModelValidated):
@@ -132,15 +125,8 @@ class Course(BaseModelValidated):
 class HonorAndAward(BaseModelValidated):
     title: str
     issuer: str
-    issued_date: date | None
+    issued_date: str | None
     description: str | None
-
-    @field_validator("issued_date", mode="before")
-    @classmethod
-    def date_validator(cls, value: str) -> date | None:
-        if not value:
-            return None
-        return datetime.strptime(value, "%b %Y").date()
 
 
 class Activity(BaseModelValidated):
@@ -172,6 +158,7 @@ class Profile(BaseModelValidated):
     profile: str
     crawled_at: datetime
     name: str
+    headline: str | None
     description: str | None
     location: str | None
     followers: str | None
