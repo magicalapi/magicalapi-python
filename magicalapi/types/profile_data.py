@@ -1,6 +1,6 @@
-from datetime import date, datetime
+from datetime import datetime
 
-from pydantic import BaseModel, HttpUrl, field_validator
+from pydantic import field_validator
 
 from .base import BaseModelValidated, BaseResponse, OptionalModel
 
@@ -54,7 +54,7 @@ class StartEndDateEducation(StartEndDate):
 
 class Duration(BaseModelValidated):
     years: int = 0
-    months: int
+    months: int = 0
 
 
 class StartEndDurationDate(StartEndDate):
@@ -62,49 +62,42 @@ class StartEndDurationDate(StartEndDate):
 
 
 class Experience(BaseModelValidated, OptionalModel):
-    image_url: HttpUrl | None
     title: str | None
-    company_name: str
-    company_link: HttpUrl | None
+    company_name: str | None
+    company_link: str | None
+    image_url: str | None
     date: StartEndDurationDate | None
     location: str | None
     description: str | None
 
 
 class Education(BaseModelValidated):
-    image_url: HttpUrl | None
-    university_name: str
-    university_link: HttpUrl | None
+    university_name: str | None
+    university_link: str | None
+    image_url: str | None
     degree: str | None
     major: str | None
-    date: StartEndDateEducation | None
+    date: StartEndDate | None
 
 
 class Certification(BaseModelValidated):
     image_url: str | None
-    title: str
+    title: str | None
     course_link: str | None
-    issuer: str
+    issuer: str | None
     credential: str | None
-    issued_date: date | None
-
-    @field_validator("issued_date", mode="before")
-    @classmethod
-    def date_validator(cls, value: str) -> date | None:
-        if not value:
-            return None
-        return datetime.strptime(value, "%b %Y").date()
+    issued_date: str | None
 
 
 class Language(BaseModelValidated):
-    name: str
+    name: str | None
     description: str | None
 
 
 class Volunteering(BaseModelValidated):
-    role: str
+    role: str | None
     organization: str | None
-    volunteering_link: HttpUrl | None
+    volunteering_link: str | None
     date: StartEndDurationDate | None
     cause: str | None
     description: str | None
@@ -113,34 +106,27 @@ class Volunteering(BaseModelValidated):
 class Publication(BaseModelValidated):
     title: str | None
     publisher: str | None
-    publication_link: HttpUrl | None
+    publication_link: str | None
     publication_date: str | None
     description: str | None
 
 
 class Project(BaseModelValidated):
-    name: str
+    name: str | None
     date: StartEndDate | None
     description: str | None
 
 
 class Course(BaseModelValidated):
-    name: str
+    name: str | None
     number: str | None
 
 
 class HonorAndAward(BaseModelValidated):
-    title: str
-    issuer: str
-    issued_date: date | None
+    title: str | None
+    issuer: str | None
+    issued_date: str | None
     description: str | None
-
-    @field_validator("issued_date", mode="before")
-    @classmethod
-    def date_validator(cls, value: str) -> date | None:
-        if not value:
-            return None
-        return datetime.strptime(value, "%b %Y").date()
 
 
 class Activity(BaseModelValidated):
@@ -168,10 +154,11 @@ class Profile(BaseModelValidated):
     The main type of linkedin profile data service
     """
 
-    url: HttpUrl
+    url: str
     profile: str
     crawled_at: datetime
-    name: str
+    name: str | None
+    headline: str | None
     description: str | None
     location: str | None
     followers: str | None

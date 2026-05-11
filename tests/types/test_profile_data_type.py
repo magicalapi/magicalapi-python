@@ -24,6 +24,7 @@ def profile_data():
         "profile": _username,
         "crawled_at": fake.date_time_this_year().strftime("%d/%m/%Y %H:%M:%S"),
         "name": fake.name(),
+        "headline": fake.name(),
         "description": "",  # empty text
         "location": "{}, {}".format(*fake.location_on_land()[2:4]),
         "followers": f"{randint(1,500)} followers",
