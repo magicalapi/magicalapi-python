@@ -1,8 +1,7 @@
-from datetime import datetime
-from datetime import date
+from datetime import date, datetime
 from typing import TypeAlias
 
-from pydantic import BaseModel, HttpUrl, field_validator
+from pydantic import Field, field_validator
 
 from .base import BaseModelValidated, BaseResponse
 
@@ -51,8 +50,8 @@ class Investor(BaseModelValidated):
 
 
 class FundingRound(BaseModelValidated):
-    date: date | None
-    type: str | None
+    date_: date | None = Field(default=None, alias="date")
+    type_: str | None = Field(default=None, alias="type")
     raised_amount: str | None
 
 
@@ -68,14 +67,14 @@ class Company(BaseModelValidated):
     The main type of company data service
     """
 
-    url: HttpUrl
+    url: str
     company_name: str
     crawled_at: datetime
-    name: str
+    name: str | None
     tagline: str | None
-    cover_image_url: HttpUrl
-    logo_url: HttpUrl | None
-    employees: str
+    cover_image_url: str | None
+    logo_url: str | None
+    employees: str | None
     followers: str | None
     #
     about: str | None
