@@ -64,7 +64,7 @@ class Funding(BaseModelValidated):
 
 class Company(BaseModelValidated):
     """
-    The main type of company data service
+    The main type of LinkedIn Company Scraper service
     """
 
     url: str

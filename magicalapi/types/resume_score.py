@@ -1,5 +1,5 @@
 """
-types schem of resume score service
+types schema of Resume Matcher(Score) service
 https://magicalapi.com/services/resume-score
 """
 
@@ -10,8 +10,6 @@ from magicalapi.types.resume_parser import ResumeParser
 from .base import BaseModelValidated, BaseResponse
 from typing import Literal
 from pydantic import BaseModel
-
-
 
 Category = Literal[
     "job",
@@ -99,7 +97,7 @@ class ScoreResponse(BaseModelValidated):
 
 class ResumeScoreResponse(BaseResponse):
     """
-    the main resposne schema for resume score service
+    the main resposne schema for Resume Matcher(Score) service
     https://magicalapi.com/services/resume-score
     """
 

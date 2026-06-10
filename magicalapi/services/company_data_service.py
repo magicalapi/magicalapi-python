@@ -1,5 +1,5 @@
 """
-this file stores the implementation of company data Service.
+this file stores the implementation of LinkedIn Company Scraper Service.
 https://magicalapi.com/services/company-data
 
 """
@@ -24,7 +24,7 @@ class CompanyDataService(BaseService):
         company_name: str | None = None,
         company_website: str | None = None,
     ) -> CompanyDataResponse | WebhookCreatedResponse | ErrorResponse:
-        """this method sends request to company data service in magicalAPI.
+        """this method sends request to LinkedIn Company Scraper service in magicalAPI.
         https://magicalapi.com/services/company-data
 
         company_name (``str``):

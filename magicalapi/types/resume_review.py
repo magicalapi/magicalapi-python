@@ -1,5 +1,5 @@
 """
-types schem of resume review service
+types schema of Resume Checker(Review) service
 
 """
 

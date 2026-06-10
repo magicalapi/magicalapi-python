@@ -1,5 +1,5 @@
 """
-this file stores the implementation of resume score Service.
+this file stores the implementation of Resume Matcher(Score) Service.
 https://magicalapi.com/services/resume-score
 
 """
@@ -19,7 +19,7 @@ class ResumeScoreService(BaseService):
     async def get_resume_score(
         self, url: str, job_description: str
     ) -> ResumeScoreResponse | WebhookCreatedResponse | ErrorResponse:
-        """this method sends request to resume score service in magicalAPI.
+        """this method sends request to Resume Matcher(Score) service in magicalAPI.
         https://magicalapi.com/services/resume-score
 
         url (``str``):
@@ -36,7 +36,9 @@ class ResumeScoreService(BaseService):
 
         """
         if not 100 <= len(job_description) <= 5000:
-            raise ValueError("job_description must be between 100 and 5000 characters long")
+            raise ValueError(
+                "job_description must be between 100 and 5000 characters long"
+            )
 
         request_body = {
             "url": url,
