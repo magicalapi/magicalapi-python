@@ -1,12 +1,11 @@
-from collections.abc import AsyncGenerator
 import json
+from collections.abc import AsyncGenerator
 
 import httpx
 import pytest
 import pytest_asyncio
 
 from magicalapi.services.resume_score_service import ResumeScoreService
-from magicalapi.types.base import ErrorResponse
 from magicalapi.types.resume_score import ResumeScoreResponse
 from magicalapi.types.schemas import HttpResponse
 
@@ -101,7 +100,9 @@ async def test_get_resume_score_accepts_boundary_lengths(
     service = ResumeScoreService(httpxclient)
     captured_request: dict[str, str] = {}
 
-    async def fake_send_post_request(path: str, data: dict[str, str], headers: dict[str, str] = {}):
+    async def fake_send_post_request(
+        path: str, data: dict[str, str], headers: dict[str, str] | None = None
+    ):
         captured_request["path"] = path
         captured_request.update(data)
         return _make_resume_score_response()

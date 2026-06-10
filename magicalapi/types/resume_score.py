@@ -5,11 +5,9 @@ https://magicalapi.com/services/resume-score
 
 from __future__ import annotations
 
-from magicalapi.types.resume_parser import ResumeParser
+from typing import Literal
 
 from .base import BaseModelValidated, BaseResponse
-from typing import Literal
-from pydantic import BaseModel
 
 Category = Literal[
     "job",
@@ -97,7 +95,7 @@ class ScoreResponse(BaseModelValidated):
 
 class ResumeScoreResponse(BaseResponse):
     """
-    the main resposne schema for Resume Matcher(Score) service
+    the main response schema for Resume Matcher(Score) service
     https://magicalapi.com/services/resume-score
     """
 
