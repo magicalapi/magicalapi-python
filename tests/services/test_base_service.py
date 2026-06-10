@@ -81,7 +81,42 @@ def test_base_service_validating_response(httpxclient: httpx.AsyncClient):
     base_service = BaseService(httpxclient)
     # fake response
     fake_json_response = {
-        "data": {"score": 10, "reason": "some reason"},
+        "data": {
+            "score": 10,
+            "summary": "some summary",
+            "strengths": [{"text": "some reason", "category": "job"}],
+            "improvements": [{"text": "some reason", "category": "education"}],
+            "job_match": {
+                "score": 10,
+                "summary": "some summary",
+                "pros": [{"type": "pros", "message": "some reason"}],
+                "cons": [{"type": "cons", "message": "some reason"}],
+                "warns": [{"type": "warn", "message": "some reason"}],
+            },
+            "skill_match": {
+                "score": 10,
+                "summary": "some summary",
+                "skills": {"all_skills": ["Python"]},
+                "match_result": {
+                    "miss_match": ["Python"],
+                    "partial_match": [],
+                    "strong_match": [],
+                },
+            },
+            "education_match": {
+                "score": 10,
+                "summary": "some summary",
+                "pros": [{"type": "pros", "message": "some reason"}],
+                "cons": [{"type": "cons", "message": "some reason"}],
+                "warns": [{"type": "warn", "message": "some reason"}],
+            },
+            "more_information": {
+                "region": "Europe",
+                "overqualification_status": False,
+                "qualification_reason": "some reason",
+            },
+            "jd_text": "some text",
+        },
         "usage": {"credits": randint(1, 200)},
     }
     # test validating resume score keywords validation
