@@ -81,8 +81,8 @@ It offers services like:
 
 ## Supported APIs
 - Resume Parser
-- Resume Checker
-- Resume Matcher
+- Resume Checker(Review)
+- Resume Matcher(Score)
 - LinkedIn Profile Scraper
 - LinkedIn Company Scraper
 
