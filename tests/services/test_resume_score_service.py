@@ -1,5 +1,6 @@
 import json
 from collections.abc import AsyncGenerator
+from typing import Any
 
 import httpx
 import pytest
@@ -101,7 +102,7 @@ async def test_get_resume_score_accepts_boundary_lengths(
     captured_request: dict[str, str] = {}
 
     async def fake_send_post_request(
-        path: str, data: dict[str, str], headers: dict[str, str] | None = None
+        path: str, data: dict[str, Any], headers: dict[str, str] | None = None
     ):
         captured_request["path"] = path
         captured_request.update(data)
