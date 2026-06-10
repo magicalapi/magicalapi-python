@@ -27,8 +27,8 @@ def profile_data():
         "headline": fake.name(),
         "description": "",  # empty text
         "location": "{}, {}".format(*fake.location_on_land()[2:4]),
-        "followers": f"{randint(1,500)} followers",
-        "connections": f"{randint(1,500)} connections",
+        "followers": f"{randint(1, 500)} followers",
+        "connections": f"{randint(1, 500)} connections",
         "experience": [
             {
                 "image_url": fake.uri(),

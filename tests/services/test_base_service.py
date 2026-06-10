@@ -25,7 +25,9 @@ def _make_mock_transport(*, timeout_on_delay: bool = False) -> httpx.MockTranspo
         if request.method == "GET":
             return httpx.Response(200, json={"url": str(request.url)}, request=request)
 
-        return httpx.Response(405, json={"message": "method not allowed"}, request=request)
+        return httpx.Response(
+            405, json={"message": "method not allowed"}, request=request
+        )
 
     return httpx.MockTransport(handler)
 

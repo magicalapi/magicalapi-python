@@ -24,9 +24,7 @@ def _make_resume_score_response() -> HttpResponse:
                 "score": 90,
                 "summary": "Job match is strong",
                 "pros": [{"type": "title", "message": "Title aligns"}],
-                "cons": [
-                    {"type": "gap", "message": "Missing one requirement"}
-                ],
+                "cons": [{"type": "gap", "message": "Missing one requirement"}],
                 "warns": [
                     {
                         "type": "note",
@@ -90,13 +88,17 @@ async def test_get_resume_score_rejects_invalid_job_description_length(
     service = ResumeScoreService(httpxclient)
 
     with pytest.raises(ValueError, match="between 100 and 5000 characters long"):
-        await service.get_resume_score(url="https://example.com/resume.pdf", job_description=job_description)
+        await service.get_resume_score(
+            url="https://example.com/resume.pdf", job_description=job_description
+        )
 
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("job_description", ["a" * 100, "a" * 5000])
 async def test_get_resume_score_accepts_boundary_lengths(
-    httpxclient: httpx.AsyncClient, monkeypatch: pytest.MonkeyPatch, job_description: str
+    httpxclient: httpx.AsyncClient,
+    monkeypatch: pytest.MonkeyPatch,
+    job_description: str,
 ):
     service = ResumeScoreService(httpxclient)
     captured_request: dict[str, str] = {}
