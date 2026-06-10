@@ -24,13 +24,13 @@ def company_data():
         "tagline": None,  # test null
         "cover_image_url": fake.uri(),
         "logo_url": fake.uri(),
-        "employees": f"{randint(10,1000)} employees",
-        "followers": f"{randint(1,500)} followers",
+        "employees": f"{randint(10, 1000)} employees",
+        "followers": f"{randint(1, 500)} followers",
         "about": fake.text(),
         # features
         "website": fake.uri(),
         "industry": fake.text(max_nb_chars=40),
-        "size": f"{randint(10,1000)}+ employees",
+        "size": f"{randint(10, 1000)}+ employees",
         "headquarters": fake.text(max_nb_chars=20),
         "organizationType": fake.text(max_nb_chars=20),
         "foundedOn": str(randint(_today.year - 50, _today.year + 50)),

@@ -12,13 +12,11 @@ import pytest
 import pytest_asyncio
 
 from magicalapi.client import AsyncClient
-from magicalapi.types.base import ErrorResponse
 from magicalapi.types.company_data import CompanyDataResponse
 from magicalapi.types.profile_data import ProfileDataResponse
 from magicalapi.types.resume_parser import ResumeParserResponse
 from magicalapi.types.resume_review import ResumeReviewResponse
 from magicalapi.types.resume_score import ResumeScoreResponse
-from magicalapi.types.schemas import WebhookCreatedResponse
 
 
 @pytest_asyncio.fixture(scope="function")
@@ -95,7 +93,7 @@ async def test_resume_score(client: AsyncClient):
     # test api returns 200 and correct response schema
     response = await client.resume_score.get_resume_score(
         url="https://pub-4aa6fc29899047be8d4a342594b2c033.r2.dev/00016-poduct-manager-resume-example.pdf",
-        job_description="Sales Professional",
+        job_description="Experienced sales professional focused on building client relationships, managing pipelines, and closing enterprise deals across multiple industries.",
     )
 
     assert isinstance(response, ResumeScoreResponse)

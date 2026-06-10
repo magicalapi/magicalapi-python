@@ -1,5 +1,5 @@
 """
-this file stores the implementation of resume review Service.
+this file stores the implementation of Resume Checker(Review) Service.
 https://magicalapi.com/services/resume-review
 
 """
@@ -19,7 +19,7 @@ class ResumeReviewService(BaseService):
     async def get_resume_review(
         self, url: str
     ) -> ResumeReviewResponse | WebhookCreatedResponse | ErrorResponse:
-        """this method sends request to resume review service in magicalAPI.
+        """this method sends request to Resume Checker(Review) service in magicalAPI.
         https://magicalapi.com/services/resume-review
 
         url (``str``):

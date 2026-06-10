@@ -1,5 +1,5 @@
 """
-this file stores the implementation of profile data Service.
+this file stores the implementation of LinkedIn Profile Scraper Service.
 https://magicalapi.com/services/profile-data
 
 """
@@ -21,7 +21,7 @@ class ProfileDataService(BaseService):
     async def get_profile_data(
         self, profile_name: str
     ) -> ProfileDataResponse | WebhookCreatedResponse | ErrorResponse:
-        """this method sends request to profile data service in magicalAPI.
+        """this method sends request to LinkedIn Profile Scraper service in magicalAPI.
         https://magicalapi.com/services/profile-data
 
         profile_name (``str``):
@@ -49,4 +49,4 @@ class ProfileDataService(BaseService):
     def validate_response(
         self, response: HttpResponse, validate_model: type[BaseModel]
     ) -> ProfileDataResponse | WebhookCreatedResponse | ErrorResponse:
-        return super().validate_response(response, validate_model)  # type:ignore
+        return super().validate_response(response, validate_model)  # type: ignore

@@ -7,7 +7,10 @@ from magicalapi.types.base import ErrorResponse
 resume_url = (
     "https://resume-resource.com/wp-content/uploads/00123-sales-professional-resume.pdf"
 )
-job_description = "Sales Professional"
+job_description = (
+    "We are hiring a sales professional with proven B2B pipeline management, "
+    "CRM discipline, account growth ownership, and strong written communication."
+)
 output_file_name = "resume_score.json"
 
 

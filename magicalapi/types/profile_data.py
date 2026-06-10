@@ -151,7 +151,7 @@ class Patent(BaseModelValidated):
 
 class Profile(BaseModelValidated):
     """
-    The main type of linkedin profile data service
+    The main type of LinkedIn Profile Scraper service
     """
 
     url: str
