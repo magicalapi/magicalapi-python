@@ -14,11 +14,25 @@ from magicalapi.services.base_service import BaseService
 from magicalapi.types.schemas import HttpResponse, WebhookCreatedResponse
 
 
+def _make_mock_transport() -> httpx.MockTransport:
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.method == "POST":
+            body = json.loads(request.content.decode()) if request.content else {}
+            return httpx.Response(200, json={"json": body}, request=request)
+
+        return httpx.Response(
+            405, json={"message": "method not allowed"}, request=request
+        )
+
+    return httpx.MockTransport(handler)
+
+
 @pytest_asyncio.fixture(scope="function")
 async def httpxclient() -> AsyncGenerator[httpx.AsyncClient]:
     """Fixture to create an httpx client for testing."""
     client = httpx.AsyncClient(
         headers={"content-type": "application/json"},
+        transport=_make_mock_transport(),
     )
 
     yield client
@@ -30,15 +44,12 @@ async def httpxclient() -> AsyncGenerator[httpx.AsyncClient]:
 @pytest.mark.asyncio
 async def test_base_service_with_webhook_url(httpxclient: httpx.AsyncClient):
     """Test that webhook_url is properly added to request body."""
-    # Set a reasonable timeout for the client
-    httpxclient._timeout = httpx.Timeout(30.0)
-
     webhook_url = "https://example.com/webhook"
     base_service = BaseService(httpxclient, webhook_url=webhook_url)
     test_data = {"foo": "bar"}
 
     response = await base_service._send_post_request(
-        path="https://httpbin.org/post", data=test_data
+        path="https://example.com/post", data=test_data
     )
 
     # Verify response
@@ -58,7 +69,7 @@ async def test_base_service_without_webhook_url(httpxclient: httpx.AsyncClient):
     test_data = {"foo": "bar"}
 
     response = await base_service._send_post_request(
-        path="https://httpbin.org/post", data=test_data
+        path="https://example.com/post", data=test_data
     )
 
     # Verify response

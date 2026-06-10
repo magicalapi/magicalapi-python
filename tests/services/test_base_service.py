@@ -13,6 +13,23 @@ from magicalapi.types.resume_score import ResumeScoreResponse
 from magicalapi.types.schemas import HttpResponse
 
 
+def _make_mock_transport(*, timeout_on_delay: bool = False) -> httpx.MockTransport:
+    def handler(request: httpx.Request) -> httpx.Response:
+        if timeout_on_delay and request.url.path.endswith("/delay/10"):
+            raise httpx.TimeoutException("request timed out", request=request)
+
+        if request.method == "POST":
+            body = json.loads(request.content.decode()) if request.content else {}
+            return httpx.Response(200, json={"json": body}, request=request)
+
+        if request.method == "GET":
+            return httpx.Response(200, json={"url": str(request.url)}, request=request)
+
+        return httpx.Response(405, json={"message": "method not allowed"}, request=request)
+
+    return httpx.MockTransport(handler)
+
+
 @pytest_asyncio.fixture(scope="function")
 async def httpxclient(request) -> AsyncGenerator[httpx.AsyncClient]:
     timeout = (
@@ -25,6 +42,7 @@ async def httpxclient(request) -> AsyncGenerator[httpx.AsyncClient]:
     client = httpx.AsyncClient(
         headers={"content-type": "application/json"},
         timeout=timeout,
+        transport=_make_mock_transport(timeout_on_delay=timeout is not None),
     )
 
     yield client
@@ -39,7 +57,7 @@ async def test_base_service_post_request(httpxclient: httpx.AsyncClient):
     test_data = {"foo": "bar"}
 
     response = await base_service._send_post_request(
-        path="https://httpbin.org/post", data=test_data
+        path="https://example.com/post", data=test_data
     )
     # check response type
     assert isinstance(response, HttpResponse)
@@ -52,7 +70,7 @@ async def test_base_service_post_request(httpxclient: httpx.AsyncClient):
 @pytest.mark.asyncio
 async def test_base_service_get_request(httpxclient: httpx.AsyncClient):
     base_service = BaseService(httpxclient)
-    response = await base_service._send_get_request(path="https://httpbin.org/get")
+    response = await base_service._send_get_request(path="https://example.com/get")
 
     # check response type
     assert isinstance(response, HttpResponse)
@@ -69,11 +87,11 @@ async def test_base_service_request_timed_out(httpxclient: httpx.AsyncClient):
     # post request
     with pytest.raises(APIServerTimedout):
         await base_service._send_post_request(
-            path="https://httpbin.org/delay/10", data={}
+            path="https://example.com/delay/10", data={}
         )
     # gee request
     with pytest.raises(APIServerTimedout):
-        await base_service._send_get_request(path="https://httpbin.org/delay/10")
+        await base_service._send_get_request(path="https://example.com/delay/10")
 
 
 def test_base_service_validating_response(httpxclient: httpx.AsyncClient):

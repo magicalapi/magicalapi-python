@@ -35,6 +35,9 @@ class ResumeScoreService(BaseService):
             ErrorResponse: When an error occurs (e.g., 403 if webhook domain not whitelisted).
 
         """
+        if not 100 <= len(job_description) <= 5000:
+            raise ValueError("job_description must be between 100 and 5000 characters long")
+
         request_body = {
             "url": url,
             "job_description": job_description,
